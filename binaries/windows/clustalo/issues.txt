@@ -1,0 +1,9 @@
+ISSUES: 
+
+-auto 
+
+WARNING: Unsupported old command line option '-auto' will be ignored
+WARNING: Your old-style command-line options were converted to:  D:\workspace\JABA2\binaries\windows\clustalo\clustalo.exe --outfmt=clustal --log=stat.log --infile=D:\workspace\JABA2\testsrc\testdata\TO1381.fasta --outfile=TO1381.clustal.out -o clustal.aln -v --force
+WARNING: This is a beta version of Clustal Omega, for protein only.
+For more information try: D:\workspace\JABA2\binaries\windows\clustalo\clustalo.exe --help
+

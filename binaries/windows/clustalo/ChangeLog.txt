@@ -1,0 +1,15 @@
+2010-06-17 Release 0.0.1 (Dubliniensis)
+		
+		First "release" as program has been able for a while to perform
+		all basic tasks without problems.
+
+		Non-standard features already built-in include:
+		HMM-iteration (using HMMER for building an HMM) and guide-tree
+		iteration. On top of that HMM input works fine and
+		background-frequencies are added to the HHalign process.
+		
+		Known issues: RNA/DNA alignment is considered buggy. Aligned
+		sequences have to be dealigned for HHalign to work properly.
+		
+		The HMMER version message can be ignored if no HMM-iteration
+		was used.

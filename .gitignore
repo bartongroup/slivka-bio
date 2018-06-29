@@ -1,0 +1,6 @@
+media/
+work/
+logs/
+sqlite3.db
+
+**/__pycache__/

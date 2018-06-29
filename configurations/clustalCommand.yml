@@ -1,0 +1,72 @@
+---
+options:
+    -
+        ref: _outorder
+        param: -OUTORDER=$value
+        val: ALIGNED
+    -
+        ref: _quiet
+        param: -QUIET
+        val: T
+    -
+        ref: input
+        param: -INFILE=$value
+    -
+        ref: _output
+        param: -OUTFILE=$value
+        val: output.txt
+    -
+        ref: _stats
+        param: -STATS=$value
+        val: stat.log
+    -
+        ref: gaps-off
+        param: -NOGAP
+    -
+        ref: weights-off
+        param: -NOWEIGHTS
+    -
+        ref: hydrophillic-gaps-off
+        param: -NOHGAP
+    -
+        ref: transition-weighting
+        param: -TRANSWEIGHT=$value
+    -
+        ref: type
+        param: -TYPE=$value
+    -
+        ref: outorder
+        param: -OUTORDER=$value
+    -
+        ref: matrix
+        param: -MATRIX=$value
+    -
+        ref: gap-open
+        param: -GAPOPEN=$value
+    -
+        ref: gap-ext
+        param: -GAPEXT=$value
+    -
+        ref: end-gaps
+        param: -ENDGAPS=$value
+    -
+        ref: gap-dist
+        param: -GAPDIST=$value
+
+result:
+    -
+        type: result
+        method: file
+        path: output.txt
+    -
+        type: log
+        method: file
+        path: stat.log
+
+configurations:
+    local:
+        execClass: LocalExec
+        bin: binaries/windows/clustalw2.exe
+
+limits: configurations.limits.ClustalLimits
+...

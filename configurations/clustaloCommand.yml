@@ -1,0 +1,61 @@
+---
+options:
+    -
+        ref: input
+        param: --infile=$value
+    -
+        ref: _output
+        param: --outfile=$value
+        val: output.txt
+    -
+        ref: _outfmt
+        param: --outfmt=$value
+        val: clustal
+    -
+        ref: _verbose
+        param: -v
+        val: T
+    -
+        ref: _log
+        param: --log=$value
+        val: stat.log
+    -
+        ref: _threads
+        param: --threads=$value
+        val: "1"
+    -
+        ref: dealign
+        param: --dealign
+    -
+        ref: full-distance
+        param: --full
+    -
+        ref: full-distance-iteration
+        param: --full-iter
+    -
+        ref: max-hmm-iterations
+        param: --max-hmm-iterations=$value
+    -
+        ref: iterations
+        param: --iter=$value
+    -
+        ref: max-guidetree-iterations
+        param: --max-guidetree-iterations=$value
+
+result:
+    -
+        type: result
+        method: file
+        path: output.txt
+    -
+        type: log
+        method: file
+        path: stat.log
+
+configurations:
+    local:
+        execClass: LocalExec
+        bin: binaries/windows/clustalo/clustalo.exe
+
+limits: configurations.limits.ClustaloLimits
+...

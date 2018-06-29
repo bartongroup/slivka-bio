@@ -1,0 +1,58 @@
+---
+options:
+    -
+        ref: message
+        param: -m $value
+    -
+        ref: error
+        param: -e $value
+    -
+        ref: returnCode
+        param: -r $value
+    -
+        ref: number
+        param: -n $value
+    -
+        ref: out
+        param: -o $value
+        val: output.fasta
+    -
+        ref: wait
+        param: --wait $value
+
+result:
+    -
+        type: result
+        mimetype: text/plain
+        method: file
+        path: stdout.txt
+    -
+        type: error
+        mimetype: text/plain
+        method: file
+        path: stderr.txt
+    -
+        type: result
+        method: file
+        path: DefaultOutput.txt
+    -
+        type: result
+        mimetype: text/plain
+        method: file
+        path: output.fasta
+    -
+        type: result
+        method: file
+        pattern: part\d+.txt
+
+configurations:
+    local:
+        execClass: LocalExec
+        bin: python "D:\mmwarowny\Slivka\demo\binaries\pydummy.py"
+
+    cluster:
+        execClass: GridEngineExec
+        bin: python "D:\mmwarowny\Slivka\demo\binaries\pydummy.py"
+
+limits: configurations.limits.PydummyLimits
+...

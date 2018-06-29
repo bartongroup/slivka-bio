@@ -1,0 +1,14 @@
+BASE_DIR: .
+MEDIA_DIR: ./media
+WORK_DIR: ./work
+LOG_DIR: ./logs
+SERVICES_INI: ./configurations/services.ini
+
+SERVER_HOST: 0.0.0.0
+SERVER_PORT: 8000
+SECRET_KEY: kfbGF7EVW0K1gy823Dj6x2dlp5BCTiiG3g0taMI1RwY=
+
+QUEUE_HOST: localhost
+QUEUE_PORT: 3397
+
+DEBUG: on
