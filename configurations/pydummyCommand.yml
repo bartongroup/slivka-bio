@@ -13,7 +13,7 @@ options:
         ref: number
         param: -n $value
     -
-        ref: out
+        ref: _out
         param: -o $value
         val: output.fasta
     -

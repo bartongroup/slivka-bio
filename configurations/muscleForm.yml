@@ -3,6 +3,7 @@ input:
     label: Input file
     value:
         type: file
+        required: yes
 
 anchor:
     label: Anchor optimisation
