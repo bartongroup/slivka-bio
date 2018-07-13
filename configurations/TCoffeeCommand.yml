@@ -1,0 +1,70 @@
+---
+options:
+  -
+    ref: _output
+    param: -output=$value
+    val: clustalw
+  -
+    ref: sequence
+    param: -seq=$value
+  -
+    ref: check-pdb-status
+    param: -check_pdb_status
+  -
+    ref: mode
+    param: -mode=$value
+  -
+    ref: distance-matrix-mode
+    param: -distance_matrix_mode=$value
+  -
+    ref: dp-mode
+    param: -dp_mode=$value
+  -
+    ref: ndiag
+    param: -ndiag=$value
+  -
+    ref: diag-mode
+    param: -diag_mode=$value
+  -
+    ref: diag-threshold
+    param: -diag_threshold=$value
+  -
+    ref: sim-matrix
+    param: -sim_matrix=$value
+  -
+    ref: matrix
+    param: -matrix=$value
+  -
+    ref: match-penalty
+    param: -nomatch=$value
+  -
+    ref: gap-open
+    param: -gapopen=$value
+  -
+    ref: gap-ext
+    param: -gapext=$value
+  -
+    ref: cosmetic-penalty
+    param: -cosmetic_penalty=$value
+  -
+    ref: tg-mode
+    param: -tg_mode=$value
+  -
+    ref: iterate
+    param: -iterate=$value
+  -
+    ref: outorder
+    param: -outorder=$value
+  -
+    ref: inorder
+    param: -inorder=$value
+
+result:
+  -
+    type: result
+    method: file
+    path: clustalw
+
+configurations: {}
+
+limits: configurations.limits.TCoffeeLimits
