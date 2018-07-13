@@ -1,0 +1,50 @@
+---
+options:
+  -
+    ref: _stat
+    param: -d=$value
+    val: stat.txt
+  -
+    ref: _res_no_algn
+    param: -f=$value
+    val: RESULT_NO_ALIGNMENT
+  -
+    ref: input
+    param: -i=$value
+  -
+    ref: _output
+    param: -o=$value
+    val: output.txt
+  -
+    ref: normalize
+    param: -n
+  -
+    ref: method
+    param: -m=$value
+  -
+    ref: smerfsww
+    param: -smerfsWW=$value
+  -
+    ref: smerfscs
+    param: -smerfsCS=$value
+  -
+    ref: smerfsgt
+    param: -smerfsGT
+
+result:
+  -
+    type: result
+    method: file
+    path: output.txt
+  -
+    type: log
+    method: file
+    path: stat.txt
+
+configurations:
+  local:
+      execClass: LocalExec
+      bin: binaries/windows/AAcon.exe
+
+limits: configurations.limits.AAConLimits
+...
