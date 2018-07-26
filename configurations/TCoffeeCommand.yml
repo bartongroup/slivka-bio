@@ -2,69 +2,71 @@
 options:
   -
     ref: _output
-    param: -output=$value
+    param: -output=${value}
     val: clustalw
   -
     ref: sequence
-    param: -seq=$value
+    param: -seq=${value}
   -
     ref: check-pdb-status
     param: -check_pdb_status
   -
     ref: mode
-    param: -mode=$value
+    param: -mode=${value}
   -
     ref: distance-matrix-mode
-    param: -distance_matrix_mode=$value
+    param: -distance_matrix_mode=${value}
   -
     ref: dp-mode
-    param: -dp_mode=$value
+    param: -dp_mode=${value}
   -
     ref: ndiag
-    param: -ndiag=$value
+    param: -ndiag=${value}
   -
     ref: diag-mode
-    param: -diag_mode=$value
+    param: -diag_mode=${value}
   -
     ref: diag-threshold
-    param: -diag_threshold=$value
+    param: -diag_threshold=${value}
   -
     ref: sim-matrix
-    param: -sim_matrix=$value
+    param: -sim_matrix=${value}
   -
     ref: matrix
-    param: -matrix=$value
+    param: -matrix=${value}
   -
     ref: match-penalty
-    param: -nomatch=$value
+    param: -nomatch=${value}
   -
     ref: gap-open
-    param: -gapopen=$value
+    param: -gapopen=${value}
   -
     ref: gap-ext
-    param: -gapext=$value
+    param: -gapext=${value}
   -
     ref: cosmetic-penalty
-    param: -cosmetic_penalty=$value
+    param: -cosmetic_penalty=${value}
   -
     ref: tg-mode
-    param: -tg_mode=$value
+    param: -tg_mode=${value}
   -
     ref: iterate
-    param: -iterate=$value
+    param: -iterate=${value}
   -
     ref: outorder
-    param: -outorder=$value
+    param: -outorder=${value}
   -
     ref: inorder
-    param: -inorder=$value
+    param: -inorder=${value}
 
-result:
+results:
   -
-    type: result
-    method: file
+    type: output
     path: clustalw
 
-configurations: {}
+configurations:
+  local:
+    runner: LocalQueueRunner
+    executable: echo
 
 limits: configurations.limits.TCoffeeLimits

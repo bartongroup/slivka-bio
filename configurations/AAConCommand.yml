@@ -2,49 +2,47 @@
 options:
   -
     ref: _stat
-    param: -d=$value
+    param: -d=${value}
     val: stat.txt
   -
     ref: _res_no_algn
-    param: -f=$value
+    param: -f=${value}
     val: RESULT_NO_ALIGNMENT
   -
     ref: input
-    param: -i=$value
+    param: -i=${file:input.txt}
   -
     ref: _output
-    param: -o=$value
+    param: -o=${value}
     val: output.txt
   -
     ref: normalize
     param: -n
   -
     ref: method
-    param: -m=$value
+    param: -m=${value}
   -
     ref: smerfsww
-    param: -smerfsWW=$value
+    param: -smerfsWW=${value}
   -
     ref: smerfscs
-    param: -smerfsCS=$value
+    param: -smerfsCS=${value}
   -
     ref: smerfsgt
     param: -smerfsGT
 
-result:
+results:
   -
-    type: result
-    method: file
+    type: output
     path: output.txt
   -
     type: log
-    method: file
     path: stat.txt
 
 configurations:
   local:
-      execClass: LocalExec
-      bin: binaries/windows/AAcon.exe
+      runner: LocalQueueRunner
+      executable: binaries/windows/AAcon.exe
 
 limits: configurations.limits.AAConLimits
 ...

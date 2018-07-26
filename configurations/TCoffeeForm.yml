@@ -207,9 +207,9 @@ tg-mode:
     type: choice
     required: no
     choices:
-      0: '0'
-      1: '1'
-      2: '2'
+      '0': '0'
+      '1': '1'
+      '2': '2'
     default: '1'
 
 iterate:

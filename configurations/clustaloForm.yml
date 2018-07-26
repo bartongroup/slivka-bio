@@ -1,63 +1,63 @@
 ---
 input:
-    label: Input file
-    value:
-        type: file
-        required: yes
-        mimetype: text/plain
+  label: Input file
+  value:
+    type: file
+    required: yes
+    mimetype: text/plain
 
 dealign:
-    label: Dealign
-    description: Dealign input sequences
-    value:
-        type: boolean
-        default: false
-        required: no
+  label: Dealign
+  description: Dealign input sequences
+  value:
+    type: boolean
+    default: false
+    required: no
 
 full-distance:
-    label: Full distance matrix
-    description: >-
-        Use full distance matrix for guide-tree calculation
-        (slow; mBed is default)
-    value:
-        type: boolean
-        default: false
-        required: no
+  label: Full distance matrix
+  description: >-
+    Use full distance matrix for guide-tree calculation
+    (slow; mBed is default)
+  value:
+    type: boolean
+    default: false
+    required: no
 
 full-distance-iteration:
-    label: Full distance matrix for each iteration
-    description: >-
-        Use full distance matrix for guide-tree calculation during iteration
-        (mBed is default)
-    value:
-        type: boolean
-        default: false
-        required: no
+  label: Full distance matrix for each iteration
+  description: >-
+    Use full distance matrix for guide-tree calculation during iteration
+    (mBed is default)
+  value:
+    type: boolean
+    default: false
+    required: no
 
 max-hmm-iterations:
-    label: Max Guide tree iterations
-    description: Maximum number of HMM iterations
-    value:
-        type: int
-        min: 1
-        max: 100
-        default: 1
+  label: Max Guide tree iterations
+  description: Maximum number of HMM iterations
+  value:
+    type: int
+    min: 1
+    max: 100
+    default: 1
 
 iterations:
-    label: Number of iterations (combined)
-    description: Number of (combined guide tree/HMM) iterations
-    value:
-        type: int
-        min: 1
-        max: 100
-        default: 1
+  label: Number of iterations (combined)
+  description: Number of (combined guide tree/HMM) iterations
+  value:
+    type: int
+    min: 1
+    max: 100
+    default: 1
 
 max-guidetree-iterations:
-    label: Max Guide tree iterations
-    description: Maximum guide tree iterations
-    value:
-        type: int
-        min: 1
-        max: 100
-        default: 1
+  label: Max Guide tree iterations
+  description: Maximum guide tree iterations
+  value:
+    type: int
+    min: 1
+    max: 100
+    default: 1
 ...

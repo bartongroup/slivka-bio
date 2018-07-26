@@ -1,7 +1,7 @@
-from slivka.scheduler.executors import JobLimits
+from slivka import LimitsBase
 
 
-class PydummyLimits(JobLimits):
+class PydummyLimits(LimitsBase):
 
     configurations = ['local']
 
@@ -12,3 +12,5 @@ class PydummyLimits(JobLimits):
 MuscleLimits = PydummyLimits
 ClustaloLimits = PydummyLimits
 ClustalLimits = PydummyLimits
+TCoffeeLimits = PydummyLimits
+AAConLimits = PydummyLimits

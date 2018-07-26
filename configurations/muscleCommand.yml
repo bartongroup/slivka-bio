@@ -1,122 +1,120 @@
 ---
 options:
-    -
-        ref: _clwstrict
-        param: -clwstrict
-        val: T
-    -
-        ref: _quiet
-        param: -quiet
-        val: T
-    -
-        ref: _verbose
-        param: -verbose
-        val: T
-    -
-        ref: _nocore
-        param: -nocore
-        val: T
-    -
-        ref: _log
-        param: -log $value
-        val: stat.log
-    -
-        ref: _output
-        param: -out $value
-        val: output.txt
-    -
-        ref: input
-        param: -in $value
-    -
-        ref: anchor
-        param: -$value
-    -
-        ref: brenner
-        param: -brenner
-    -
-        ref: dimer
-        param: -dimer
-    -
-        ref: diagonal
-        param: -diags
-    -
-        ref: diagonal-first
-        param: -diags1
-    -
-        ref: profile-scoring
-        param: -$value
-    -
-        ref: sequence-type
-        param: -seqtype $value
-    -
-        ref: maxiters
-        param: -maxiters $value
-    -
-        ref: diagonal-break
-        param: -diagbreak $value
-    -
-        ref: diagonal-length
-        param: -diaglength $value
-    -
-        ref: diagonal-margin
-        param: -diagmargin $value
-    -
-        ref: anchor-spacing
-        param: -anchorspacing $value
-    -
-        ref: matrix
-        param: -matrix $value
-    -
-        ref: gap-open
-        param: -gapopen $value
-    -
-        ref: gap-extension
-        param: -gapextend
-    -
-        ref: center
-        param: -center $value
-    -
-        ref: hydro
-        param: -hydro $value
-    -
-        ref: hydrofactor
-        param: -hydrofactor $value
-    -
-        ref: min-anchor-score
-        param: -minbestcolscore $value
-    -
-        ref: min-smoothed-anchor-score
-        param: -minsmoothscore $value
-    -
-        ref: cluster-first
-        param: -cluster1 $value
-    -
-        ref: cluster-remaining
-        param: -cluster2 $value
-    -
-        ref: weight-scheme-1
-        param: -weight1 $value
-    -
-        ref: weight-scheme-2
-        param: -weight2 $value
-    -
-        ref: distance1
-        param: -distance1 $value
+  -
+    ref: _clwstrict
+    param: -clwstrict
+    val: T
+  -
+    ref: _quiet
+    param: -quiet
+    val: T
+  -
+    ref: _verbose
+    param: -verbose
+    val: T
+  -
+    ref: _nocore
+    param: -nocore
+    val: T
+  -
+    ref: _log
+    param: -log ${value}
+    val: stat.log
+  -
+    ref: _output
+    param: -out ${value}
+    val: output.txt
+  -
+    ref: input
+    param: -in ${value}
+  -
+    ref: anchor
+    param: -${value}
+  -
+    ref: brenner
+    param: -brenner
+  -
+    ref: dimer
+    param: -dimer
+  -
+    ref: diagonal
+    param: -diags
+  -
+    ref: diagonal-first
+    param: -diags1
+  -
+    ref: profile-scoring
+    param: -${value}
+  -
+    ref: sequence-type
+    param: -seqtype ${value}
+  -
+    ref: maxiters
+    param: -maxiters ${value}
+  -
+    ref: diagonal-break
+    param: -diagbreak ${value}
+  -
+    ref: diagonal-length
+    param: -diaglength ${value}
+  -
+    ref: diagonal-margin
+    param: -diagmargin ${value}
+  -
+    ref: anchor-spacing
+    param: -anchorspacing ${value}
+  -
+    ref: matrix
+    param: -matrix ${value}
+  -
+    ref: gap-open
+    param: -gapopen ${value}
+  -
+    ref: gap-extension
+    param: -gapextend ${value}
+  -
+    ref: center
+    param: -center ${value}
+  -
+    ref: hydro
+    param: -hydro ${value}
+  -
+    ref: hydrofactor
+    param: -hydrofactor ${value}
+  -
+    ref: min-anchor-score
+    param: -minbestcolscore ${value}
+  -
+    ref: min-smoothed-anchor-score
+    param: -minsmoothscore ${value}
+  -
+    ref: cluster-first
+    param: -cluster1 ${value}
+  -
+    ref: cluster-remaining
+    param: -cluster2 ${value}
+  -
+    ref: weight-scheme-1
+    param: -weight1 ${value}
+  -
+    ref: weight-scheme-2
+    param: -weight2 ${value}
+  -
+    ref: distance1
+    param: -distance1 ${value}
 
-result:
-    -
-        type: result
-        method: file
-        path: output.txt
-    -
-        type: log
-        method: file
-        path: stat.log
+results:
+  -
+    type: output
+    path: output.txt
+  -
+    type: log
+    path: stat.log
 
 configurations:
-    local:
-        execClass: LocalExec
-        bin: binaries/windows/muscle.exe
+  local:
+    runner: LocalQueueRunner
+    executable: binaries/windows/muscle.exe
 
 limits: configurations.limits.MuscleLimits
 ...
