@@ -55,7 +55,14 @@ function start {
     fi
     echo "Starting Slivka $1"
     pushd ${PROJECT_DIR}
-    ${PYTHON} "manage.py" $1 > /dev/null 2>&1 &
+    case $1 in
+        server)
+            gunicorn -w 2 wsgi:app > /dev/null 2>&1 &;;
+        scheduler)
+            python manage.py scheduler > /dev/null 2>&1 &;;
+        worker)
+            python manage.py worker > /dev/null 2>&1 &;;
+    esac
     echo $! > ${PID_FILE}
     popd
     echo "Slivka $1 Started"
