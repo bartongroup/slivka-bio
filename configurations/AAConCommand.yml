@@ -42,7 +42,7 @@ results:
 configurations:
   local:
       runner: LocalQueueRunner
-      executable: binaries/windows/AAcon.exe
+      executable: java -jar ${project_dir}/binaries/compbio-conservation-1.1.jar
 
 limits: configurations.limits.AAConLimits
 ...

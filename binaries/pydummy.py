@@ -3,6 +3,8 @@
 import sys
 import time
 
+print(sys.version + '\n')
+
 import click
 
 
@@ -26,6 +28,7 @@ def cli(message, error, return_code, out, n, wait):
     time.sleep(wait)
 
     sys.exit(return_code)
+
 
 if __name__ == '__main__':
     cli()

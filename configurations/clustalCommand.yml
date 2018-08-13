@@ -64,7 +64,7 @@ results:
 configurations:
   local:
     runner: LocalQueueRunner
-    executable: binaries/windows/clustalw2.exe
+    executable: clustalw2
 
 limits: configurations.limits.ClustalLimits
 ...

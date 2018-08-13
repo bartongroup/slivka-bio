@@ -43,7 +43,7 @@ results:
 configurations:
   local:
     runner: LocalQueueRunner
-    executable: ${project_dir}\binaries\pydummy.bat
+    executable: python ${project_dir}/binaries/pydummy.py
 
 limits: configurations.limits.PydummyLimits
 ...

@@ -56,7 +56,7 @@ results:
 configurations:
   local:
     runner: LocalQueueRunner
-    executable: binaries/windows/clustalo/clustalo.exe
+    executable: clustalo
 
 limits: configurations.limits.ClustaloLimits
 ...

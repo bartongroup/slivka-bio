@@ -114,7 +114,7 @@ results:
 configurations:
   local:
     runner: LocalQueueRunner
-    executable: binaries/windows/muscle.exe
+    executable: muscle
 
 limits: configurations.limits.MuscleLimits
 ...

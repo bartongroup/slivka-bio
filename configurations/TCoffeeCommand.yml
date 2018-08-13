@@ -67,6 +67,6 @@ results:
 configurations:
   local:
     runner: LocalQueueRunner
-    executable: echo
+    executable: t_coffee
 
 limits: configurations.limits.TCoffeeLimits
