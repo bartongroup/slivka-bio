@@ -10,14 +10,26 @@
 ### END INIT INFO
 
 
-SLIVKA_USER=www-slivka
+# This script should be run as a dedicated slivka user e.g. www-slivka
+# Example init.d script may be
+#
+# #!/bin/bash
+#
+# USER=www-slivka
+# if [ -z $1 ]; then
+#   echo "usage: $0 [start|stop|restart]"
+#   exit 2
+# else
+#   su $USER /home/$USER/slivka-bio/slivkad $1
+#   exit $?
+# fi
+#
 
 
-PROJECT_DIR=$(su -c 'echo ${HOME}/slivka-bio' ${SLIVKA_USER})
-[ -d ${PROJECT_DIR} ] || (echo "Project doesn't exist"; exit 3)
-PID_PATH="${PROJECT_DIR}/run"
+PROJECT_DIR="${HOME}/slivka-bio"
+[ -d ${PROJECT_DIR} ] || (echo "Project directory doesn't exist"; exit 3)
+PID_PATH="${HOME}/run"
 [ -d ${PID_PATH} ] || mkdir ${PID_PATH} || exit 3
-PYTHON=$(su - -c '. activate slivka; echo `which python`' ${SLIVKA_USER})
 
 
 function start {
@@ -91,12 +103,17 @@ function stop {
     return 0
 }
 
-echo $1 $2
+
 
 case $1 in
-start) start $2;;
+start)
+    . activate slivka || exit 3
+    start $2 ;;
 stop) stop $2;;
-restart) stop $2; start $2;;
+restart)
+    stop $2
+    . activate slivka || exit 3
+    start $2 ;;
 *)
     echo "Invalid parameter \"$1\"; use: $0 {start|stop|restart} {server|scheduler|worker|all}"
     exit 1
