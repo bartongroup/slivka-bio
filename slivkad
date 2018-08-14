@@ -54,17 +54,18 @@ function start {
         return 2
     fi
     echo "Starting Slivka $1"
-    pushd ${PROJECT_DIR}
+    pushd ${PROJECT_DIR} > /dev/null
     case $1 in
         server)
-            gunicorn -w 2 wsgi:app > /dev/null 2>&1 &;;
+            gunicorn -w 2 -b 0.0.0.0:8000 -p ${PID_FILE} wsgi:app > /dev/null 2>&1 &;;
         scheduler)
-            python manage.py scheduler > /dev/null 2>&1 &;;
+            python manage.py scheduler > /dev/null 2>&1 &
+            echo $! > ${PID_FILE};;
         worker)
-            python manage.py worker > /dev/null 2>&1 &;;
+            python manage.py worker > /dev/null 2>&1 &
+            echo $! > ${PID_FILE};;
     esac
-    echo $! > ${PID_FILE}
-    popd
+    popd > /dev/null
     echo "Slivka $1 Started"
     return 0
 }
