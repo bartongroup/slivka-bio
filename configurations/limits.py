@@ -3,10 +3,13 @@ from slivka import LimitsBase
 
 class PydummyLimits(LimitsBase):
 
-    configurations = ['local']
+    configurations = ['gridengine', 'local']
+
+    def limit_gridengine(self, values):
+        return True
 
     def limit_local(self, values):
-        return True
+        return False
 
 
 MuscleLimits = PydummyLimits
