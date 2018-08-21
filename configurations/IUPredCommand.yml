@@ -1,0 +1,39 @@
+---
+options:
+  -
+    ref: input
+    param: ${file:input.txt}
+  -
+    ref: type
+    param: ${value}
+
+results:
+  -
+    type: output
+    path: out.glob
+  -
+    type: output
+    path: out.short
+  -
+    type: output
+    path: out.long
+  -
+    type: log
+    mimetype: text/plain
+    path: stdout.txt
+  -
+    type: log
+    mimetype: text/plain
+    path: stderr.txt
+
+configurations:
+  local:
+    runner: LocalQueueRunner
+    executable: ${project_dir}/binaries/iupred/iupred
+  gridengine:
+    runner: GridEngineRunner
+    executable: ${project_dir}/binaries/iupred/iupred
+    queueArgs: [-P, webservices, -R, y, -q, 64bit-pri.q, -q, c6100.q,
+                -l, "h_cpu=24:00:00", -l, ram=6000M, -l, h_rss=6000M]
+
+limits: configurations.limits.IUPredLimits

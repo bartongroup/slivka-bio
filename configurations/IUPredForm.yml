@@ -1,0 +1,22 @@
+---
+input:
+  label: Input file
+  value:
+    type: file
+
+type:
+  label: Disorder type
+  description: >-
+    "Long" - for prediction of long disordered regions, "short" - for
+    prediction of short disordered regions (e.g. missing residues in
+    X-ray structures) and "glob" for predicting globular domains. "All" for all methods
+  value:
+    type: choice
+    required: yes
+    choices:
+      short: short
+      long: long
+      glob: glob
+      all: all
+    default: long
+...
