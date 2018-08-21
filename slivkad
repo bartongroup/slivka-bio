@@ -57,12 +57,12 @@ function start {
     pushd ${PROJECT_DIR} > /dev/null
     case $1 in
         server)
-            gunicorn -w 2 -b 0.0.0.0:8000 -p ${PID_FILE} wsgi:app > /dev/null 2>&1 &;;
+            gunicorn -w 2 -b 0.0.0.0:8000 -p ${PID_FILE} wsgi:app &;;
         scheduler)
-            python manage.py scheduler > /dev/null 2>&1 &
+            python manage.py scheduler &
             echo $! > ${PID_FILE};;
         worker)
-            python manage.py worker > /dev/null 2>&1 &
+            python manage.py worker &
             echo $! > ${PID_FILE};;
     esac
     popd > /dev/null
