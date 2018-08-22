@@ -17,3 +17,6 @@ ClustaloLimits = PydummyLimits
 ClustalLimits = PydummyLimits
 TCoffeeLimits = PydummyLimits
 AAConLimits = PydummyLimits
+ProbconsLimits = PydummyLimits
+IUPredLimits = PydummyLimits
+MafftLimits = PydummyLimits
