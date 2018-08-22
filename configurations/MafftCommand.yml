@@ -1,0 +1,55 @@
+options:
+  - ref: _clustalout
+    param: --clustalout
+    val: T
+  - ref: _strategy
+    param: --auto
+    val: T
+  - ref: 6mers
+    param: --6merpair
+  - ref: output-order
+    param: ${value}
+  - ref: sequence-type
+    param: ${value}
+  - ref: pairwise
+    param: ${value}
+  - ref: fft-approximation
+    param: ${value}
+  - ref: no-score
+    param: --noscore
+  - ref: part-tree
+    param: ${value}
+  - ref: max-iter
+    param: --maxiterate ${value}
+  - ref: partsize
+    param: --partsize ${value}
+  - ref: group-size
+    param: --groupsize ${value}
+  - ref: retree
+    param: --retree ${value}
+  - ref: gap-open-penalty
+    param: --op ${value}
+  - ref: group-gap-ext-penalty
+    param: --ep ${value}
+  - ref: local-gap-open-penalty
+    param: --lop ${value}
+  - ref: matrix
+    param: --aamatrix ${value}
+  - ref: input
+    param: ${value}
+
+results:
+  - type: output
+    path: stdout.txt
+  - type: log
+    path: stderr.txt
+
+configurations:
+  local:
+    runner: LocalQueueRunner
+    executable: mafft
+  gridengine:
+    runner: GridEngineRunner
+    executable: mafft
+    queueArgs: [-P, webservices, -R, y, -q, 64bit-pri.q, -q, c6100.q,
+                -l, "h_cpu=24:00:00", -l, ram=6000M, -l, h_rss=6000M]
