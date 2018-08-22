@@ -1,0 +1,44 @@
+---
+options:
+  - ref: _verbose
+    param: -v
+    val: T
+  - ref: _clustal
+    param: -clustalw
+    val: T
+  - ref: _annot
+    param: -annot ${value}
+    val: annotation.txt
+  - ref: output-aligned
+    param: -a
+  - ref: pre-training
+    param: -pre ${value}
+  - ref: iterative-refinement
+    param: -ir ${value}
+  - ref: consistency
+    param: -c ${value}
+  - ref: input
+    param: ${file:input.mfa}
+
+results:
+  - type: output
+    path: stdout.txt
+    mimetype: application/clustal
+  - type: output
+    path: annotation.txt
+  - type: log
+    path: stderr.txt
+
+configurations:
+  local:
+    runner: LocalQueueRunner
+    executable: ${project_dir}/binaries/probcons/probcons
+  gridengine:
+    runner: GridEngineRunner
+    executable: ${project_dir}/binaries/probcons/probcons
+    queueArgs: [
+      -P, webservices, -R, y, -q, 64bit-pri.q, -q, c6100.q,
+      -l, "h_cpu=24:00:00", -l, ram=6000M, -l, h_rss=6000M
+    ]
+
+limits: configurations.limits.ProbconsLimits
