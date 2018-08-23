@@ -14,3 +14,7 @@ QUEUE_PORT: 3397
 DATABASE_URL: sqlite:///sqlite3.db
 
 DEBUG: on
+
+ACCEPTED_FILE_TYPES:
+  - application/fasta
+  - application/clustal
