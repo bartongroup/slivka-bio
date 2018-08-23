@@ -1,8 +1,10 @@
+---
 input:
   label: Input file
   value:
     type: file
     required: yes
+    mimetype: application/fasta
 
 normalize:
   label: Normalize
@@ -81,3 +83,4 @@ smerfsgt:
     min: 0.001
     max: 1
     default: 0.1
+...

@@ -4,7 +4,8 @@ input:
   value:
     type: file
     required: yes
-    mimetype: text/plain
+    maxSize: 4MB
+    mimetype: application/fasta
 
 dealign:
   label: Dealign

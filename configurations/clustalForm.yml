@@ -3,8 +3,8 @@ input:
   label: Input file
   value:
     type: file
-    mimetype: text/plain
-    required: no
+    mimetype: application/fasta
+    required: yes
 
 gaps-off:
   label: NOGAP

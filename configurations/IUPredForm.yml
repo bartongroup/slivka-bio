@@ -3,6 +3,8 @@ input:
   label: Input file
   value:
     type: file
+    mimetype: application/fasta
+    required: yes
 
 type:
   label: Disorder type

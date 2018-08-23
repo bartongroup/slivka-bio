@@ -10,7 +10,7 @@ options:
     val: RESULT_NO_ALIGNMENT
   -
     ref: input
-    param: -i=${file:input.txt}
+    param: -i=${file:data.align}
   -
     ref: _output
     param: -o=${value}

@@ -1,4 +1,11 @@
 ---
+input:
+  label: Input file
+  value:
+    type: file
+    required: yes
+    mimetype: application/fasta
+
 output-aligned:
   label: Output aligned
   description: Output sequences in alignment order rather than input order

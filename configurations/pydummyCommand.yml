@@ -41,8 +41,8 @@ results:
     path: part*.txt
 
 configurations:
-  gridengine:
-    runner: GridEngineRunner
+  local:
+    runner: LocalQueueRunner
     executable: python ${project_dir}/binaries/pydummy.py
 
 limits: configurations.limits.PydummyLimits
