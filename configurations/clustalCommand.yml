@@ -71,5 +71,5 @@ configurations:
     queueArgs: [-P, webservices, -R, y, -q, 64bit-pri.q, -q, c6100.q,
                 -l, "h_cpu=24:00:00", -l, ram=6000M, -l, h_rss=6000M]
 
-limits: configurations.limits.ClustalLimits
+limits: scripts.limits.ClustalLimits
 ...

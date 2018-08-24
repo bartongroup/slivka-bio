@@ -45,5 +45,5 @@ configurations:
     runner: LocalQueueRunner
     executable: python ${project_dir}/binaries/pydummy.py
 
-limits: configurations.limits.PydummyLimits
+limits: scripts.limits.PydummyLimits
 ...
