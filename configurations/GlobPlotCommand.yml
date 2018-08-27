@@ -1,0 +1,24 @@
+---
+options:
+  - ref: input
+    param: ${file:input.fasta}
+
+results:
+  - type: output
+    path: stdout.txt
+  - type: log
+    path: stderr.txt
+
+
+configurations:
+  local:
+    runner: LocalQueueRunner
+    executable: ${project_dir}/binaries/globplot/GlobPlot.py
+  gridengine:
+    runner: GridEngineRunner
+    executable: ${project_dir}/binaries/globplot/GlobPlot.py
+    queueArgs: [-P, webservices, -R, y, -q, 64bit-pri.q, -q, c6100.q,
+                -l, "h_cpu=24:00:00", -l, ram=6000M, -l, h_rss=6000M]
+
+limits: scripts.limits.GlobPlotLimits
+...
