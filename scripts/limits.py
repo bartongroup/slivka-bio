@@ -223,3 +223,23 @@ class DisemblLimits(LimitsBase):
             self.sequences_data.number <= 5000 and
             self.sequences_data.length <= 1000
         )
+
+
+class JronnLimits(LimitsBase):
+
+    configurations = ['local', 'gridengine']
+
+    def setup(self, values):
+        self.sequences_data = analyse_sequences_file(values['input'], 'fasta')
+
+    def limit_local(self, values):
+        return (
+            self.sequences_data.number <= 5 and
+            self.sequences_data.length <= 50
+        )
+
+    def limit_gridengine(self, values):
+        return (
+            self.sequences_data.number <= 2000 and
+            self.sequences_data.length <= 2000
+        )

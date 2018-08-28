@@ -1,0 +1,39 @@
+---
+options:
+  - ref: input
+    param: -i=${value}
+  - ref: _output
+    param: -o=${value}
+    val: output.txt
+  - ref: _stat
+    param: -s=${value}
+    val: stat.log
+  - ref: _format
+    param: -f=${value}
+    val: H
+  - ref: _threads
+    param: -n=${value}
+    val: "4"
+
+results:
+  - type: output
+    path: output.txt
+  - type: log
+    path: stat.log
+  - type: log
+    path: stderr.txt
+  - type: log
+    path: stdout.txt
+
+configurations:
+  local:
+    runner: LocalQueueRunner
+    executable: java -jar ${project_dir}/binaries/bj3.0.4p-jronn.jar
+  gridengine:
+    runner: GridEngineRunner
+    executable: java -jar ${project_dir}/binaries/bj3.0.4p-jronn.jar
+    queueArgs: [-P, webservices, -R, y, -q, 64bit-pri.q, -q, c6100.q, -pe, smp, "4",
+                -l, "h_cpu=24:00:00", -l, ram=6000M, -l, h_rss=6000M]
+
+limits: scripts.limits.JronnLimits
+...

@@ -1,0 +1,8 @@
+---
+input:
+  label: Input file
+  value:
+    type: file
+    required: yes
+    mimetype: application/fasta
+...

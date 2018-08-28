@@ -142,7 +142,7 @@ def runDisEMBLpipeline():
                       join_frame, peak_frame, 0.086),
             sequence
         )
-        print('# RESIDUE COILS REM465 HOTLOOPS')
+        print('# RESIDUE\tCOILS\tREM465\tHOTLOOPS')
         for i in range(len(REM465_smooth)):
             print('{}\t{:.5f}\t{:.5f}\t{:.5f}'.format(
                 sequence[i], COILS_smooth[i], REM465_smooth[i],
