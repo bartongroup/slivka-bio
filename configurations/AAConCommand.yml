@@ -1,51 +1,41 @@
 ---
 options:
-  -
-    ref: _stat
+  - ref: _stat
     param: -d=${value}
     val: stat.txt
-  -
-    ref: _res_no_algn
+  - ref: _res_no_algn
     param: -f=${value}
     val: RESULT_NO_ALIGNMENT
-  -
-    ref: input
+  - ref: input
     param: -i=${file:data.align}
-  -
-    ref: _output
+  - ref: _output
     param: -o=${value}
     val: output.txt
-  -
-    ref: normalize
+  - ref: normalize
     param: -n
-  -
-    ref: method
+  - ref: method
     param: -m=${value}
-  -
-    ref: smerfsww
+  - ref: smerfsww
     param: -smerfsWW=${value}
-  -
-    ref: smerfscs
+  - ref: smerfscs
     param: -smerfsCS=${value}
-  -
-    ref: smerfsgt
+  - ref: smerfsgt
     param: -smerfsGT
 
 results:
-  -
-    type: output
-    path: output.txt
-  -
-    type: log
+  - type: output
+    path: aacon.jvannot
+    mimetype: application/jalview-annotations
+  - type: log
     path: stat.txt
 
 configurations:
   local:
     runner: LocalQueueRunner
-    executable: java -jar ${project_dir}/binaries/compbio-conservation-1.1.jar
+    executable: bash ${project_dir}/binaries/AACon.sh
   gridengine:
     runner: GridEngineRunner
-    executable: java -jar ${project_dir}/binaries/compbio-conservation-1.1.jar
+    executable: bash ${project_dir}/binaries/AACon.sh
     queueArgs: [-P, webservices, -R, y, -q, 64bit-pri.q, -q, c6100.q,
                 -pe, smp, "4", -l, "h_cpu=24:00:00", -l, ram=3400M, -l, h_rss=3400M]
 

@@ -5,7 +5,11 @@ options:
 
 results:
   - type: output
-    path: stdout.txt
+    path: disembl.jvannot
+    mimetype: application/jalview-annotations
+  - type: output
+    path: disembl.jvafeat
+    mimetype: application/jalview-features
   - type: log
     path: stderr.txt
 
@@ -13,10 +17,10 @@ results:
 configurations:
   local:
     runner: LocalQueueRunner
-    executable: ${project_dir}/binaries/disembl/DisEMBL.py
+    executable: bash ${project_dir}/binaries/DisEMBL.sh
   gridengine:
     runner: GridEngineRunner
-    executable: ${project_dir}/binaries/disembl/DisEMBL.py
+    executable: bash ${project_dir}/binaries/DisEMBL.sh
     queueArgs: [-P, webservices, -R, y, -q, 64bit-pri.q, -q, c6100.q,
                 -l, "h_cpu=24:00:00", -l, ram=6000M, -l, h_rss=6000M]
 

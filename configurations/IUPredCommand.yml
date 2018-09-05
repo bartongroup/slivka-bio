@@ -1,38 +1,31 @@
 ---
 options:
-  -
-    ref: input
+  - ref: input
     param: ${file:input.txt}
-  -
-    ref: type
+  - ref: type
     param: ${value}
 
 results:
-  -
-    type: output
-    path: out.glob
-  -
-    type: output
-    path: out.short
-  -
-    type: output
-    path: out.long
-  -
-    type: log
+  - type: output
+    path: iupred.jvfeat
+    mimetype: application/jalview-features
+  - type: output
+    path: iupred.jvannot
+    mimetype: application/jalview-annotations
+  - type: log
     mimetype: text/plain
     path: stdout.txt
-  -
-    type: log
+  - type: log
     mimetype: text/plain
     path: stderr.txt
 
 configurations:
   local:
     runner: LocalQueueRunner
-    executable: ${project_dir}/binaries/iupred/iupred
+    executable: bash ${project_dir}/binaries/IUPred.sh
   gridengine:
     runner: GridEngineRunner
-    executable: ${project_dir}/binaries/iupred/iupred
+    executable: bash ${project_dir}/binaries/IUPred.sh
     queueArgs: [-P, webservices, -R, y, -q, 64bit-pri.q, -q, c6100.q,
                 -l, "h_cpu=24:00:00", -l, ram=6000M, -l, h_rss=6000M]
 
