@@ -30,7 +30,6 @@ class AAConLimits(LimitsBase):
 
     def setup(self, values):
         self.sequences_data = analyse_sequences_file(values['input'], 'fasta')
-        print(self.sequences_data)
 
     def limit_local(self, values):
         return (
