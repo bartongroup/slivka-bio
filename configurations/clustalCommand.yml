@@ -39,7 +39,7 @@ options:
     param: -OUTORDER=${value}
   -
     ref: matrix
-    param: -MATRIX=${value}
+    param: -MATRIX=${HOME}/slivka-bio/matrices/${value}
   -
     ref: gap-open
     param: -GAPOPEN=${value}
