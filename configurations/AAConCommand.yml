@@ -28,6 +28,7 @@ results:
     mimetype: application/jalview-annotations
   - type: log
     path: stat.txt
+    mimetype: text/plain
 
 configurations:
   local:

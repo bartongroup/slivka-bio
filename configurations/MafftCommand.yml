@@ -42,8 +42,10 @@ options:
 results:
   - type: output
     path: stdout.txt
+    mimetype: application/fasta
   - type: log
     path: stderr.txt
+    mimetype: text/plain
 
 configurations:
   local:

@@ -12,6 +12,7 @@ results:
     mimetype: application/jalview-features
   - type: log
     path: stderr.txt
+    mimetype: text/plain
 
 
 configurations:

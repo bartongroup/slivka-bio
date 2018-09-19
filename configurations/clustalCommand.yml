@@ -1,65 +1,49 @@
 ---
 options:
-  -
-    ref: _outorder
+  - ref: _outorder
     param: -OUTORDER=${value}
     val: ALIGNED
-  -
-    ref: _quiet
+  - ref: _quiet
     param: -QUIET
     val: T
-  -
-    ref: input
+  - ref: input
     param: -INFILE=${file:input.txt}
-  -
-    ref: _output
+  - ref: _output
     param: -OUTFILE=${value}
     val: output.txt
-  -
-    ref: _stats
+  - ref: _stats
     param: -STATS=${value}
     val: stat.log
-  -
-    ref: gaps-off
+  - ref: gaps-off
     param: -NOGAP
-  -
-    ref: weights-off
+  - ref: weights-off
     param: -NOWEIGHTS
-  -
-    ref: hydrophillic-gaps-off
+  - ref: hydrophillic-gaps-off
     param: -NOHGAP
-  -
-    ref: transition-weighting
+  - ref: transition-weighting
     param: -TRANSWEIGHT=${value}
-  -
-    ref: type
+  - ref: type
     param: -TYPE=${value}
-  -
-    ref: outorder
+  - ref: outorder
     param: -OUTORDER=${value}
-  -
-    ref: matrix
+  - ref: matrix
     param: -MATRIX=${HOME}/slivka-bio/matrices/${value}
-  -
-    ref: gap-open
+  - ref: gap-open
     param: -GAPOPEN=${value}
-  -
-    ref: gap-ext
+  - ref: gap-ext
     param: -GAPEXT=${value}
-  -
-    ref: end-gaps
+  - ref: end-gaps
     param: -ENDGAPS=${value}
-  -
-    ref: gap-dist
+  - ref: gap-dist
     param: -GAPDIST=${value}
 
 results:
-  -
-    type: output
+  - type: output
     path: output.txt
-  -
-    type: log
+    mimetype: application/clustal
+  - type: log
     path: stat.log
+    mimetype: text/plain
 
 configurations:
   local:

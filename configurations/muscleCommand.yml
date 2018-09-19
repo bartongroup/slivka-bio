@@ -1,115 +1,83 @@
 ---
 options:
-  -
-    ref: _clwstrict
+  - ref: _clwstrict
     param: -clwstrict
     val: T
-  -
-    ref: _quiet
+  - ref: _quiet
     param: -quiet
     val: T
-  -
-    ref: _verbose
+  - ref: _verbose
     param: -verbose
     val: T
-  -
-    ref: _nocore
+  - ref: _nocore
     param: -nocore
     val: T
-  -
-    ref: _log
+  - ref: _log
     param: -log ${value}
     val: stat.log
-  -
-    ref: _output
+  - ref: _output
     param: -out ${value}
     val: output.txt
-  -
-    ref: input
+  - ref: input
     param: -in ${value}
-  -
-    ref: anchor
+  - ref: anchor
     param: -${value}
-  -
-    ref: brenner
+  - ref: brenner
     param: -brenner
-  -
-    ref: dimer
+  - ref: dimer
     param: -dimer
-  -
-    ref: diagonal
+  - ref: diagonal
     param: -diags
-  -
-    ref: diagonal-first
+  - ref: diagonal-first
     param: -diags1
-  -
-    ref: profile-scoring
+  - ref: profile-scoring
     param: -${value}
-  -
-    ref: sequence-type
+  - ref: sequence-type
     param: -seqtype ${value}
-  -
-    ref: maxiters
+  - ref: maxiters
     param: -maxiters ${value}
-  -
-    ref: diagonal-break
+  - ref: diagonal-break
     param: -diagbreak ${value}
-  -
-    ref: diagonal-length
+  - ref: diagonal-length
     param: -diaglength ${value}
-  -
-    ref: diagonal-margin
+  - ref: diagonal-margin
     param: -diagmargin ${value}
-  -
-    ref: anchor-spacing
+  - ref: anchor-spacing
     param: -anchorspacing ${value}
-  -
-    ref: matrix
+  - ref: matrix
     param: -matrix ${value}
-  -
-    ref: gap-open
+  - ref: gap-open
     param: -gapopen ${value}
-  -
-    ref: gap-extension
+  - ref: gap-extension
     param: -gapextend ${value}
-  -
-    ref: center
+  - ref: center
     param: -center ${value}
-  -
-    ref: hydro
+  - ref: hydro
     param: -hydro ${value}
-  -
-    ref: hydrofactor
+  - ref: hydrofactor
     param: -hydrofactor ${value}
-  -
-    ref: min-anchor-score
+  - ref: min-anchor-score
     param: -minbestcolscore ${value}
-  -
-    ref: min-smoothed-anchor-score
+  - ref: min-smoothed-anchor-score
     param: -minsmoothscore ${value}
-  -
-    ref: cluster-first
+  - ref: cluster-first
     param: -cluster1 ${value}
-  -
-    ref: cluster-remaining
+  - ref: cluster-remaining
     param: -cluster2 ${value}
-  -
-    ref: weight-scheme-1
+  - ref: weight-scheme-1
     param: -weight1 ${value}
-  -
-    ref: weight-scheme-2
+  - ref: weight-scheme-2
     param: -weight2 ${value}
-  -
-    ref: distance1
+  - ref: distance1
     param: -distance1 ${value}
 
 results:
-  -
-    type: output
+  - type: output
     path: output.txt
-  -
-    type: log
+    mimetype: application/fasta
+  - type: log
     path: stat.log
+    mimetype: text/plain
 
 configurations:
   local:

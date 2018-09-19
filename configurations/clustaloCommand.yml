@@ -1,57 +1,44 @@
 ---
 options:
-  -
-    ref: input
+  - ref: input
     param: --infile=${file:input.txt}
-  -
-    ref: _output
+  - ref: _output
     param: --outfile=${value}
     val: output.txt
-  -
-    ref: _outfmt
+  - ref: _outfmt
     param: --outfmt=${value}
     val: clustal
-  -
-    ref: _verbose
+  - ref: _verbose
     param: -v
     val: T
-  -
-    ref: _log
+  - ref: _log
     param: --log=${value}
     val: stat.log
-  -
-    ref: _threads
+  - ref: _threads
     param: --threads=${value}
     val: "1"
-  -
-    ref: dealign
+  - ref: dealign
     param: --dealign
-  -
-    ref: full-distance
+  - ref: full-distance
     param: --full
-  -
-    ref: full-distance-iteration
+  - ref: full-distance-iteration
     param: --full-iter
-  -
-    ref: max-hmm-iterations
+  - ref: max-hmm-iterations
     param: --max-hmm-iterations=${value}
-  -
-    ref: iterations
+  - ref: iterations
     param: --iter=${value}
-  -
-    ref: max-guidetree-iterations
+  - ref: max-guidetree-iterations
     param: --max-guidetree-iterations=${value}
 
 results:
-  -
-    type: output
+  - type: output
     path: output.txt
-  -
-    type: output
+    mimetype: application/clustal
+  - type: output
     path: input.dnd
-  -
-    type: log
+  - type: log
     path: stat.log
+    mimetype: text/plain
 
 configurations:
   local:

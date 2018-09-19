@@ -21,10 +21,13 @@ results:
     mimetype: application/jalview-annotations
   - type: log
     path: stat.log
+    mimetype: text/plain
   - type: log
     path: stderr.txt
+    mimetype: text/plain
   - type: log
     path: stdout.txt
+    mimetype: text/plain
 
 configurations:
   local:

@@ -1,43 +1,32 @@
 ---
 options:
-  -
-    ref: message
+  - ref: message
     param: -m ${value}
-  -
-    ref: error
+  - ref: error
     param: -e ${value}
-  -
-    ref: returnCode
+  - ref: returnCode
     param: -r ${value}
-  -
-    ref: number
+  - ref: number
     param: -n ${value}
-  -
-    ref: _out
+  - ref: _out
     param: -o ${value}
     val: output.fasta
-  -
-    ref: wait
+  - ref: wait
     param: --wait ${value}
 
 results:
-  -
-    type: output
+  - type: output
     mimetype: text/plain
     path: stdout.txt
-  -
-    type: error
+  - type: error
     mimetype: text/plain
     path: stderr.txt
-  -
-    type: output
+  - type: output
     path: DefaultOutput.txt
-  -
-    type: output
+  - type: output
     mimetype: text/plain
     path: output.fasta
-  -
-    type: output
+  - type: output
     path: part*.txt
 
 configurations:

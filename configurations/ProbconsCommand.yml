@@ -26,8 +26,10 @@ results:
     mimetype: application/clustal
   - type: output
     path: annotation.txt
+    mimetype: application/annotations
   - type: log
     path: stderr.txt
+    mimetype: text/plain
 
 configurations:
   local:

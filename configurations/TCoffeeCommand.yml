@@ -1,68 +1,49 @@
 ---
 options:
-  -
-    ref: _output
+  - ref: _output
     param: -output=${value}
     val: clustalw
-  -
-    ref: sequence
+  - ref: sequence
     param: -seq=${value}
-  -
-    ref: check-pdb-status
+  - ref: check-pdb-status
     param: -check_pdb_status
-  -
-    ref: mode
+  - ref: mode
     param: -mode=${value}
-  -
-    ref: distance-matrix-mode
+  - ref: distance-matrix-mode
     param: -distance_matrix_mode=${value}
-  -
-    ref: dp-mode
+  - ref: dp-mode
     param: -dp_mode=${value}
-  -
-    ref: ndiag
+  - ref: ndiag
     param: -ndiag=${value}
-  -
-    ref: diag-mode
+  - ref: diag-mode
     param: -diag_mode=${value}
-  -
-    ref: diag-threshold
+  - ref: diag-threshold
     param: -diag_threshold=${value}
-  -
-    ref: sim-matrix
+  - ref: sim-matrix
     param: -sim_matrix=${value}
-  -
-    ref: matrix
+  - ref: matrix
     param: -matrix=${value}
-  -
-    ref: match-penalty
+  - ref: match-penalty
     param: -nomatch=${value}
-  -
-    ref: gap-open
+  - ref: gap-open
     param: -gapopen=${value}
-  -
-    ref: gap-ext
+  - ref: gap-ext
     param: -gapext=${value}
-  -
-    ref: cosmetic-penalty
+  - ref: cosmetic-penalty
     param: -cosmetic_penalty=${value}
-  -
-    ref: tg-mode
+  - ref: tg-mode
     param: -tg_mode=${value}
-  -
-    ref: iterate
+  - ref: iterate
     param: -iterate=${value}
-  -
-    ref: outorder
+  - ref: outorder
     param: -outorder=${value}
-  -
-    ref: inorder
+  - ref: inorder
     param: -inorder=${value}
 
 results:
-  -
-    type: output
+  - type: output
     path: clustalw
+    mimetype: application/clustal
 
 configurations:
   local:
