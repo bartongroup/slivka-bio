@@ -3,23 +3,22 @@
 import sys
 import time
 
-print(sys.version + '\n')
-
 import click
 
 
 @click.command()
+@click.option("-i", "--input")
 @click.option("-m", "--message")
 @click.option("-e", "--error")
 @click.option("-r", "--return_code", default=0)
 @click.option("-o", "--out")
 @click.option("-n", default=0)
 @click.option("--wait", default=0)
-def cli(message, error, return_code, out, n, wait):
+def cli(input, message, error, return_code, out, n, wait):
     click.echo(message)
     click.echo(error, file=sys.stderr)
     with open("DefaultOutput.txt", "w") as f:
-        f.write("foo bar foo bar")
+        f.write(open(input, 'r').read())
     with open(out, "w") as f:
         f.write("Specified output file")
     for i in range(n):
@@ -28,7 +27,6 @@ def cli(message, error, return_code, out, n, wait):
     time.sleep(wait)
 
     sys.exit(return_code)
-
 
 if __name__ == '__main__':
     cli()

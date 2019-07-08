@@ -1,5 +1,7 @@
 ---
 options:
+  - ref: input
+    param: -i ${file:input.txt}
   - ref: message
     param: -m ${value}
   - ref: error

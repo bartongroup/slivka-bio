@@ -1,4 +1,10 @@
 ---
+input:
+  label: Input file
+  value:
+    required: yes
+    type: file
+
 message:
   label: Message
   description: Message sent to stdout
