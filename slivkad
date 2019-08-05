@@ -43,10 +43,10 @@ function start {
         all|"")
             start "server"
             start "scheduler"
-            start "worker"
+            start "local-queue"
             return 0;;
         *)
-            echo "Invalid parameter \"$1\"; use: $0 start {server|scheduler|worker|all}."
+            echo "Invalid parameter \"$1\"; use: $0 start {server|scheduler|local-queue|all}."
             return 1
     esac
     if [ -e ${PID_FILE} ] && kill -0 $(cat ${PID_FILE}); then
@@ -57,12 +57,12 @@ function start {
     pushd ${PROJECT_DIR} > /dev/null
     case $1 in
         server)
-            gunicorn -w 2 -b 0.0.0.0:8000 -p ${PID_FILE} wsgi:app &;;
+            gunicorn -w 2 -b 127.0.0.1:8000 -p ${PID_FILE} wsgi:app &;;
         scheduler)
             python manage.py scheduler &
             echo $! > ${PID_FILE};;
-        worker)
-            python manage.py worker &
+        local-queue)
+            python manage.py local-queue &
             echo $! > ${PID_FILE};;
     esac
     popd > /dev/null
@@ -82,10 +82,10 @@ function stop {
         all|"")
             stop "server"
             stop "scheduler"
-            stop "worker"
+            stop "local-queue"
             return 0;;
         *)
-            echo "Invalid parameter \"$1\"; use: $0 stop {server|scheduler|worker|all}."
+            echo "Invalid parameter \"$1\"; use: $0 stop {server|scheduler|local-queue|all}."
             return 1
     esac
     if [ ! -e ${PID_FILE} ] || ! kill -0 $(cat ${PID_FILE}); then
@@ -115,15 +115,15 @@ function stop {
 
 case $1 in
 start)
-    . activate slivka || exit 3
+    conda activate slivka || exit 3
     start $2 ;;
 stop) stop $2;;
 restart)
     stop $2
-    . activate slivka || exit 3
+    conda activate slivka || exit 3
     start $2 ;;
 *)
-    echo "Invalid parameter \"$1\"; use: $0 {start|stop|restart} {server|scheduler|worker|all}"
+    echo "Invalid parameter \"$1\"; use: $0 {start|stop|restart} {server|scheduler|local-queue|all}"
     exit 1
 esac
 exit $?

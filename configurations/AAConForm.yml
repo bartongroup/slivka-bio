@@ -4,7 +4,7 @@ input:
   value:
     type: file
     required: yes
-    mimetype: application/fasta
+    media-type: application/fasta
 
 normalize:
   label: Normalize

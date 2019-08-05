@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<body>
+<form action="{{ url_for('webapp_form', service=form.service) }}" method='POST' enctype='multipart/form-data'>
+<table>
+{% for field in form %}
+<tr>
+  <td><label for="{{ field.name }}">{{ field.label }}</label></td>
+  <td>{{ field.input_tag }}</td>
+</tr>
+{% if form.errors[field.name] %}
+<tr>
+  <td colspan="2" style="color:red; font-size:small;">{{ form.errors[field.name].message }}</td>
+</tr>
+{% endif %}
+{% endfor %}
+</table>
+<input type="submit" name="submit" value="Submit" />
+</form>
+<body>
+</html>

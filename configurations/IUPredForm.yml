@@ -3,7 +3,7 @@ input:
   label: Input file
   value:
     type: file
-    mimetype: application/fasta
+    media-type: application/fasta
     required: yes
 
 type:

@@ -3,7 +3,7 @@ input:
   value:
     type: file
     required: yes
-    mimetype: application/fasta
+    media-type: application/fasta
 
 6mers:
   label: Shared 6mers distance calculation

@@ -4,7 +4,7 @@ sequence:
   value:
     type: file
     required: yes
-    mimetype: application/fasta
+    media-type: application/fasta
 
 check-pdb-status:
   label: Search sequences in PDB
