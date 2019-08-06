@@ -1,7 +1,7 @@
 from collections import namedtuple
 
 import Bio.SeqIO
-from slivka import LimitsBase
+from slivka import Limits
 
 
 SequencesData = namedtuple('SequencesData', 'number, length')
@@ -16,7 +16,7 @@ def analyse_sequences_file(filename, file_format):
     return SequencesData(num, total_length // num)
 
 
-class PydummyLimits(LimitsBase):
+class PydummyLimits(Limits):
 
     configurations = ['local']
 
@@ -24,7 +24,7 @@ class PydummyLimits(LimitsBase):
         return True
 
 
-class AAConLimits(LimitsBase):
+class AAConLimits(Limits):
 
     configurations = ['local', 'gridengine']
 
@@ -44,7 +44,7 @@ class AAConLimits(LimitsBase):
         )
 
 
-class ClustalLimits(LimitsBase):
+class ClustalLimits(Limits):
 
     configurations = ['local', 'gridengine']
 
@@ -64,7 +64,7 @@ class ClustalLimits(LimitsBase):
         )
 
 
-class ClustaloLimits(LimitsBase):
+class ClustaloLimits(Limits):
 
     configurations = ['local', 'gridengine']
 
@@ -84,7 +84,7 @@ class ClustaloLimits(LimitsBase):
         )
 
 
-class IUPredLimits(LimitsBase):
+class IUPredLimits(Limits):
 
     configurations = ['local', 'gridengine']
 
@@ -104,7 +104,7 @@ class IUPredLimits(LimitsBase):
         )
 
 
-class MafftLimits(LimitsBase):
+class MafftLimits(Limits):
 
     configurations = ['local', 'gridengine']
 
@@ -124,7 +124,7 @@ class MafftLimits(LimitsBase):
         )
 
 
-class MuscleLimits(LimitsBase):
+class MuscleLimits(Limits):
 
     configurations = ['local', 'gridengine']
 
@@ -144,7 +144,7 @@ class MuscleLimits(LimitsBase):
         )
 
 
-class ProbconsLimits(LimitsBase):
+class ProbconsLimits(Limits):
 
     configurations = ['local', 'gridengine']
 
@@ -164,7 +164,7 @@ class ProbconsLimits(LimitsBase):
         )
 
 
-class TCoffeeLimits(LimitsBase):
+class TCoffeeLimits(Limits):
 
     configurations = ['local', 'gridengine']
 
@@ -184,7 +184,7 @@ class TCoffeeLimits(LimitsBase):
         )
 
 
-class GlobPlotLimits(LimitsBase):
+class GlobPlotLimits(Limits):
 
     configurations = ['local', 'gridengine']
 
@@ -204,7 +204,7 @@ class GlobPlotLimits(LimitsBase):
         )
 
 
-class DisemblLimits(LimitsBase):
+class DisemblLimits(Limits):
 
     configurations = ['local', 'gridengine']
 
@@ -224,7 +224,7 @@ class DisemblLimits(LimitsBase):
         )
 
 
-class JronnLimits(LimitsBase):
+class JronnLimits(Limits):
 
     configurations = ['local', 'gridengine']
 
