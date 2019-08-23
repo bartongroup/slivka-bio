@@ -22,8 +22,8 @@ output-order:
     type: choice
     required: yes
     choices:
-      input order: --inputorder
-      reorder: --reorder
+      input order: inputorder
+      reorder: reorder
     default: input order
 
 sequence-type:
@@ -35,8 +35,8 @@ sequence-type:
     type: choice
     required: no
     choices:
-      nucleotide: --nuc
-      amino acid: --amino
+      nucleotide: nuc
+      amino acid: amino
 
 pairwise:
   label: Pairwise alignment computation method
@@ -64,10 +64,10 @@ pairwise:
     type: choice
     required: no
     choices:
-      fasta: --fastapair
-      genaf: --genafpair
-      local: --localpair
-      global: --globalpair
+      fasta: fasta
+      genaf: genaf
+      local: local
+      global: global
     default: local
 
 fft-approximation:
@@ -77,8 +77,8 @@ fft-approximation:
     type: choice
     required: no
     choices:
-      fft: --fft
-      no fft: --nofft
+      fft: fft
+      no fft: nofft
     default: no fft
 
 no-score:
@@ -104,9 +104,9 @@ part-tree:
     type: choice
     required: no
     choices:
-      parttree: --parttree
-      dpparttree: --dpparttree
-      fastaparttree: --fastaparttree
+      parttree: parttree
+      dpparttree: dpparttree
+      fastaparttree: fastaparttree
     default: fastaparttree
 
 max-iter:

@@ -1,21 +1,19 @@
 BASE_DIR: .
 UPLOADS_DIR: ./media/uploads
-TASKS_DIR: ./media/tasks
+JOBS_DIR: ./media/tasks
 LOG_DIR: ./logs
-SERVICES_INI: ./configurations/services.ini
+SERVICES: ./services.yml
 
 UPLOADS_URL_PATH: /media/uploads
-TASKS_URL_PATH: /media/tasks
+JOBS_URL_PATH: /media/tasks
 
 ACCEPTED_MEDIA_TYPES:
   - application/fasta
   - application/clustal
 
-SERVER_HOST: 127.0.0.1
-SERVER_PORT: 8000
 SECRET_KEY: =change_me=
 
-QUEUE_HOST: 127.0.0.1
-QUEUE_PORT: 3397
-
-DATABASE_URL: sqlite:///sqlite3.db
+SERVER_HOST: 127.0.0.1
+SERVER_PORT: 8000
+SLIVKA_QUEUE_ADDR: 127.0.0.1:3397
+MONGODB_ADDR: 127.0.0.1:27017

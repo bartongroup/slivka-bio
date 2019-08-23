@@ -1,33 +1,47 @@
 ---
-options:
-  - ref: input
-    param: ${file:input.txt}
-  - ref: type
-    param: ${value}
+baseCommand:
+- bash
+- ${SLIVKA_HOME}/bin/IUPred.sh
 
-results:
-  - type: output
-    path: iupred.jvfeat
-    mimetype: application/jalview-features
-  - type: output
+inputs:
+  input:
+    arg: $(value)
+    type: file
+    symlink: input.fasta
+
+outputs:
+  annotations:
     path: iupred.jvannot
-    mimetype: application/jalview-annotations
-  - type: log
-    mimetype: text/plain
-    path: stdout.txt
-  - type: log
-    mimetype: text/plain
-    path: stderr.txt
+    media-type: application/jalview-annotations
+  features:
+    path: iupred.jvfeat
+    media-type: application/jalview-features
+  log:
+    path: stderr
+    media-type: text/plain
+  info:
+    path: stdout
+    media-type: text/plain
 
-configurations:
+runners:
   local:
-    runner: LocalQueueRunner
-    executable: bash ${project_dir}/binaries/IUPred.sh
-  gridengine:
-    runner: GridEngineRunner
-    executable: bash ${project_dir}/binaries/IUPred.sh
-    queueArgs: [-P, webservices, -R, y, -q, 64bit-pri.q, -q, c6100.q,
-                -l, "h_cpu=24:00:00", -l, ram=6000M, -l, h_rss=6000M]
-
-limits: scripts.limits.IUPredLimits
+    class: SlivkaQueueRunner
+  default:
+    class: GridEngineRunner
+    parameters:
+      qsub_args:
+      - -P
+      - webservices
+      - -R
+      - "y"
+      - -q
+      - 64bit-pri.q
+      - -q
+      - c6100.q
+      - -l
+      - h_cpu=24:00:00
+      - -l
+      - ram=6000M
+      - -l
+      - h_rss=6000M
 ...

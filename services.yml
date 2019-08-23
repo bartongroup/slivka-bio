@@ -1,0 +1,47 @@
+example:
+  form: conf/exampleForm.yml
+  command: conf/exampleCommand.yml
+
+clustalo:
+  form: conf/clustaloForm.yml
+  command: conf/clustaloCommand.yml
+
+clustalw:
+  form: conf/clustalForm.yml
+  command: conf/clustalCommand.yml
+
+muscle:
+  form: conf/muscleForm.yml
+  command: conf/muscleCommand.yml
+
+tcoffee:
+  form: conf/TCoffeeForm.yml
+  command: conf/TCoffeeCommand.yml
+
+aacon:
+  form: conf/AAConForm.yml
+  command: conf/AAConCommand.yml
+
+iupred:
+  form: conf/IUPredForm.yml
+  command: conf/IUPredCommand.yml
+
+mafft:
+  form: conf/MafftForm.yml
+  command: conf/MafftCommand.yml
+
+probcons:
+  form: conf/ProbconsForm.yml
+  command: conf/ProbconsCommand.yml
+
+globplot:
+  form: conf/GlobPlotForm.yml
+  command: conf/GlobPlotCommand.yml
+
+disembl:
+  form: conf/DisemblForm.yml
+  command: conf/DisemblCommand.yml
+
+jronn:
+  form: conf/JronnForm.yml
+  command: conf/JronnCommand.yml

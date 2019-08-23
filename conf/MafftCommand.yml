@@ -1,61 +1,85 @@
 ---
-options:
-  - ref: _clustalout
-    param: --clustalout
-    val: T
-  - ref: _strategy
-    param: --auto
-    val: T
-  - ref: 6mers
-    param: --6merpair
-  - ref: output-order
-    param: ${value}
-  - ref: sequence-type
-    param: ${value}
-  - ref: pairwise
-    param: ${value}
-  - ref: fft-approximation
-    param: ${value}
-  - ref: no-score
-    param: --noscore
-  - ref: part-tree
-    param: ${value}
-  - ref: max-iter
-    param: --maxiterate ${value}
-  - ref: partsize
-    param: --partsize ${value}
-  - ref: group-size
-    param: --groupsize ${value}
-  - ref: retree
-    param: --retree ${value}
-  - ref: gap-open-penalty
-    param: --op ${value}
-  - ref: group-gap-ext-penalty
-    param: --ep ${value}
-  - ref: local-gap-open-penalty
-    param: --lop ${value}
-  - ref: matrix
-    param: --aamatrix ${value}
-  - ref: input
-    param: ${value}
+baseCommand:
+- mafft
 
-results:
-  - type: output
-    path: stdout.txt
-    mimetype: application/fasta
-  - type: log
-    path: stderr.txt
-    mimetype: text/plain
+inputs:
+  _clustalout:
+    arg: --clustalout
+    type: flag
+    value: on
+  _strategy:
+    arg: --auto
+    type: flag
+    value: on
+  6mers:
+    arg: --6merpair
+    type: flag
+  output-order:
+    arg: --$(value)
+  sequence-type:
+    arg: --$(value)
+  pairwise:
+    arg: --$(value)pair
+  fft-approximation:
+    arg: --$(value)
+  no-score:
+    arg: --noscore
+    type: flag
+  part-tree:
+    arg: --$(value)
+  max-iter:
+    arg: --maxiterate $(value)
+    type: number
+  partsize:
+    arg: --partsize $(value)
+    type: number
+  group-size:
+    arg: --groupsize $(value)
+    type: number
+  retree:
+    arg: --retree $(value)
+    type: number
+  gap-open-penalty:
+    arg: --op $(value)
+    type: number
+  group-gap-ext-penalty:
+    arg: --ep $(value)
+    type: number
+  local-gap-open-penalty:
+    arg: --lop $(value)
+    type: number
+  matrix:
+    arg: --aamatrix $(value)
+  input:
+    arg: $(value)  
 
-configurations:
+outputs:
+  fasta:
+    path: stdout
+    media-type: application/fasta
+  log:
+    path: stderr
+    media-type: text/plain
+
+runners:
   local:
-    runner: LocalQueueRunner
-    executable: mafft
-  gridengine:
-    runner: GridEngineRunner
-    executable: mafft
-    queueArgs: [-P, webservices, -R, y, -q, 64bit-pri.q, -q, c6100.q,
-                -l, "h_cpu=24:00:00", -l, ram=6000M, -l, h_rss=6000M]
-
-limits: scripts.limits.MafftLimits
+    class: SlivkaQueueRunner
+  default:
+    class: GridEngineRunner
+    parameters:
+      qsub_args:
+      - -P
+      - webservices
+      - -R
+      - "y"
+      - -q
+      - 64bit-pri.q
+      - -q
+      - c6100.q
+      - -l
+      - h_cpu=24:00:00
+      - -l
+      - ram=6000M
+      - -l
+      - h_rss=6000M
 ...

@@ -1,46 +1,65 @@
 ---
-options:
-  - ref: _verbose
-    param: -v
-    val: T
-  - ref: _clustal
-    param: -clustalw
-    val: T
-  - ref: _annot
-    param: -annot ${value}
-    val: annotation.txt
-  - ref: output-aligned
-    param: -a
-  - ref: pre-training
-    param: -pre ${value}
-  - ref: iterative-refinement
-    param: -ir ${value}
-  - ref: consistency
-    param: -c ${value}
-  - ref: input
-    param: ${file:input.mfa}
+baseCommand:
+- ${SLIVKA_HOME}/bin/probcons/probcons
 
-results:
-  - type: output
-    path: stdout.txt
-    mimetype: application/clustal
-  - type: output
-    path: annotation.txt
-    mimetype: application/annotations
-  - type: log
-    path: stderr.txt
-    mimetype: text/plain
+inputs:
+  _verbose:
+    arg: -v
+    type: flag
+    value: on
+  _clustal:
+    arg: -clustalw
+    type: flag
+    value: on
+  _annot:
+    arg: -annot $(value)
+    value: annotation.txt
+  output-aligned:
+    arg: -a
+    type: flag
+  pre-training:
+    arg: -pre $(value)
+    type: number
+  iterative-refinement:
+    arg: -ir $(value)
+    type: number
+  consistency:
+    arg: -c $(value)
+    type: number
+  input:
+    arg: $(value)
+    type: file
+    symlink: input.mfa
+    
+outputs:
+  alignemnt:
+    path: stdout
+    media-type: application/clustal
+  annotations:
+    path: annotations.txt
+    media-type: application/annotations
+  log:
+    path: stderr
+    media-type: text/plain
 
-configurations:
+runners:
   local:
-    runner: LocalQueueRunner
-    executable: ${project_dir}/binaries/probcons/probcons
-  gridengine:
-    runner: GridEngineRunner
-    executable: ${project_dir}/binaries/probcons/probcons
-    queueArgs: [
-      -P, webservices, -R, y, -q, 64bit-pri.q, -q, c6100.q,
-      -l, "h_cpu=24:00:00", -l, ram=6000M, -l, h_rss=6000M
-    ]
-
-limits: scripts.limits.ProbconsLimits
+    class: SlivkaQueueRunner
+  default:
+    class: GridEngineRunner
+    parameters:
+      qsub_args:
+      - -P
+      - webservices
+      - -R
+      - "y"
+      - -q
+      - 64bit-pri.q
+      - -q
+      - c6100.q
+      - -l
+      - h_cpu=24:00:00
+      - -l
+      - ram=6000M
+      - -l
+      - h_rss=6000M

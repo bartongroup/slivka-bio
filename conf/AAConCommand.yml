@@ -1,45 +1,62 @@
 ---
-options:
-  - ref: _stat
-    param: -d=${value}
-    val: stat.txt
-  - ref: _res_no_algn
-    param: -f=${value}
-    val: RESULT_NO_ALIGNMENT
-  - ref: input
-    param: -i=${file:data.align}
-  - ref: _output
-    param: -o=${value}
-    val: output.txt
-  - ref: normalize
-    param: -n
-  - ref: method
-    param: -m=${value}
-  - ref: smerfsww
-    param: -smerfsWW=${value}
-  - ref: smerfscs
-    param: -smerfsCS=${value}
-  - ref: smerfsgt
-    param: -smerfsGT
+baseCommand:
+- bash
+- ${SLIVKA_HOME}/bin/AACon.sh
 
-results:
-  - type: output
+inputs:
+  input:
+    arg: -i=$(value)
+    type: file
+    symlink: data.align
+  normalize:
+    arg: -n
+    type: flag
+  method:
+    arg: -m=$(value)
+  smerfsww:
+    arg: -smerfsWW=$(value)
+    type: number
+  smerfscs:
+    arg: -smerfsCS=$(value)
+  smerfsgt:
+    arg: -smerfsGT=$(value)
+    type: number
+
+arguments:
+- -d=stat.txt
+- -f=RESULT_NO_ALIGNMENT
+- -o=output.txt
+
+outputs:
+  annotations:
     path: aacon.jvannot
-    mimetype: application/jalview-annotations
-  - type: log
+    media-type: application/jalview-annotations
+  log:
     path: stat.txt
-    mimetype: text/plain
+    media-type: text/plain
 
-configurations:
+runners:
   local:
-    runner: LocalQueueRunner
-    executable: bash ${project_dir}/binaries/AACon.sh
-  gridengine:
-    runner: GridEngineRunner
-    executable: bash ${project_dir}/binaries/AACon.sh
-    queueArgs: [-P, webservices, -R, y, -q, 64bit-pri.q, -q, c6100.q,
-                -pe, smp, "4", -l, "h_cpu=24:00:00", -l, ram=3400M, -l, h_rss=3400M]
-
-
-limits: scripts.limits.AAConLimits
+    class: SlivkaQueueRunner
+  default:
+    class: GridEngineRunner
+    parameters:
+      qsub_args: 
+      - -P
+      - webservices
+      - -R
+      - "y"
+      - -q
+      - 64bit-pri.q
+      - -q
+      - c6100.q
+      - -pe
+      - smp
+      - "4"
+      - -l 
+      - h_cpu=24:00:00
+      - -l
+      - ram=3400M
+      - -l
+      - h_rss=3400M
 ...

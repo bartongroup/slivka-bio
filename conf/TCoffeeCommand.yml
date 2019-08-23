@@ -1,58 +1,84 @@
 ---
-options:
-  - ref: _output
-    param: -output=${value}
-    val: clustalw
-  - ref: sequence
-    param: -seq=${value}
-  - ref: check-pdb-status
-    param: -check_pdb_status
-  - ref: mode
-    param: -mode=${value}
-  - ref: distance-matrix-mode
-    param: -distance_matrix_mode=${value}
-  - ref: dp-mode
-    param: -dp_mode=${value}
-  - ref: ndiag
-    param: -ndiag=${value}
-  - ref: diag-mode
-    param: -diag_mode=${value}
-  - ref: diag-threshold
-    param: -diag_threshold=${value}
-  - ref: sim-matrix
-    param: -sim_matrix=${value}
-  - ref: matrix
-    param: -matrix=${value}
-  - ref: match-penalty
-    param: -nomatch=${value}
-  - ref: gap-open
-    param: -gapopen=${value}
-  - ref: gap-ext
-    param: -gapext=${value}
-  - ref: cosmetic-penalty
-    param: -cosmetic_penalty=${value}
-  - ref: tg-mode
-    param: -tg_mode=${value}
-  - ref: iterate
-    param: -iterate=${value}
-  - ref: outorder
-    param: -outorder=${value}
-  - ref: inorder
-    param: -inorder=${value}
+baseCommand:
+- t_coffee
 
-results:
-  - type: output
+inputs:
+  _output:
+    arg: -output=$(value)
+    value: clustalw
+  sequence:
+    arg: -seq=$(value)
+    type: file
+  check-pdb-status:
+    arg: -check_pdb_status
+    type: flag
+  mode:
+    arg: -mode=$(value)
+  distance-matrix-mode:
+    arg: -distance_matrix_mode=$(value)
+  dp-mode:
+    arg: -dp_mode=$(value)
+  ndiag:
+    arg: -ndiag=$(value)
+    type: number
+  diag-mode:
+    arg: -diag_mode=$(value)
+  diag-threshold:
+    arg: -diag_threshold=$(value)
+    type: number
+  sim-matrix:
+    arg: -sim_matrix=$(value)
+  matrix:
+    arg: -matrix=$(value)
+  match-penalty:
+    arg: -nomatch=$(value)
+    type: number
+  gap-open:
+    arg: -gapopen=$(value)
+    type: number
+  gap-ext:
+    arg: -gapext=$(value)
+    type: number
+  cosmetic-penalty:
+    arg: -cosmetic_penalty=$(value)
+    type: number
+  tg-mode:
+    arg: -tg_mode=$(value)
+  iterate:
+    arg: -iterate=$(value)
+    type: number
+  outorder:
+    arg: -outorder=$(value)
+  inorder:
+    arg: -inorder=$(value)
+
+outputs:
+  alignment:
     path: clustalw
-    mimetype: application/clustal
+    media-type: application/clustal
 
-configurations:
+runners:
   local:
-    runner: LocalQueueRunner
-    executable: t_coffee
-  gridengine:
-    runner: GridEngineRunner
-    executable: t_coffee
-    queueArgs: [-P, webservices, -R, y, -q, 64bit-pri.q, -q, c6100.q,
-                -pe, smp, "4", -l, "h_cpu=24:00:00", -l, ram=3400M, -l, h_rss=3400M]
-
-limits: scripts.limits.TCoffeeLimits
+    class: SlivkaQueueRunner
+  default:
+    class: GridEngineRunner
+    parameters:
+      qsub_args:
+      - -P
+      - webservices
+      - -R
+      - "y"
+      - -q
+      - 64bit-pri.q
+      - -q
+      - c6100.q
+      - -pe
+      - smp
+      - "4"
+      - -l
+      - h_cpu=24:00:00
+      - -l
+      - ram=3400M
+      - -l
+      - h_rss=3400M
+...

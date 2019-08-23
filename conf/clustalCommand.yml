@@ -1,59 +1,76 @@
 ---
-options:
-  - ref: _outorder
-    param: -OUTORDER=${value}
-    val: ALIGNED
-  - ref: _quiet
-    param: -QUIET
-    val: T
-  - ref: input
-    param: -INFILE=${file:input.txt}
-  - ref: _output
-    param: -OUTFILE=${value}
-    val: output.txt
-  - ref: _stats
-    param: -STATS=${value}
-    val: stat.log
-  - ref: gaps-off
-    param: -NOGAP
-  - ref: weights-off
-    param: -NOWEIGHTS
-  - ref: hydrophillic-gaps-off
-    param: -NOHGAP
-  - ref: transition-weighting
-    param: -TRANSWEIGHT=${value}
-  - ref: type
-    param: -TYPE=${value}
-  - ref: outorder
-    param: -OUTORDER=${value}
-  - ref: matrix
-    param: -MATRIX=${HOME}/slivka-bio/matrices/${value}
-  - ref: gap-open
-    param: -GAPOPEN=${value}
-  - ref: gap-ext
-    param: -GAPEXT=${value}
-  - ref: end-gaps
-    param: -ENDGAPS=${value}
-  - ref: gap-dist
-    param: -GAPDIST=${value}
+baseCommand:
+- clustalw2
 
-results:
-  - type: output
+inputs:
+  input:
+    arg: -INFILE=$(value)
+    type: file
+    symlink: input.txt
+  gaps-off:
+    arg: -NOGAP
+    type: flag
+  weights-off:
+    arg: -NOWEIGHTS
+    type: flag
+  hydrophillic-gaps-off:
+    arg: -NOHGAP
+    type: flag
+  transition-weighting:
+    arg: -TRANSWEIGHT=$(value)
+    type: number
+  type:
+    arg: -TYPE=$(value)
+  outorder:
+    arg: -OUTORDER=$(value)
+  matrix:
+    arg: -MATRIX=${SLIVKA_HOME}/matrices/$(value)
+  gap-open:
+    arg: -GAPOPEN=$(value)
+    type: number
+  gap-ext:
+    arg: -GAPEXT=$(value)
+    type: number
+  end-gaps:
+    arg: -ENDGAPS=$(value)
+    type: number
+  gap-dist:
+    arg: -GAPDIST=$(value)
+    type: number
+
+arguments:
+- -OUTORDER=ALIGNED
+- -QUIET
+- -OUTFILE=output.txt
+- -STATS=stat.log
+
+outputs:
+  alignment:
     path: output.txt
-    mimetype: application/clustal
-  - type: log
+    media-type: application/clustal
+  log:
     path: stat.log
-    mimetype: text/plain
+    media-type: text/plain
 
-configurations:
+runners:
   local:
-    runner: LocalQueueRunner
-    executable: clustalw2
-  gridengine:
-    runner: GridEngineRunner
-    executable: clustalw2
-    queueArgs: [-P, webservices, -R, y, -q, 64bit-pri.q, -q, c6100.q,
-                -l, "h_cpu=24:00:00", -l, ram=6000M, -l, h_rss=6000M]
-
-limits: scripts.limits.ClustalLimits
+    class: SlivkaQueueRunner
+  default:
+    class: GridEngineRunner
+    parameters:
+      qsub_args: 
+      - -P
+      - webservices
+      - -R
+      - "y"
+      - -q
+      - 64bit-pri.q
+      - -q
+      - c6100.q
+      - -l 
+      - h_cpu=24:00:00
+      - -l
+      - ram=6000M
+      - -l
+      - h_rss=6000M
 ...

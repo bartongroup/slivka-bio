@@ -1,54 +1,70 @@
 ---
-options:
-  - ref: input
-    param: --infile=${file:input.txt}
-  - ref: _output
-    param: --outfile=${value}
-    val: output.txt
-  - ref: _outfmt
-    param: --outfmt=${value}
-    val: clustal
-  - ref: _verbose
-    param: -v
-    val: T
-  - ref: _log
-    param: --log=${value}
-    val: stat.log
-  - ref: _threads
-    param: --threads=${value}
-    val: "1"
-  - ref: dealign
-    param: --dealign
-  - ref: full-distance
-    param: --full
-  - ref: full-distance-iteration
-    param: --full-iter
-  - ref: max-hmm-iterations
-    param: --max-hmm-iterations=${value}
-  - ref: iterations
-    param: --iter=${value}
-  - ref: max-guidetree-iterations
-    param: --max-guidetree-iterations=${value}
+baseCommand:
+- clustalo
 
-results:
-  - type: output
+inputs:
+  input:
+    arg: --infile=$(value)
+    type: file
+    symlink: input.txt
+  dealign:
+    arg: --dealign
+    type: flag
+  full-distance:
+    arg: --full
+    type: flag
+  full-distance-iteration:
+    arg: --full-iter
+    type: flag
+  max-hmm-iterations:
+    arg: --max-hmm-iterations=$(value)
+    type: number
+  iterations:
+    arg: --iter=$(value)
+    type: number
+  max-guidetree-iterations:
+    arg: --max-guidetree-iterations=$(value)
+    type: number
+
+arguments:
+- --outfile=output.txt
+- --outfmt=clustal
+- -v
+- --log=stat.log
+- --threads=1
+
+outputs:
+  alignment:
     path: output.txt
-    mimetype: application/clustal
-  - type: output
+    media-type: application/clustal
+  tree:
     path: input.dnd
-  - type: log
+  log:
     path: stat.log
-    mimetype: text/plain
+    media-type: text/plain
 
-configurations:
+runners:
   local:
-    runner: LocalQueueRunner
-    executable: clustalo
-  gridengine:
-    runner: GridEngineRunner
-    executable: clustalo
-    queueArgs: [-P, webservices, -R, y, -q, 64bit-pri.q, -q, c6100.q,
-                -pe, smp, "4", -l, "h_cpu=24:00:00", -l, ram=3400M, -l, h_rss=3400M]
-
-limits: scripts.limits.ClustaloLimits
+    class: SlivkaQueueRunner
+  default:
+    class: GridEngineRunner
+    parameters:
+      qsub_args:
+      - -P
+      - webservices
+      - -R
+      - "y"
+      - -q
+      - 64bit-pri.q
+      - -q
+      - c6100.q
+      - -pe
+      - smp
+      - "4"
+      - -l
+      - h_cpu=24:00:00
+      - -l
+      - ram=3400M
+      - -l
+      - h_rss=3400M
 ...

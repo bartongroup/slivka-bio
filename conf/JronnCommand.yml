@@ -1,43 +1,51 @@
 ---
-options:
-  - ref: input
-    param: -i=${value}
-  - ref: _output
-    param: -o=${value}
-    val: output.txt
-  - ref: _stat
-    param: -s=${value}
-    val: stat.log
-  - ref: _format
-    param: -f=${value}
-    val: H
-  - ref: _threads
-    param: -n=${value}
-    val: "4"
+baseCommand:
+- bash
+- ${SLIVKA_HOME}/bin/JRonn.sh
 
-results:
-  - type: output
+inputs:
+  input:
+    arg: -i=$(value)
+
+arguments:
+  - -o=output.txt
+  - -s=stat.log
+  - -f=H
+  - -n=4
+
+outputs:
+  annotations:
     path: jronn.jvannot
-    mimetype: application/jalview-annotations
-  - type: log
+    media-type: application/jalview-annotations
+  log:
     path: stat.log
-    mimetype: text/plain
-  - type: log
-    path: stderr.txt
-    mimetype: text/plain
-  - type: log
-    path: stdout.txt
-    mimetype: text/plain
+    media-type: text/plain
+  stdout:
+    path: stdout
+    media-type: text/plain
+  stderr:
+    path: stderr
+    media-type: text/plain
 
-configurations:
+runners:
   local:
-    runner: LocalQueueRunner
-    executable: bash ${project_dir}/binaries/JRonn.sh
-  gridengine:
-    runner: GridEngineRunner
-    executable: bash ${project_dir}/binaries/JRonn.sh
-    queueArgs: [-P, webservices, -R, y, -q, 64bit-pri.q, -q, c6100.q, -pe, smp, "4",
-                -l, "h_cpu=24:00:00", -l, ram=6000M, -l, h_rss=6000M]
-
-limits: scripts.limits.JronnLimits
+    class: SlivkaQueueRunner
+  default:
+    class: GridEngineRunner
+    parameters:
+      qsub_args:
+      - -P
+      - webservices
+      - -R
+      - "y"
+      - -q
+      - 64bit-pri.q
+      - -q
+      - c6100.q
+      - -l
+      - h_cpu=24:00:00
+      - -l
+      - ram=6000M
+      - -l
+      - h_rss=6000M
 ...
