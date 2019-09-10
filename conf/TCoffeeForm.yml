@@ -136,6 +136,7 @@ matrix:
     required: no
     choices:
       blosum62mt: blosum62mt
+    default: blosum62mt
 
 match-penalty:
   label: Match penalty
