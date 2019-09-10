@@ -6,8 +6,8 @@ input:
     media-type: application/fasta
     required: yes
 
-gaps-off:
-  label: NOGAP
+residue-gaps-off:
+  label: NOPGAP
   description: Residue-specific gaps off
   value:
     type: boolean

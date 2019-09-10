@@ -7,8 +7,8 @@ inputs:
     arg: -INFILE=$(value)
     type: file
     symlink: input.txt
-  gaps-off:
-    arg: -NOGAP
+  residue-gaps-off:
+    arg: -NOPGAP
     type: flag
   weights-off:
     arg: -NOWEIGHTS
