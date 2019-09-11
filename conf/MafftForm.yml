@@ -37,6 +37,7 @@ sequence-type:
     choices:
       nucleotide: nuc
       amino acid: amino
+    default: nucleotide
 
 pairwise:
   label: Pairwise alignment computation method
@@ -126,6 +127,7 @@ partsize:
     type: int
     required: no
     min: 1
+    max: 1000
     default: 50
 
 group-size:
@@ -137,6 +139,7 @@ group-size:
     type: int
     required: no
     min: 0
+    max: 1000
     default: 20
 
 retree:
@@ -158,6 +161,7 @@ gap-open-penalty:
     type: float
     required: no
     min: 0
+    max: 10
     default: 1.53
 
 group-gap-ext-penalty:
@@ -169,6 +173,7 @@ group-gap-ext-penalty:
     type: float
     required: no
     min: 0
+    max: 10
     default: 0.123
 
 local-gap-open-penalty:
@@ -179,6 +184,7 @@ local-gap-open-penalty:
   value:
     type: float
     required: no
+    min: -10
     max: 0
     default: -2.00
 

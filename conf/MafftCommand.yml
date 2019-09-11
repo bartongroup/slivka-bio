@@ -49,7 +49,7 @@ inputs:
     arg: --lop $(value)
     type: number
   matrix:
-    arg: --aamatrix $(value)
+    arg: --aamatrix ${SLIVKA_HOME}/matrices/$(value)
   input:
     arg: $(value)  
 
