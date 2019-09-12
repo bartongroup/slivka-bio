@@ -61,7 +61,7 @@ inputs:
     arg: -anchorspacing $(value)
     type: number
   matrix:
-    arg: -matrix $(value)
+    arg: -matrix ${SLIVKA_HOME}/matrices/$(value)
   gap-open:
     arg: -gapopen $(value)
     type: number 
