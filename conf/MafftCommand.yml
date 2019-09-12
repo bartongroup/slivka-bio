@@ -61,6 +61,9 @@ outputs:
     path: stderr
     media-type: text/plain
 
+env:
+  FASTA_4_MAFFT: ${HOME}/bin/fasta36
+
 runners:
   local:
     class: SlivkaQueueRunner
