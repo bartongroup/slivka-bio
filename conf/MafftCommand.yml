@@ -6,7 +6,7 @@ inputs:
   _clustalout:
     arg: --clustalout
     type: flag
-    value: on
+    value: off
   _strategy:
     arg: --auto
     type: flag

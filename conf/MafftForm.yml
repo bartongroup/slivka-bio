@@ -37,7 +37,8 @@ sequence-type:
     choices:
       nucleotide: nuc
       amino acid: amino
-    default: nucleotide
+      auto: auto
+    default: auto
 
 pairwise:
   label: Pairwise alignment computation method
