@@ -6,7 +6,7 @@ inputs:
   _clwstrict:
     arg: -clwstrict
     type: flag
-    value: on
+    value: off
   _quiet:
     arg: -quiet
     type: flag

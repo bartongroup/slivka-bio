@@ -12,6 +12,7 @@ anchor:
     iterations
   value:
     type: choice
+    required: no
     choices:
       enable: anchors
       disable: noanchors
@@ -63,11 +64,13 @@ profile-scoring:
     sv - use sum-of-pairs profile score (VTML240)
   value:
     type: choice
+    required: no
     choices:
+      default: false
       le: le
       sp: sp
       sv: sv
-    default: le
+    default: default
 
 sequence-type:
   label: Sequence type
