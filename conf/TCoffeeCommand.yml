@@ -57,6 +57,9 @@ outputs:
     path: clustalw
     media-type: application/clustal
 
+env:
+  PATH: ${CONDA_PREFIX}/lib/t_coffee-11.0.8/bin:${PATH}
+
 runners:
   local:
     class: SlivkaQueueRunner
