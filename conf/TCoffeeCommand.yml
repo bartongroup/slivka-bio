@@ -54,7 +54,7 @@ inputs:
 
 outputs:
   alignment:
-    path: clustalw
+    path: "*.clustalw"
     media-type: application/clustal
 
 env:
