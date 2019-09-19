@@ -1,47 +1,94 @@
 example:
+  label: Example
   form: conf/exampleForm.yml
   command: conf/exampleCommand.yml
+  classifiers: []
 
 clustalo:
+  label: ClustalO
   form: conf/clustaloForm.yml
   command: conf/clustaloCommand.yml
+  classifiers:
+  - "Topic :: Computational biology :: Sequence analysis"
+  - "Operation :: Analysis :: Sequence analysis :: Sequence alignment :: Multiple sequence alignment"
 
 clustalw:
+  label: ClustalW
   form: conf/clustalForm.yml
   command: conf/clustalCommand.yml
+  classifiers:
+  - "Topic :: Computational biology :: Sequence analysis"
+  - "Operation :: Analysis :: Sequence analysis :: Sequence alignment :: Multiple sequence alignment"
 
 muscle:
+  label: MUSCLE
   form: conf/muscleForm.yml
   command: conf/muscleCommand.yml
+  classifiers:
+  - "Topic :: Computational biology :: Sequence analysis"
+  - "Operation :: Analysis :: Sequence analysis :: Sequence alignment :: Multiple sequence alignment"
 
 tcoffee:
+  label: TCoffee
   form: conf/TCoffeeForm.yml
   command: conf/TCoffeeCommand.yml
+  classifiers:
+  - "Topic :: Computational biology :: Sequence analysis"
+  - "Operation :: Analysis :: Sequence analysis :: Sequence alignment :: Multiple sequence alignment"
 
 aacon:
+  label: AACon
   form: conf/AAConForm.yml
   command: conf/AAConCommand.yml
+  classifiers:
+  - "Topic :: Computational biology :: Sequence analysis"
+  - "Operation :: Analysis :: Sequence analysis :: Protein sequence analysis"
 
 iupred:
+  label: IUPred
   form: conf/IUPredForm.yml
   command: conf/IUPredCommand.yml
+  classifiers:
+  - "Topic :: Computational biology :: Sequence analysis"
+  - "Operation :: Analysis :: Sequence analysis :: Protein sequence analysis"
 
 mafft:
+  label: MAFFT
   form: conf/MafftForm.yml
   command: conf/MafftCommand.yml
+  classifiers:
+  - "Topic :: Computational biology :: Sequence analysis"
+  - "Operation :: Analysis :: Sequence analysis :: Sequence alignment :: Multiple sequence alignment"
 
 probcons:
+  label: ProbCons
   form: conf/ProbconsForm.yml
   command: conf/ProbconsCommand.yml
+  classifiers:
+  - "Topic :: Computational biology :: Sequence analysis"
+  - "Operation :: Analysis :: Sequence analysis :: Sequence alignment :: Multiple sequence alignment"
+  - "Operation :: Comparison :: Sequence comparison"
 
 globplot:
+  label: GlobPlot
   form: conf/GlobPlotForm.yml
   command: conf/GlobPlotCommand.yml
+  classifiers:
+  - "Topic :: Computational biology :: Sequence analysis"
+  - "Operation :: Analysis :: Sequence analysis :: Protein sequence analysis"
 
 disembl:
+  label: DisEMBL
   form: conf/DisemblForm.yml
   command: conf/DisemblCommand.yml
+  classifiers:
+  - "Topic :: Computational biology :: Sequence analysis"
+  - "Operation :: Analysis :: Sequence analysis :: Protein sequence analysis"
 
 jronn:
+  label: Jronn
   form: conf/JronnForm.yml
   command: conf/JronnCommand.yml
+  classifiers:
+  - "Topic :: Computational biology :: Sequence analysis"
+  - "Operation :: Analysis :: Sequence analysis :: Protein sequence analysis"
