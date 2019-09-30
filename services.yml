@@ -42,7 +42,7 @@ aacon:
   command: conf/AAConCommand.yml
   classifiers:
   - "Topic :: Computational biology :: Sequence analysis"
-  - "Operation :: Analysis :: Sequence analysis :: Protein sequence analysis"
+  - "Operation :: Analysis :: Sequence analysis :: Sequence alignment analysis :: Sequence alignment analysis (conservation)"
 
 iupred:
   label: IUPred
