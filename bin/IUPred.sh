@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
 $SLIVKA_HOME/bin/iupred/iupred $*
+returncode=$?
+if [ $returncode -ne 0 ]; then
+    exit $returncode
+fi
 if [ -f out.glob ]; then
     PARSER_ARGS="${PARSER_ARGS} --glob out.glob --feat iupred.jvfeat"
 fi
