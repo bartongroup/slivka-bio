@@ -9,6 +9,9 @@ inputs:
     type: file
     symlink: input.fasta
 
+env:
+  IUPred_PATH: ${SLIVKA_HOME}/bin/iupred/
+
 outputs:
   annotations:
     path: iupred.jvannot
