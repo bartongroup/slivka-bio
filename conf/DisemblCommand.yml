@@ -13,7 +13,7 @@ outputs:
     path: disembl.jvannot
     media-type: application/jalview-annotations
   features:
-    path: disembl.jvafeat
+    path: disembl.jvfeat
     media-type: application/jalview-features
   log:
     path: stderr
