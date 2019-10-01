@@ -11,4 +11,4 @@ for arg in $*; do
         break
     fi
 done
-python $SLIVKA_HOME/scripts/parser.py aacon --input ${outputFile} --annot aacon.jvannot
+python $SLIVKA_HOME/scripts/jalview_parser.py aacon --input ${outputFile} --annot aacon.jvannot

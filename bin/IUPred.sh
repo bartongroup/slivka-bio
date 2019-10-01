@@ -17,4 +17,4 @@ if [ -f out.short ] || [ -f out.long ]; then
     fi
     PARSER_ARGS="${PARSER_ARGS} --annot iupred.jvannot"
 fi
-python $SLIVKA_HOME/scripts/parser.py iupred ${PARSER_ARGS}
+python $SLIVKA_HOME/scripts/jalview_parser.py iupred ${PARSER_ARGS}
