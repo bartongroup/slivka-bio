@@ -69,6 +69,14 @@ probcons:
   - "Operation :: Analysis :: Sequence analysis :: Sequence alignment :: Multiple sequence alignment"
   - "Operation :: Comparison :: Sequence comparison"
 
+msaprobs:
+  label: MSAProbs
+  form: conf/MSAProbsForm.yml
+  command: conf/MSAProbsCommand.yml
+  classifiers:
+  - "Topic :: Computational biology :: Sequence analysis"
+  - "Operation :: Analysis :: Sequence analysis :: Sequence alignment :: Multiple sequence alignment"
+
 globplot:
   label: GlobPlot
   form: conf/GlobPlotForm.yml
