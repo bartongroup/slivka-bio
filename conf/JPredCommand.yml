@@ -1,0 +1,18 @@
+---
+baseCommand:
+- jpred
+
+inputs:
+  input:
+    arg: $(value)
+    type: file
+    
+outputs:
+  archive:
+    path: "*.tar.gz"
+    media-type: application/gzip
+
+runners:
+  default:
+    class: scripts.runners.JPredRunner
+...

@@ -100,3 +100,17 @@ jronn:
   classifiers:
   - "Topic :: Computational biology :: Sequence analysis"
   - "Operation :: Analysis :: Sequence analysis :: Protein sequence analysis"
+
+
+jpred:
+  label: JPred
+  form: conf/JPredForm.yml
+  command: conf/JPredCommand.yml
+  classifiers:
+  - "Topic :: Computational biology :: Structure analysis :: Protein structure analysis :: Protein secondary structure"
+  - "Topic :: Computational biology :: Proteins :: Protein structure analysis :: Protein secondary structure"
+  - "Operation :: Analysis :: Structure analysis :: Protein structure analysis :: Protein secondary structure analysis :: Protein secondary structure prediction"
+  - "Operation :: Prediction and recognition :: Protein secondary structure prediction"
+  - "Operation :: Analysis :: Sequence analysis :: Protein sequence analysis :: Protein secondary structure prediction"
+  - "Operation :: Analysis :: Sequence analysis :: Protein sequence analysis :: Protein feature detection :: Protein secondary structure prediction"
+  - "Operation :: Prediction and recognition :: Protein feature detection :: Protein secondary structure prediction"
