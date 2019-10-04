@@ -344,6 +344,28 @@ class JRonnReader:
       file.write("\n")
 
 
+class AAConReader:
+  def run(self, args):
+    annotations = self.read_annotations(open(args.input))
+    if args.annot:
+      with open(args.annot, 'w') as fp:
+        self.print_annotations_file(annotations, fp)
+
+  def read_annotations(self, file):
+    annotations = OrderedDict()
+    for line in file:
+      if line == '\n': continue
+      m = re.match(r'^#(\w+) ((?:\d+\.\d{4} ?)+)$', line)
+      annotations[m.group(1)] = m.group(2).split()
+    return annotations
+
+  def print_annotations_file(self, annotations, file=None):
+    file = file or sys.stdout
+    file.write('JALVIEW_ANNOTATION\n\n')
+    for method, values in annotations.items():
+      graph = Graph(GraphType.BAR_GRAPH, method, method, values)
+      print_annotation_row(graph, file=file)
+
 
 if __name__ == '__main__':
   parent_parser = ArgumentParser()
@@ -375,10 +397,10 @@ if __name__ == '__main__':
   jronn_parser.add_argument('--annot', '-a')
   jronn_parser.set_defaults(func=JRonnReader)
 
-  # aacon_parser = subparsers.add_parser('aacon')
-  # aacon_parser.add_argument('--input', '-i', required=True)
-  # aacon_parser.add_argument('--annot', '-a')
-  # aacon_parser.set_defaults(func=AAConReader)
+  aacon_parser = subparsers.add_parser('aacon')
+  aacon_parser.add_argument('--input', '-i', required=True)
+  aacon_parser.add_argument('--annot', '-a')
+  aacon_parser.set_defaults(func=AAConReader)
 
   args = parent_parser.parse_args()
   args.func().run(args)
