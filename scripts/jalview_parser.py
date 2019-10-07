@@ -355,7 +355,7 @@ class AAConReader:
     annotations = OrderedDict()
     for line in file:
       if line == '\n': continue
-      m = re.match(r'^#(\w+) ((?:\d+\.\d{4} ?)+)$', line)
+      m = re.match(r'^#(\w+) ((?:-?\d+\.\d+ ?)+)$', line)
       annotations[m.group(1)] = m.group(2).split()
     return annotations
 
