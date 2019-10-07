@@ -9,13 +9,19 @@ inputs:
     type: file
 
 outputs:
-  annotations:
+  raw-output:
+    path: output.txt
+    media-type: text/plain
+  jalview-annotations:
     path: disembl.jvannot
     media-type: application/jalview-annotations
-  features:
+  jalview-features:
     path: disembl.jvfeat
     media-type: application/jalview-features
   log:
+    path: stdout
+    media-type: text/plain
+  error-log:
     path: stderr
     media-type: text/plain
 

@@ -13,7 +13,7 @@ inputs:
     value: on
   _annot:
     arg: -annot $(value)
-    value: annotation.txt
+    value: annotations.txt
   output-aligned:
     arg: -a
     type: flag

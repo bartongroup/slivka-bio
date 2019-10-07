@@ -13,16 +13,22 @@ env:
   IUPred_PATH: ${SLIVKA_HOME}/bin/iupred/
 
 outputs:
-  annotations:
+  glob:
+    path: out.glob
+  short:
+    path: out.short
+  long:
+    path: out.long
+  jalview-annotations:
     path: iupred.jvannot
     media-type: application/jalview-annotations
-  features:
+  jalview-features:
     path: iupred.jvfeat
     media-type: application/jalview-features
-  log:
+  error-log:
     path: stderr
     media-type: text/plain
-  info:
+  log:
     path: stdout
     media-type: text/plain
 

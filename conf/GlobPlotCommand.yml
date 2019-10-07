@@ -10,13 +10,19 @@ inputs:
     symlink: input.fasta
 
 outputs:
-  annotations:
+  raw-output:
+    path: output.txt
+    media-type: text/plain
+  jalview-annotations:
     path: globplot.jvannot
     media-type: application/jalview-annotations
-  features:
+  jalview-features:
     path: globplot.jvfeat
     media-type: application/jalview-features
   log:
+    path: stdout
+    media-type: text/plain
+  error-log:
     path: stderr
     media-type: text/plain
 

@@ -28,11 +28,17 @@ arguments:
 - -o=output.txt
 
 outputs:
-  annotations:
+  raw-output:
+    path: output.txt
+    media-type: text/plain
+  jalview-annotations:
     path: aacon.jvannot
     media-type: application/jalview-annotations
   log:
     path: stat.txt
+    media-type: text/plain
+  error-log:
+    path: stderr
     media-type: text/plain
 
 runners:

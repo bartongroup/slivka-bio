@@ -56,6 +56,12 @@ outputs:
   alignment:
     path: "*.clustalw"
     media-type: application/clustal
+  log:
+    path: stdout
+    media-type: text/plain
+  error-log:
+    path: stderr
+    media-type: text/plain
 
 env:
   PATH: ${CONDA_PREFIX}/lib/t_coffee-11.0.8/bin:${PATH}

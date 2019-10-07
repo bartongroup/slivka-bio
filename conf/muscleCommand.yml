@@ -95,11 +95,14 @@ inputs:
     arg: -distance1 $(value)
 
 outputs:
-  fasta:
+  alignment:
     path: output.fasta
     media-type: application/fasta
   log:
     path: stat.log
+    media-type: text/plain
+  error-log:
+    path: stderr
     media-type: text/plain
 
 runners:

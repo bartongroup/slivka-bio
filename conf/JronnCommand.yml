@@ -14,16 +14,16 @@ arguments:
   - -n=4
 
 outputs:
-  annotations:
+  raw-output:
+    path: output.txt
+    media-type: text/plain
+  jalview-annotations:
     path: jronn.jvannot
     media-type: application/jalview-annotations
   log:
     path: stat.log
     media-type: text/plain
-  stdout:
-    path: stdout
-    media-type: text/plain
-  stderr:
+  error-log:
     path: stderr
     media-type: text/plain
 

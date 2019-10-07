@@ -51,6 +51,9 @@ outputs:
   log:
     path: stat.log
     media-type: text/plain
+  error-log:
+    path: stderr
+    media-type: text/plain
 
 runners:
   local:

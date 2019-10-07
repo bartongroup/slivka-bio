@@ -54,10 +54,10 @@ inputs:
     arg: $(value)  
 
 outputs:
-  fasta:
+  alignment:
     path: stdout
     media-type: application/fasta
-  log:
+  error-log:
     path: stderr
     media-type: text/plain
 

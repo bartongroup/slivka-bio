@@ -9,8 +9,14 @@ inputs:
     
 outputs:
   archive:
-    path: "*.tar.gz"
+    path: result.tar.gz
     media-type: application/gzip
+  log:
+    path: stdout
+    media-type: text/plain
+  error-log:
+    path: stderr
+    media-type: text/plain
 
 runners:
   default:
