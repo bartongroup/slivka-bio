@@ -25,6 +25,7 @@ method:
   value:
     type: choice
     required: no
+    multiple: yes
     default: shenkin
     choices:
       kabat: KABAT

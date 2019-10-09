@@ -13,6 +13,8 @@ inputs:
     type: flag
   method:
     arg: -m=$(value)
+    type: array
+    join: ","
   smerfsww:
     arg: -smerfsWW=$(value)
     type: number
