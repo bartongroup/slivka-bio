@@ -7,9 +7,6 @@ from slivka.db import mongo
 
 bp = flask.Blueprint('webapp', __name__, url_prefix='/webapp', template_folder='templates')
 
-print(bp.root_path)
-print(bp.template_folder)
-
 
 @bp.route('/<service>', methods=['GET', 'POST'])
 def form(service):
