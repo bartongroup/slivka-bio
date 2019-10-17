@@ -1,5 +1,10 @@
 import os
 
+import slivka.conf.logging
+import slivka.server
+
+import routes
+
 SETTINGS_FILE = 'settings.yml'
 
 settings_path = os.path.join(
@@ -7,8 +12,7 @@ settings_path = os.path.join(
     SETTINGS_FILE
 )
 os.environ.setdefault('SLIVKA_SETTINGS', settings_path)
+slivka.conf.logging.configure_logging()
 
-
-from slivka.server.serverapp import app
-
-application = app
+application = app = slivka.server.create_app()
+app.register_blueprint(routes.bp)

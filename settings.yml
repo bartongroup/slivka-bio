@@ -10,6 +10,7 @@ JOBS_URL_PATH: /media/tasks
 ACCEPTED_MEDIA_TYPES:
   - application/fasta
   - application/clustal
+  - application/json
 
 SECRET_KEY: =change_me=
 
