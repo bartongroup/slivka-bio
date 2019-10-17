@@ -4,3 +4,23 @@ input:
     type: file
     required: yes
     media-type: application/fasta
+
+skippdb:
+  label: Skip PDB check
+  value:
+    type: choice
+    choices:
+      "on": "on"
+      "off": "off"
+    default: "on"
+
+format:
+  label: Input data format
+  value:
+    type: choice
+    choices:
+      seq: seq
+      fasta: fasta
+      msf: msf
+      blc: blc
+    default: fasta

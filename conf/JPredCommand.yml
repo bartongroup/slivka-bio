@@ -3,6 +3,12 @@ baseCommand:
 - jpred
 
 inputs:
+  skippdb:
+    arg: skipPDB=$(value)
+    value: "on"
+  format:
+    arg: format=$(value)
+    value: fasta
   input:
     arg: $(value)
     type: file
