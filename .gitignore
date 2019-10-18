@@ -4,3 +4,13 @@ logs/
 sqlite3.db
 
 **/__pycache__/
+
+bin/Tisean_3.0.1
+bin/MSAProbs/msaprobs
+bin/disembl/disembl
+bin/probcons/probcons
+bin/probcons/compare
+bin/probcons/makegnuplot
+bin/probcons/project
+*.o
+sav_gol
