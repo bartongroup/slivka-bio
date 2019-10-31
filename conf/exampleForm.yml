@@ -33,6 +33,19 @@ sleep:
     required: no
     type: int
     default: 0
+    
+flags:
+  label: Flags
+  description: Some flags that do nothing specific
+  value:
+    required: no
+    type: choice
+    multiple: yes
+    choices:
+      multiplicative: mul
+      fullscreen: fs
+      v-sync enabled: vs
+      keep aspect ratio: keep-aspect
 
 log:
   label: Enable log
