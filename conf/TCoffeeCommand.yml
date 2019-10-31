@@ -66,28 +66,5 @@ outputs:
 env:
   PATH: ${CONDA_PREFIX}/lib/t_coffee-11.0.8/bin:${PATH}
 
-runners:
-  local:
-    class: SlivkaQueueRunner
-  default:
-    class: GridEngineRunner
-    parameters:
-      qsub_args:
-      - -P
-      - webservices
-      - -R
-      - "y"
-      - -q
-      - 64bit-pri.q
-      - -q
-      - c6100.q
-      - -pe
-      - smp
-      - "4"
-      - -l
-      - h_cpu=24:00:00
-      - -l
-      - ram=3400M
-      - -l
-      - h_rss=3400M
+runners: !include include/runner_sets.yml#setA
 ...

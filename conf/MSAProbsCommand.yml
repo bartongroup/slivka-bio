@@ -31,25 +31,5 @@ outputs:
     path: stderr
     media-type: text/plain
 
-runners:
-  local:
-    class: SlivkaQueueRunner
-  default:
-    class: GridEngineRunner
-    parameters:
-      qsub_args:
-      - -P
-      - webservices
-      - -R
-      - "y"
-      - -q
-      - 64bit-pri.q
-      - -q
-      - c6100.q
-      - -l
-      - h_cpu=24:00:00
-      - -l
-      - ram=6000M
-      - -l
-      - h_rss=6000M
+runners: !include include/runner_sets.yml#setB
 ...
