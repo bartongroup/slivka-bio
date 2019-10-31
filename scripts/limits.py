@@ -1,7 +1,7 @@
 from collections import namedtuple
 
 import Bio.SeqIO
-from slivka import Limits
+from slivka.scheduler import Limiter
 
 
 SequencesData = namedtuple('SequencesData', 'number, length')
@@ -16,18 +16,7 @@ def analyse_sequences_file(filename, file_format):
     return SequencesData(num, total_length // num)
 
 
-class PydummyLimits(Limits):
-
-    configurations = ['local']
-
-    def limit_local(self, values):
-        return True
-
-
-class AAConLimits(Limits):
-
-    configurations = ['local', 'gridengine']
-
+class AAConLimits(Limiter):
     def setup(self, values):
         self.sequences_data = analyse_sequences_file(values['input'], 'fasta')
 
@@ -37,17 +26,14 @@ class AAConLimits(Limits):
             self.sequences_data.length <= 400
         )
 
-    def limit_gridengine(self, values):
+    def limit_default(self, values):
         return (
             self.sequences_data.number <= 5000 and
             self.sequences_data.length <= 1000
         )
 
 
-class ClustalLimits(Limits):
-
-    configurations = ['local', 'gridengine']
-
+class ClustalLimits(Limiter):
     def setup(self, values):
         self.sequences_data = analyse_sequences_file(values['input'], 'fasta')
 
@@ -57,17 +43,14 @@ class ClustalLimits(Limits):
             self.sequences_data.length <= 500
         )
 
-    def limit_gridengine(self, values):
+    def limit_default(self, values):
         return (
             self.sequences_data.number <= 1000 and
             self.sequences_data.length <= 1000
         )
 
 
-class ClustaloLimits(Limits):
-
-    configurations = ['local', 'gridengine']
-
+class ClustaloLimits(Limiter):
     def setup(self, values):
         self.sequences_data = analyse_sequences_file(values['input'], 'fasta')
 
@@ -77,17 +60,14 @@ class ClustaloLimits(Limits):
             self.sequences_data.length <= 500
         )
 
-    def limit_gridengine(self, values):
+    def limit_default(self, values):
         return (
             self.sequences_data.number <= 2000 and
             self.sequences_data.length <= 1000
         )
 
 
-class IUPredLimits(Limits):
-
-    configurations = ['local', 'gridengine']
-
+class IUPredLimits(Limiter):
     def setup(self, values):
         self.sequences_data = analyse_sequences_file(values['input'], 'fasta')
 
@@ -97,17 +77,14 @@ class IUPredLimits(Limits):
             self.sequences_data.length <= 400
         )
 
-    def limit_gridengine(self, values):
+    def limit_default(self, values):
         return (
             self.sequences_data.number <= 5000 and
             self.sequences_data.length <= 1000
         )
 
 
-class MafftLimits(Limits):
-
-    configurations = ['local', 'gridengine']
-
+class MafftLimits(Limiter):
     def setup(self, values):
         self.sequences_data = analyse_sequences_file(values['input'], 'fasta')
 
@@ -117,17 +94,14 @@ class MafftLimits(Limits):
             self.sequences_data.length <= 500
         )
 
-    def limit_gridengine(self, values):
+    def limit_default(self, values):
         return (
             self.sequences_data.number <= 1000 and
             self.sequences_data.length <= 1000
         )
 
 
-class MuscleLimits(Limits):
-
-    configurations = ['local', 'gridengine']
-
+class MuscleLimits(Limiter):
     def setup(self, values):
         self.sequences_data = analyse_sequences_file(values['input'], 'fasta')
 
@@ -137,17 +111,14 @@ class MuscleLimits(Limits):
             self.sequences_data.length <= 500
         )
 
-    def limit_gridengine(self, values):
+    def limit_default(self, values):
         return (
             self.sequences_data.number <= 1000 and
             self.sequences_data.length <= 1000
         )
 
 
-class ProbconsLimits(Limits):
-
-    configurations = ['local', 'gridengine']
-
+class ProbconsLimits(Limiter):
     def setup(self, values):
         self.sequences_data = analyse_sequences_file(values['input'], 'fasta')
 
@@ -157,17 +128,14 @@ class ProbconsLimits(Limits):
             self.sequences_data.length <= 500
         )
 
-    def limit_gridengine(self, values):
+    def limit_default(self, values):
         return (
             self.sequences_data.number <= 1000 and
             self.sequences_data.length <= 1000
         )
 
 
-class TCoffeeLimits(Limits):
-
-    configurations = ['local', 'gridengine']
-
+class TCoffeeLimits(Limiter):
     def setup(self, values):
         self.sequences_data = analyse_sequences_file(values['input'], 'fasta')
 
@@ -177,17 +145,14 @@ class TCoffeeLimits(Limits):
             self.sequences_data.length <= 400
         )
 
-    def limit_gridengine(self, values):
+    def limit_default(self, values):
         return (
             self.sequences_data.number <= 1000 and
             self.sequences_data.length <= 1000
         )
 
 
-class GlobPlotLimits(Limits):
-
-    configurations = ['local', 'gridengine']
-
+class GlobPlotLimits(Limiter):
     def setup(self, values):
         self.sequences_data = analyse_sequences_file(values['input'], 'fasta')
 
@@ -197,17 +162,14 @@ class GlobPlotLimits(Limits):
             self.sequences_data.length <= 400
         )
 
-    def limit_gridengine(self, values):
+    def limit_default(self, values):
         return (
             self.sequences_data.number <= 5000 and
             self.sequences_data.length <= 1000
         )
 
 
-class DisemblLimits(Limits):
-
-    configurations = ['local', 'gridengine']
-
+class DisemblLimits(Limiter):
     def setup(self, values):
         self.sequences_data = analyse_sequences_file(values['input'], 'fasta')
 
@@ -217,17 +179,14 @@ class DisemblLimits(Limits):
             self.sequences_data.length <= 400
         )
 
-    def limit_gridengine(self, values):
+    def limit_default(self, values):
         return (
             self.sequences_data.number <= 5000 and
             self.sequences_data.length <= 1000
         )
 
 
-class JronnLimits(Limits):
-
-    configurations = ['local', 'gridengine']
-
+class JronnLimits(Limiter):
     def setup(self, values):
         self.sequences_data = analyse_sequences_file(values['input'], 'fasta')
 
@@ -237,7 +196,7 @@ class JronnLimits(Limits):
             self.sequences_data.length <= 50
         )
 
-    def limit_gridengine(self, values):
+    def limit_default(self, values):
         return (
             self.sequences_data.number <= 2000 and
             self.sequences_data.length <= 2000
