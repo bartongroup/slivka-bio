@@ -26,4 +26,5 @@ outputs:
     media-type: text/plain
 
 runners: !include include/runner_sets.yml#setB
+limiter: scripts.limits.DisemblLimits
 ...
