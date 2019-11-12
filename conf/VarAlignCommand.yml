@@ -56,7 +56,7 @@ outputs:
     media-type: application/gzip
     
 runners:
-  default: !include include/runners.yml#gridengine6000
+  default: !include include/runners.yml::gridengine6000
   
 env:
   PATH: /homes/www-slivka/miniconda3/envs/varalign-env-py3/bin:${PATH}

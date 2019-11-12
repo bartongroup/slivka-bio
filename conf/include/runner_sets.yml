@@ -1,7 +1,7 @@
 setA:
-  local: !include runners.yml#local
-  default: !include runners.yml#gridengine3400
+  local: !include runners.yml::local
+  default: !include runners.yml::gridengine3400
 
 setB:
-  local: !include runners.yml#local
-  default: !include runners.yml#gridengine6000
+  local: !include runners.yml::local
+  default: !include runners.yml::gridengine6000
