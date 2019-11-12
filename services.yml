@@ -114,3 +114,10 @@ jpred:
   - "Operation :: Analysis :: Sequence analysis :: Protein sequence analysis :: Protein secondary structure prediction"
   - "Operation :: Analysis :: Sequence analysis :: Protein sequence analysis :: Protein feature detection :: Protein secondary structure prediction"
   - "Operation :: Prediction and recognition :: Protein feature detection :: Protein secondary structure prediction"
+  
+
+varalign:
+  label: VarAlign
+  form: conf/VarAlignForm.yml
+  command: conf/VarAlignCommand.yml
+  classifiers: []

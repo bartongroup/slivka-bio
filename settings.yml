@@ -8,6 +8,8 @@ UPLOADS_URL_PATH: /media/uploads
 JOBS_URL_PATH: /media/tasks
 
 ACCEPTED_MEDIA_TYPES:
+  - text/plain
+  - application/pfam
   - application/fasta
   - application/clustal
   - application/json

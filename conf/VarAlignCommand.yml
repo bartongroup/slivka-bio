@@ -1,0 +1,63 @@
+ 
+---
+baseCommand: /homes/www-slivka/miniconda3/envs/varalign-env-py3/bin/varalign
+
+inputs:
+  species:
+    arg: --species $(value)
+    value: HUMAN  # becomes valid parameter if remove this value specification
+  only_sifts_best:
+    arg: --only_sifts_best
+    type: flag
+#  max_pdbs:
+#    arg: --max_pdbs $(value)
+#    type: number
+  max_gaussians:
+    arg: --max_gaussians $(value)
+    type: number
+  n_groups:
+    arg: --n_groups $(value)
+    type: number
+  n_proc:
+    arg: --n_proc $(value)
+    value: 1
+    type: number
+  alignment_file:
+    arg: $(value)
+    type: file
+    symlink: input.sto
+
+outputs:
+  log:
+    path: stdout
+    media-type: text/plain
+  error-log:
+    path: stderr
+    media-type: text/plain
+  tabular-output:
+    path: results/*.csv
+    media-type: text/plain
+  jalview-annotations:
+    path: results/*.ann
+    media-type: application/jalview-annotations
+  jalview-features:
+    path: results/*.feat
+    media-type: application/jalview-features
+  region-variants:
+    path: results/alignment_variants.vcf
+    media-type: text/plain
+  standard-plots:
+    path: results/*.pdf
+  aligned-variants-pickle:
+    path: .varalign/aligned_variants_data/*.p.gz
+    media-type: application/gzip
+  structure-table:
+    path: .varalign/prointvar_analysis_data/*.p.gz
+    media-type: application/gzip
+    
+runners:
+  default: !include include/runners.yml#gridengine6000
+  
+env:
+  PATH: /homes/www-slivka/miniconda3/envs/varalign-env-py3/bin:${PATH}
+...

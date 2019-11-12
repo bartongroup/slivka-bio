@@ -5,7 +5,6 @@ input-file:
     required: no
     type: file
     media-type: application/json
-    extensions: [json, txt]
 
 content:
   label: Message
