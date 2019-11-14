@@ -1,0 +1,10 @@
+service: clustalo
+runner: default
+inputs:
+  input: data/sequences.fa
+outputs:
+  - filename: output.txt
+    matches: data/clustalo-output.fa
+  - filename: stat.log
+  - filename: stderr
+timeout: 10

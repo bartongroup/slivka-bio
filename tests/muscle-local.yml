@@ -1,0 +1,10 @@
+service: muscle
+runner: local
+inputs:
+  input: data/sequences.fa
+outputs:
+  - filename: output.fasta
+    matches: data/muscle-output.fa
+  - filename: stat.log
+  - filename: stderr
+timeout: 5

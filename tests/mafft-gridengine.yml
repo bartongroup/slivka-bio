@@ -1,0 +1,9 @@
+service: mafft
+runner: default
+inputs:
+  input: data/sequences.fa
+outputs:
+  - filename: stdout
+    matches: data/mafft-output.fa
+  - filename: stderr
+timeout: 5

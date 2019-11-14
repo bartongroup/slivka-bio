@@ -1,0 +1,10 @@
+service: tcoffee
+runner: local
+inputs:
+  sequence: data/sequences.fa
+outputs:
+  - filename: sequences.clustalw
+    matches: data/tcoffee-output.clustal
+  - filename: stdout
+  - filename: stderr
+timeout: 5

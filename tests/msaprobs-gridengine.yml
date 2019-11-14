@@ -1,0 +1,10 @@
+service: msaprobs
+runner: default
+inputs:
+  input: data/sequences.fa
+outputs:
+  - filename: output.fa
+    matches: data/msaprobs-output.fa
+  - filename: stdout
+  - filename: stderr
+timeout: 5
