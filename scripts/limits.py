@@ -137,7 +137,7 @@ class ProbconsLimits(Limiter):
 
 class TCoffeeLimits(Limiter):
     def setup(self, values):
-        self.sequences_data = analyse_sequences_file(values['input'], 'fasta')
+        self.sequences_data = analyse_sequences_file(values['sequence'], 'fasta')
 
     def limit_local(self, values):
         return (
