@@ -2,7 +2,7 @@ import flask
 from flask import request
 
 from slivka.server.forms import FormLoader
-from slivka.db import mongo
+from slivka.db import database
 
 
 bp = flask.Blueprint('webapp', __name__, url_prefix='/webapp', template_folder='templates')
@@ -17,7 +17,7 @@ def form(service):
   elif request.method == 'POST':
     form = Form(data=request.form, files=request.files)
     if form.is_valid():
-      job_request = form.save(mongo.slivkadb)
+      job_request = form.save(database)
       url = flask.url_for('webapp.status', uuid=job_request.uuid)
       return flask.redirect(url)
     else:
