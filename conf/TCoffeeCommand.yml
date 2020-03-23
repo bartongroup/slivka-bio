@@ -67,6 +67,8 @@ env:
   PATH: ${CONDA_PREFIX}/lib/t_coffee-11.0.8/bin:${PATH}
   TEMP: /tmp/
 
-runners: !include include/runner_sets.yml::setA
-limiter: scripts.limits.TCoffeeLimits
+runners:
+  default:
+    class: SlivkaQueueRunner
+
 ...

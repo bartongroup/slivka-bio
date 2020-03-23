@@ -64,6 +64,8 @@ outputs:
 env:
   FASTA_4_MAFFT: ${HOME}/bin/fasta36
 
-runners: !include include/runner_sets.yml::setB
-limiter: scripts.limits.MafftLimits
+runners:
+  default:
+    class: SlivkaQueueRunner
+
 ...
