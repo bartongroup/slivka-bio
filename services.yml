@@ -43,6 +43,7 @@ aacon:
   classifiers:
   - "Topic :: Computational biology :: Sequence analysis"
   - "Operation :: Analysis :: Sequence analysis :: Sequence alignment analysis :: Sequence alignment analysis (conservation)"
+  - "Operation :: Analysis :: Sequence analysis :: Protein sequence analysis"
 
 iupred:
   label: IUPred
