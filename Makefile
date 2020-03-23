@@ -1,6 +1,6 @@
-.PHONY : all
-all : probcons msaprobs disembl globplot
-	conda env update -q -f environment.yml
+.PHONY : help
+help :
+	echo usage: make [tool]
 
 .PHONY : probcons
 probcons :
@@ -43,3 +43,7 @@ bin/Tisean_3.0.1/source_c/sav_gol:
 	tar xf bin/TISEAN_3.0.1.tar.gz -C bin
 	(cd bin/Tisean_3.0.1 && ./configure)
 	(cd bin/Tisean_3.0.1/source_c && make sav_gol)
+
+.PHONY : iupred
+iupred :
+	(cd bin/iupred && cc iupred.c -o iupred)
