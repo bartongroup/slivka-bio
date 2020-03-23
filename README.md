@@ -3,104 +3,210 @@ slivka-bio
 
 Slivka-bio is a pre-configured instance of a slivka project using conda targeted for bioinformatics.
 It contains configurations for tools such as Clustal Omega, ClustalW2, Muscle, IUPred, Mafft and more.
-The goal is to provide (almost) ready to use package which bundles all the most important tools.
+The goal is to provide (almost) ready to use package which bundles bioinformatic software in one tool.
+The applications currently available include:
 
-Installation
-============
+ - [Clustal Omega](http://www.clustal.org/omega/)
+ - [ClustalW2](http://www.clustal.org/clustal2/)
+ - [MUSCLE](https://www.drive5.com/muscle/)
+ - [T-Coffee](http://tcoffee.org/)
+ - [AACon](https://www.compbio.dundee.ac.uk/aacon/)
+ - [IUPred](http://iupred.enzim.hu) (sources not included)
+ - [MAFFT](https://mafft.cbrc.jp/alignment/software/)
+ - [ProbCons](http://probcons.stanford.edu/)
+ - [MSAProbs](http://msaprobs.sourceforge.net/homepage.htm)
+ - [GlobPlot](http://globplot.embl.de/)
+ - [DisEMBL](http://dis.embl.de/)
+ - JRonn (Java implementation of [RONN](https://www.bioinformatics.nl/~berndb/ronn.html))
+ - [JPred](https://www.compbio.dundee.ac.uk/jpred/index_up.html)
 
-Most of the sources for the bioinformatic software is already bundled in the `bin` directory.
-For the best compatibility and performance they need to be compiled from the sources for each operating system.
-Compliation of the tools require Fortran, C and C++ compilers to be available.
-Additionally, some of the tools used are distributed as conda packages, so conda package manager is also required.
+Slivka Installation
+===================
 
-Conda
------
-Miniconda, which is a minimal installer for conda, can be downloaded from [conda website](https://docs.conda.io/en/latest/miniconda.html).
-When the installation is complete, you can create a new environment e.g. "slivka-bio" for the project dependencies with
+The recommended way to install slivka and its dependencies is through conda package manager.
+If you don't have conda installed on your system yet, follow the miniconda installation instructions
+from [conda user guide](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html).
+Once the conda installation completes, create a new conda environment that will use python version 3.7 and activate it. Substitute the environment name of your choice for `slivka` if needed.
 
-    conda env create -n slivka-bio
+~~~sh
+$ conda create -n slivka python=3.7
+$ conda activate slivka
+~~~
 
-After that, activate the new environment using 
+Next, you may verify that python commands is pointing to the binary in the new environment.
+The output of `which` command should be the path in the miniconda envs directory as in the following example.
 
-    conda activate slivka-bio
+~~~sh
+$ which python
+/home/<username>/miniconda3/envs/slivka/bin/python
+~~~
 
-GNU toolchain
--------------
-A commonly used tools for building C, C++ and Fortran software are part of the GNU toolchain.
-Before you can compile the sources, make sure that `make`, `cc`, `g++` and `f77` are available on your system.
-On most UNIX systems they are included in `make`, `gcc`, `g++` and `gfortran` packages respectively.
-For debian-based systems (Debian, Ubuntu) use:
+Next, you need to download and install Slivka python package as well as slivka-bio configuration files from our github repository.
+For the time being, we recommend using the version from the dev branch until the first stable version is released.
 
-    apt-get install make gcc g++ gfortran
+~~~sh
+$ git clone --branch dev --single-branch https://github.com/warownia1/Slivka.git
+$ (cd Slivka; python setup.py install)
+$ git clone --branch dev --single-branch https://github.com/warownia1/slivka-bio.git
+~~~
 
-On CentOS (Redhat, Fedora) you can install them with:
+Slivka-bio also comes with some dependencies which are listed in the *environment.yml* file.
+They can be automatically installed using conda.
+~~~
+$ cd slivka-bio
+$ conda env update -f environment.yml
+~~~
 
-    yum group install "Development Tools"
+### MongoDB ###
 
-For other operating systems refer to your package manager documentation.
+Slivka depends on [MongoDB](https://www.mongodb.com) for exchanging and storing data.
+Ask your system administrator for installation and access to the mongo database on your system or, if you need user installation only, mongodb is available through conda in *anaconda* channel.
+Once installed, MongoDB process can be started using `mongod` command.
+More information on available command line parameters and configuration can be found in the [mongod documentation](https://docs.mongodb.com/manual/reference/program/mongod/).
+
+### WSGI server ###
+
+Web Service Gateway Interface is a convention for web servers to forward HTTP requests to python application.
+Recommeded middleware supported by Slivka include [Gunicorn](https://gunicorn.org/) and [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/).
+You need to install one of those (both available as conda packages) to use slivka server.
+If you want to use other software the wsgi application is located in the *wsgi.py* module file and is named *application*.
+
+Bioinformatic Tools Installation
+================================
+
+Most of the bioinformatic tools that slivka uses are available from bioconda channel or have their sources or binaries shipped with slivka-bio.
+
+Bioconda
+--------
+Tools ClustalO, ClustalW, MUSCLE, T-Coffee and MAFFT are available from bioconda channel in the conda package manager, which you should already have installed if you followed this guide.
+
+You can install each tool running the following commands from the slivka-bio directory (remember to have *slivka* environment activated)
+
+~~~sh
+$ make clustalo
+$ make clustalw
+$ make muscle
+$ make tcoffee
+$ make mafft
+~~~
+
+If you prefer doing it the hard way you can add bioconda and conda-forge channels 
+
+~~~sh
+$ conda config --add channels defaults
+$ conda config --add channels bioconda
+$ conda config --add channels conda-forge
+~~~
+
+and then install tools of your choice using
+
+~~~
+$ conda install clustalo clustalw \
+    muscle t_coffee mafft
+~~~
+
+Java
+----
+Tools AACon and JRonn are shipped as a compiled Java executables and require Java 1.8 or later to be installed on your system. Most system provide Java Runtime Environment out-of-the-box but if it's not the case you can install it using conda.
+~~~
+$ conda install openjdk
+~~~
+
+Compiling sources
+-----------------
+Tools ProbCons, MSAProbs, DisEMBL, GlobPlot and IUPred need to be compiled for your system architecture from the sources for best compatibility and performance.
+
+Due to legal limitations IUPred sources could not be included in the slivka-bio package.
+If you wish to use it, you can download it from [iupred website](http://iupred.enzim.hu/Downloads.php).
+Once you obtain the archive extract it and place the sources in the *bin/iupred* directory.
+
+The tools for building C, C++ and Fortran software are part of the GNU toolchain.
+Make sure that `make`, `gcc` and `g++` are available on you system.
+
+On Debian/Ubuntu/Mint they can be installed with
+~~~
+$ apt-get install make gcc g++ gfortran
+~~~
+
+On CentOS/Redhat/Fedora they are available as part of the Development Tools
+~~~
+$ yum group install "Development Tools"
+~~~
+
+For other operating system refer to you package manager repositories.
 The compilers may also be available as conda packages.
 Check out [anaconda cloud](https://anaconda.org/search) for the packages matching your operatig system and CPU architecture.
 
-Installation
-------------
-Once all the tools are installed, navigate to the project directory and run
-
-    make all
-
-which will compile all the programs from their sources and download and install necessary conda packages.
-The packages will be installed to the currently active conda environment so make sure to activate it before executing `make`.
-
-Mongodb
--------
-Slivka relies of mongodb as a message broker and a persistent data storage.
-If mongodb is not provided on your system, you can install it through conda with:
-
-    conda install -c anaconda mongodb
-
-and start it with:
-
-    mongod --dbpath /path/to/mongo/data
-
-Refer to [mongod documentation](https://docs.mongodb.com/manual/reference/program/mongod/)
-for more information about available command line parameters and mongodb configuration.
-
-IUPred
-------
-Due to the legal limitations, we could not bundle IUPred tool within the slivka package.
-If you wish to use UIPred you can obtain it from its author's [website](http://iupred.enzim.hu/).
-Extract the archive to the project's `bin` directory and follow the compilation instructions provided with IUPred.
-Otherwise, comment-out or delete the iupred section from `services.yml` configuration file.
+Once the compiler tools are installed you can build the tools you want to use.
+~~~
+$ make probcons
+$ make msaprobs
+$ make disembl
+$ make globplot
+$ make iupred
+~~~
 
 
 Configuration
 =============
 
-The main project configuration is stored in the `settings.yml` file.
-The following properties may need to be modified for proper operation,
-(it's recommended to leave other parameters unchanged):
+Slivka-bio configuration is organised into multiple files.
+General configuration is located in the root directory while additional project configurations are in the *conf* directory
+
+General configuration
+---------------------
+The general configuration is stored in the *settings.yml* file.
+Following parameters may need to be modified to make sure the Slivka server will work properly.
+It's recommended to leave remaining parameters unchanged.
 
 | parameter | description |
-|-----------|-------------|
-|`UPLOADS_DIR`|Directory where the uploaded files are stored. Absolute or relative path.|
-|`JOBS_DIR`|Directory where the job working directories will be created.|
-|`UPLOADS_URL_PATH`|URI where uploaded files will be available for download at.|
-|`JOBS_URL_PATH`|URI where job files from `JOBS_DIR` will be available at.|
-|`SECRET_KEY`|A key used for authentication. Change it to random ascii letters.|
-|`SERVER_HOST`|Address which the server will accept connections from. Set to `0.0.0.0` to accept all connection or to the proxy server address if using behind the proxy.|
-|`SERVER_PORT`|A port the REST server will be listening at.|
-|`SLIVKA_QUEUE_ADDR`|The address of slivka-local-queue. Can be either TCP address or UNIX domain socket.|
-|`MONGODB_ADDR`|Address of mongo database following [MongoDB URI format](https://docs.mongodb.com/manual/reference/connection-string/). Default is `mongodb://127.0.0.1:27017`.|
+|:----------|:------------|
+| `BASE_DIR` | Configuration directorly location. Using `.` sets it to the current working directory. It's recommended to set it to the absolute path e.g. `/home/your-username/slvka-bio/` |
+| `ACCEPTED_MEDIA_TYPES` | The list of media types that can be uploaded to the server. This feature is deprecated and will be removed in future versions. |
+| `SECRET_KEY` | A random string of characters used for signing sensitive data and hashes. Change to the random sequence of characters (at least 24 characters long) |
+| `SERVER_HOST` | The address which the server can accept the connections from. Use `127.0.0.1` if you want to restrict access to the local machine only or `0.0.0.0` to make is publicly visible. Restricting access and using reverse proxy is highly recommended for public servers. |
+| `SERVER_PORT` | The port number which the server will be listening on for incoming connections. Make sure you have permission to listen on the port specified. |
+| `SLIVKA_QUEUE_ADDR` | The address which the local queue will use to communicate with the scheduler. Can be either *tcp* or *unix* socket e.g. `tcp://127.0.0.1:4444` or `unix:///tmp/slivka.sock`. This settings only applies if you use local slivka queueing system. |
+| `MONGODB` | The address used to connect to the MontoDB following [MonogDB URI format](https://docs.mongodb.com/manual/reference/connection-string) Default is `mongodb://127.0.0.1:27017/slivka` |
 
+Enabled services
+----------------
+The list of available services is stored in the *services.yml* file.
+Each section identifies a single service and contains service label, location of service configuration files and the list of classifiers.
+In order to disable one or more services, comment-out the entire section adding `#` character at the beginning of each line.
 
-Running the project
-===================
+Advanced configuration
+----------------------
+This guide will not cover more advanced service configuration.
+Refer to the [slivka documentation](http://warownia1.github.io/Slivka/getting_started.html#services-configuration) if you need to adjust any of the command line parameters or customise runners.
 
-Once you have mongod server running you can start slivka-bio.
-Three processes: server, scheduler and local queue are preferrably started through `manage.py` script.
+Launching
+=========
 
-    python manage.py server -t gunicorn
-    python manage.py scheduler
-    python manage.py local-queue
+Once you finished the configuration, slivka is  ready to by started.
+The necessary processes are started using `manage.py` script which automates creating environment variables and initialising settings. 
 
-They can work in the background or be started in separate screens.
-For convenience, the `slivkad` script can be used to start|stop|restart slivka manually or use it as a init.d service.
+### Server ###
+~~~
+python manage.py server [-t TYPE] [-d -p PID_FILE] [-w WORKERS]
+~~~
+Starts the HTTP server using WSGI application specified by *TYPE*. Allowed values are `devel`, `uwsgi` or `gunicorn`. The specified application must be installed and available in the *PATH*.
+The development server is always available, but it can't serve more than one client at the time therefore it's not recommended for production.
+If you want to make your server publicly accessible, we recommend putting it behind a reverse proxy server. Refer to your wsgi application documentation for more details.
+Providing `-d` flag along with `-p PID_FILE` starts the process in background as a daemon and writes its pid to the file.
+You can also specify the number of worker processes explicitly. Defaults to twice the cpu-count.
+
+### Scheduler ###
+~~~
+python manage.py scheduler [-d -p PID_FILE]
+~~~
+Starts the scheduler that collects and dispatches new jobs and monitors their states.
+Providing `-d` flag starts the scheduler as a daemon and `-p PID_FILE` specifies the pid file location.
+
+### Local queue ###
+~~~
+python manage.py local-queue [-d -p PID_FILE] [-w WORKERS]
+~~~
+This is a default job runner which spawns new jobs as subprocesses on the local machine.
+If you specify `-d` and `-p PID_FILE` the process will run as a daemon and write its pid to the specified file.
+Additionally, you may specify the number of workers i.e. the number of jobs which can be run simultaneously. Defaults to 2.
