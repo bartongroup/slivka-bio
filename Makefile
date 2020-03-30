@@ -4,7 +4,7 @@ help :
 
 .PHONY : probcons
 probcons :
-	(cd bin/probcons && make all)
+	conda install -c bioconda probcons
 
 .PHONY : mafft
 mafft :

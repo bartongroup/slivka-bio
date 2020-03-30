@@ -1,6 +1,6 @@
 ---
 baseCommand:
-- ${SLIVKA_HOME}/bin/probcons/probcons
+- probcons
 
 inputs:
   _verbose:

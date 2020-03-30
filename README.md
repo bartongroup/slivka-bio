@@ -86,6 +86,7 @@ You can install each tool running the following commands from the slivka-bio dir
 $ make clustalo
 $ make clustalw
 $ make muscle
+$ make probcons
 $ make tcoffee
 $ make mafft
 ~~~
@@ -114,7 +115,7 @@ $ conda install openjdk
 
 Compiling sources
 -----------------
-Tools ProbCons, MSAProbs, DisEMBL, GlobPlot and IUPred need to be compiled for your system architecture from the sources for best compatibility and performance.
+Tools MSAProbs, DisEMBL, GlobPlot and IUPred need to be compiled for your system architecture from the sources for best compatibility and performance.
 
 Due to legal limitations IUPred sources could not be included in the slivka-bio package.
 If you wish to use it, you can download it from [iupred website](http://iupred.enzim.hu/Downloads.php).
@@ -139,7 +140,6 @@ Check out [anaconda cloud](https://anaconda.org/search) for the packages matchin
 
 Once the compiler tools are installed you can build the tools you want to use.
 ~~~
-$ make probcons
 $ make msaprobs
 $ make disembl
 $ make globplot
