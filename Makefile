@@ -28,7 +28,7 @@ clustalo :
 
 .PHONY : msaprobs
 msaprobs :
-	(cd bin/MSAProbs && make all)
+	conda install -c mmwarowny msaprobs 
 
 .PHONY : disembl
 disembl: bin/Tisean_3.0.1/source_c/sav_gol

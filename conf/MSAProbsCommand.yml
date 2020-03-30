@@ -1,6 +1,6 @@
 ---
 baseCommand:
-- ${SLIVKA_HOME}/bin/MSAProbs/msaprobs
+- msaprobs
 
 inputs:
   consistency:
