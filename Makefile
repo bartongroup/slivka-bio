@@ -31,18 +31,12 @@ msaprobs :
 	conda install -c mmwarowny msaprobs 
 
 .PHONY : disembl
-disembl: bin/Tisean_3.0.1/source_c/sav_gol
-	(cd bin/disembl && gcc -O3 disembl.c -o disembl)
-	cp bin/Tisean_3.0.1/source_c/sav_gol bin/disembl/sav_gol
+disembl : 
+	conda install -c mmwarowny disembl 
 
 .PHONY : globplot
-globplot: bin/Tisean_3.0.1/source_c/sav_gol
-	cp bin/Tisean_3.0.1/source_c/sav_gol bin/globplot/sav_gol
-
-bin/Tisean_3.0.1/source_c/sav_gol:
-	tar xf bin/TISEAN_3.0.1.tar.gz -C bin
-	(cd bin/Tisean_3.0.1 && ./configure)
-	(cd bin/Tisean_3.0.1/source_c && make sav_gol)
+globplot :
+	conda install -c mmwarowny globplot 
 
 .PHONY : iupred
 iupred :

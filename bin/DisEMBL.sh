@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-python $SLIVKA_HOME/bin/disembl/DisEMBL.py $* > output.txt
+DisEMBL $* > output.txt
 returncode=$?
 if [ $returncode -ne 0 ]; then
     exit $returncode
