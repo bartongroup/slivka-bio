@@ -15,5 +15,3 @@ slivka.conf.logging.configure_logging()
 slivka.server.init()
 application = app = slivka.server.create_app()
 
-import routes
-app.register_blueprint(routes.bp)
