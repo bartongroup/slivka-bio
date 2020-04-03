@@ -1,0 +1,26 @@
+package:
+  name: slivka-bio
+  version: 1.0
+
+source:
+  git_url: ..
+  patches:
+    - manage.py.patch
+  folder: slivka-bio
+
+requirements:
+  run:
+    - python >=3.7
+    - biopython >=1.7
+    - gunicorn >=19.9
+    - slivka =0.6b0
+    - probcons
+    - mafft
+    - t_coffee
+    - muscle
+    - clustalw
+    - clustalo
+    - msaprobs
+    - disembl
+    - globplot
+

@@ -1,0 +1,21 @@
+--- manage.py	2020-03-20 13:08:35.018109754 +0000
++++ manage.update.py	2020-04-03 14:09:41.030497267 +0100
+@@ -1,14 +1,14 @@
+ #!/usr/bin/env python3
+ 
+ import os
++import sys
+ 
++os.chdir(os.path.join(os.getenv('CONDA_PREFIX'), 'var', 'slivka-bio'))
++sys.path.append(os.path.abspath('.'))
+ SETTINGS_FILE = 'settings.yml'
+ 
+-
+ if __name__ == "__main__":
+-    settings_path = os.path.join(
+-        os.path.dirname(os.path.abspath(__file__)), SETTINGS_FILE
+-    )
++    settings_path = os.path.join('.', SETTINGS_FILE)
+     os.environ.setdefault('SLIVKA_SETTINGS', settings_path)
+     try:
+         import slivka.command
