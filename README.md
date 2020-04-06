@@ -20,6 +20,22 @@ The applications currently available include:
  - JRonn (Java implementation of [RONN](https://www.bioinformatics.nl/~berndb/ronn.html))
  - [JPred](https://www.compbio.dundee.ac.uk/jpred/index_up.html)
 
+Quick Install with Conda
+========================
+The easiest way to install slivka-bio with all the tools and dependencies
+is by using pre-defined conda environment shipped from our anaconda channel.
+If you don't have conda installed on your system, follow the miniconda installation
+from [conda user guide](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html).
+Then, run
+~~~
+conda env create mmwarowny/compbio-services
+conda activate compbio-services
+~~~
+It will automatically create a new environment called *compbio-services*
+and install all dependencies and configurations.
+After that, slivka-bio is ready to use. You may need to tweak some configurations
+though as described in the [configuration](#configuration) section.
+
 Slivka Installation
 ===================
 
@@ -78,7 +94,7 @@ Most of the bioinformatic tools that slivka uses are available from bioconda cha
 
 Bioconda
 --------
-Tools ClustalO, ClustalW, MUSCLE, T-Coffee and MAFFT are available from bioconda channel in the conda package manager, which you should already have installed if you followed this guide.
+Tools ClustalO, ClustalW, MUSCLE, T-Coffee, MSAProbs, Probcons and MAFFT are available from bioconda channel in the conda package manager, which you should already have installed if you followed this guide.
 
 You can install each tool running the following commands from the slivka-bio directory (remember to have *slivka* environment activated)
 
@@ -88,10 +104,12 @@ $ make clustalw
 $ make muscle
 $ make probcons
 $ make tcoffee
+$ make msaprobs
+$ make probcons
 $ make mafft
 ~~~
 
-If you prefer doing it the hard way you can add bioconda and conda-forge channels 
+If you prefer doing it the hard way you can add bioconda and conda-forge channels
 
 ~~~sh
 $ conda config --add channels defaults
@@ -103,7 +121,7 @@ and then install tools of your choice using
 
 ~~~
 $ conda install clustalo clustalw \
-    muscle t_coffee mafft
+    muscle t_coffee msaprobs probcons mafft
 ~~~
 
 Java
@@ -115,7 +133,7 @@ $ conda install openjdk
 
 Compiling sources
 -----------------
-Tools MSAProbs, DisEMBL, GlobPlot and IUPred need to be compiled for your system architecture from the sources for best compatibility and performance.
+Tools DisEMBL, GlobPlot and IUPred need to be compiled for your system architecture from the sources for best compatibility and performance.
 
 Due to legal limitations IUPred sources could not be included in the slivka-bio package.
 If you wish to use it, you can download it from [iupred website](http://iupred.enzim.hu/Downloads.php).
@@ -140,7 +158,6 @@ Check out [anaconda cloud](https://anaconda.org/search) for the packages matchin
 
 Once the compiler tools are installed you can build the tools you want to use.
 ~~~
-$ make msaprobs
 $ make disembl
 $ make globplot
 $ make iupred
@@ -151,7 +168,10 @@ Configuration
 =============
 
 Slivka-bio configuration is organised into multiple files.
-General configuration is located in the root directory while additional project configurations are in the *conf* directory
+General configuration is located under the repository root directory
+while additional project configurations are in the *conf* directory
+If slivka-bio was installed with conda package manager, the configuration
+files are located at ``$CONDA_PREFIX/var/slivka-bio``
 
 General configuration
 ---------------------
@@ -184,7 +204,11 @@ Launching
 =========
 
 Once you finished the configuration, slivka is  ready to by started.
-The necessary processes are started using `manage.py` script which automates creating environment variables and initialising settings. 
+The necessary processes are started using *manage.py* python script
+which automates creating environment variables and initialising settings.
+If you had slivka-bio installed as a conda package, you can use `slivka-start`
+command in place of *manage.py* script file. The command line parameters
+remain the same.
 
 ### Server ###
 ~~~
