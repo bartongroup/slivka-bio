@@ -1,0 +1,78 @@
+---
+label: JPred
+classifiers:
+  - 'Topic :: Computational biology :: Structure analysis :: 
+    Protein structure analysis :: Protein secondary structure'
+  - 'Topic :: Computational biology :: Proteins :: Protein structure 
+    analysis :: Protein secondary structure'
+  - 'Operation :: Analysis :: Structure analysis :: Protein structure 
+    analysis :: Protein secondary structure analysis :: Protein 
+    secondary structure prediction'
+  - 'Operation :: Prediction and recognition :: Protein secondary 
+    structure prediction'
+  - 'Operation :: Analysis :: Sequence analysis :: Protein sequence 
+    analysis :: Protein secondary structure prediction'
+  - 'Operation :: Analysis :: Sequence analysis :: Protein sequence 
+    analysis :: Protein feature detection :: Protein secondary structure 
+    prediction'
+  - 'Operation :: Prediction and recognition :: Protein feature detection :: 
+    Protein secondary structure prediction'
+
+form:
+  input:
+    label: Input file
+    value:
+      type: file
+      required: yes
+      media-type: application/fasta
+
+  skippdb:
+    label: Skip PDB check
+    value:
+      type: choice
+      choices:
+        "on": "on"
+        "off": "off"
+      default: "on"
+
+  format:
+    label: Input data format
+    value:
+      type: choice
+      choices:
+        seq: seq
+        fasta: fasta
+        msf: msf
+        blc: blc
+      default: fasta
+
+command:
+  baseCommand:
+    - jpred
+  
+  inputs:
+    skippdb:
+      arg: skipPDB=$(value)
+      value: "on"
+    format:
+      arg: format=$(value)
+      value: fasta
+    input:
+      arg: $(value)
+      type: file
+      
+  outputs:
+    archive:
+      path: result.tar.gz
+      media-type: application/gzip
+    log:
+      path: stdout
+      media-type: text/plain
+    error-log:
+      path: stderr
+      media-type: text/plain
+
+runners:
+  default:
+    class: scripts.runners.JPredRunner
+...

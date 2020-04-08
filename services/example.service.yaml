@@ -1,0 +1,105 @@
+---
+label: Example
+classifiers: []
+
+form:
+  input-file:
+    label: Input file
+    value:
+      required: no
+      type: file
+      media-type: application/json
+
+  content:
+    label: Message
+    description: Message sent to the file
+    value:
+      required: yes
+      type: text
+      min-length: 3
+      max-length: 15
+
+  extra-count:
+    label: Number of files
+    description: Specifies the number of auxilary files to generate
+    value:
+      required: yes
+      type: int
+      default: 1
+      min: 0
+      max: 5
+
+  sleep:
+    label: Time to wait
+    description: Stop the process for the specified number of seconds
+    value:
+      required: no
+      type: int
+      default: 0
+    
+  flags:
+    label: Flags
+    description: Some flags that do nothing specific
+    value:
+      required: no
+      type: choice
+      multiple: yes
+      choices:
+        multiplicative: mul
+        fullscreen: fs
+        v-sync enabled: vs
+        keep aspect ratio: keep-aspect
+
+  log:
+    label: Enable log
+    value:
+      required: no
+      type: flag
+
+command:
+  baseCommand: python ${SLIVKA_HOME}/scripts/example.py
+  
+  inputs:
+    input-file:
+      arg: --infile $(value)
+      type: file
+      symlink: input.txt
+    content:
+      arg: -t $(value)
+    extra-count:
+      arg: -x $(value)
+      type: number
+    sleep:
+      arg: -w $(value)
+      type: number
+    log:
+      arg: --log
+      type: flag
+    _verbose:
+      arg: -v
+      type: flag
+      value: true
+  
+  arguments:
+    - output.txt
+  
+  outputs:
+    message:
+      path: output.txt
+      media-type: text/plain
+    content:
+      path: stdout
+      media-type: text/plain
+    log:
+      path: stderr
+      media-type: text/plain
+    extra:
+      path: extra-output.*.json
+      media-type: application/json
+  
+runners:
+  default:
+    class: SlivkaQueueRunner
+  grid-engine:
+    class: GridEngineRunner
+...

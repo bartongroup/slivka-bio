@@ -1,0 +1,117 @@
+---
+label: ProbCons
+classifiers:
+  - 'Topic :: Computational biology :: Sequence analysis'
+  - 'Operation :: Analysis :: Sequence analysis :: Sequence alignment :: 
+    Multiple sequence alignment'
+  - 'Operation :: Comparison :: Sequence comparison'
+
+
+form:
+  input:
+    label: Input file
+    value:
+      type: file
+      required: yes
+      media-type: application/fasta
+
+  output-aligned:
+    label: Output aligned
+    description: Output sequences in alignment order rather than input order
+    value:
+      type: boolean
+      required: no
+
+  pre-training:
+    label: Rounds of pre-training before aligning the sequences
+    description: 'This specifies the number of rounds of EM to be 
+      applied on the set of sequences being aligned. This option is 
+      used in case the default parameters are not appropriate for 
+      the particular sequences being aligned; in general, this option 
+      is not recommended as it may lead to unstable alignment parameters.'
+    value:
+      type: int
+      required: no
+      min: 0
+      max: 20
+      default: 0
+
+  iterative-refinement:
+    label: Passes of iterative refinement
+    description: 'This specifies the number of iterations of iterative 
+      refinement to be performed.  In each stage of iterative refinement, 
+      the set of sequences in the alignment is randomly partitioned into 
+      two groups. After projecting the alignments to these groups, the 
+      two groups are realigned, resulting in an alignment whose objective 
+      score is guaranteed to be at least that of the original alignment'
+    value:
+      type: int
+      required: no
+      min: 0
+      max: 100
+      default: 100
+
+  consistency:
+    label: Passes of consistency transformation
+    description: 'Each pass applies one round of the consistency 
+      transformation on the set of sequences. The consistency 
+      transformation is described in detail in the mentioned papers. 
+      In each round, the aligner computes the consistency transformation 
+      for each pair of sequences using all other sequences. The aligner 
+      then updates the posterior probability matrices of the pairwise 
+      alignments.'
+    value:
+      type: int
+      required: no
+      min: 0
+      max: 5
+      default: 2
+
+command:
+  baseCommand:
+    - probcons
+  
+  inputs:
+    _verbose:
+      arg: -v
+      type: flag
+      value: on
+    _clustal:
+      arg: -clustalw
+      type: flag
+      value: on
+    _annot:
+      arg: -annot $(value)
+      value: annotations.txt
+    output-aligned:
+      arg: -a
+      type: flag
+    pre-training:
+      arg: -pre $(value)
+      type: number
+    iterative-refinement:
+      arg: -ir $(value)
+      type: number
+    consistency:
+      arg: -c $(value)
+      type: number
+    input:
+      arg: $(value)
+      type: file
+      symlink: input.mfa
+      
+  outputs:
+    alignemnt:
+      path: stdout
+      media-type: application/clustal
+    annotations:
+      path: annotations.txt
+      media-type: application/annotations
+    log:
+      path: stderr
+      media-type: text/plain
+
+runners:
+  default:
+    class: SlivkaQueueRunner
+...

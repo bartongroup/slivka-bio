@@ -1,0 +1,69 @@
+---
+label: IUPred
+classifiers:
+  - 'Topic :: Computational biology :: Sequence analysis'
+  - 'Operation :: Analysis :: Sequence analysis :: Protein sequence analysis'
+
+
+form:
+  input:
+    label: Input file
+    value:
+      type: file
+      media-type: application/fasta
+      required: yes
+
+  type:
+    label: Disorder type
+    description: 'Long - for prediction of long disordered regions, 
+      short - for prediction of short disordered regions (e.g. 
+      missing residues in X-ray structures) and glob - for predicting 
+      globular domains. All - for all methods'
+    value:
+      type: choice
+      required: yes
+      choices:
+        short: short
+        long: long
+        glob: glob
+        all: all
+      default: long
+
+command:
+  baseCommand:
+    - bash
+    - ${SLIVKA_HOME}/bin/IUPred.sh
+  
+  inputs:
+    input:
+      arg: $(value)
+      type: file
+      symlink: input.fasta
+  
+  env:
+    IUPred_PATH: ${SLIVKA_HOME}/bin/iupred/
+  
+  outputs:
+    glob:
+      path: out.glob
+    short:
+      path: out.short
+    long:
+      path: out.long
+    jalview-annotations:
+      path: iupred.jvannot
+      media-type: application/jalview-annotations
+    jalview-features:
+      path: iupred.jvfeat
+      media-type: application/jalview-features
+    error-log:
+      path: stderr
+      media-type: text/plain
+    log:
+      path: stdout
+      media-type: text/plain
+
+runners:
+  default:
+    class: SlivkaQueueRunner
+...

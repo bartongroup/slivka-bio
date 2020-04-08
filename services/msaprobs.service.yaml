@@ -1,0 +1,72 @@
+---
+label: MSAProbs
+classifiers:
+  - 'Topic :: Computational biology :: Sequence analysis'
+  - 'Operation :: Analysis :: Sequence analysis :: Sequence alignment :: 
+    Multiple sequence alignment'
+
+form:
+  input:
+    label: Input file
+    value:
+      type: file
+      required: yes
+      media-type: application/fasta
+
+  consistency:
+    label: Consistency repetitions
+    description: Number of passes of consistency transformation.
+    value:
+      type: int
+      required: no
+      min: 0
+      max: 5
+      default: 2
+
+  iterative-refinement:
+    label: Interative refinaement
+    description: Number of iterative refinement passes.
+    value:
+      type: int
+      required: no
+      min: 0
+      max: 1000
+      default: 10
+
+command:
+  baseCommand:
+    - msaprobs
+  
+  inputs:
+    consistency:
+      arg: -c $(value)
+      type: number
+    iterative-refinement:
+      arg: -ir $(value)
+      type: number
+    _out:
+      arg: -o $(value)
+      value: output.fa
+    _verbose:
+      arg: -v
+      type: flag
+      value: on
+    input:
+      arg: $(value)
+      type: file
+  
+  outputs:
+    alignment:
+      path: output.fa
+      media-type: application/fasta
+    log:
+      path: stdout
+      media-type: text/plain
+    error-log:
+      path: stderr
+      media-type: text/plain
+
+runners:
+  default:
+    class: SlivkaQueueRunner
+...

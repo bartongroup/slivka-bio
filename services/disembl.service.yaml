@@ -1,0 +1,46 @@
+---
+label: DisEMBL
+classifiers:
+  - 'Topic :: Computational biology :: Sequence analysis'
+  - 'Operation :: Analysis :: Sequence analysis :: Protein sequence analysis'
+
+
+form:
+  input:
+    label: Input file
+    value:
+      type: file
+      required: yes
+      media-type: application/fasta
+
+command:
+  baseCommand:
+    - bash
+    - ${SLIVKA_HOME}/bin/DisEMBL.sh
+  
+  inputs:
+    input:
+      arg: $(value)
+      type: file
+  
+  outputs:
+    raw-output:
+      path: output.txt
+      media-type: text/plain
+    jalview-annotations:
+      path: disembl.jvannot
+      media-type: application/jalview-annotations
+    jalview-features:
+      path: disembl.jvfeat
+      media-type: application/jalview-features
+    log:
+      path: stdout
+      media-type: text/plain
+    error-log:
+      path: stderr
+      media-type: text/plain
+
+runners:
+  default:
+    class: SlivkaQueueRunner
+...

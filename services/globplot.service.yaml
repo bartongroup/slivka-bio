@@ -1,0 +1,47 @@
+---
+label: GlobPlot
+classifiers:
+  - 'Topic :: Computational biology :: Sequence analysis'
+  - 'Operation :: Analysis :: Sequence analysis :: Protein sequence analysis'
+
+
+form:
+  input:
+    label: Input file
+    value:
+      type: file
+      required: yes
+      media-type: application/fasta
+
+command:
+  baseCommand:
+    - bash
+    - ${SLIVKA_HOME}/bin/GlobPlot.sh
+  
+  inputs:
+    input:
+      arg: $(value)
+      type: file
+      symlink: input.fasta
+  
+  outputs:
+    raw-output:
+      path: output.txt
+      media-type: text/plain
+    jalview-annotations:
+      path: globplot.jvannot
+      media-type: application/jalview-annotations
+    jalview-features:
+      path: globplot.jvfeat
+      media-type: application/jalview-features
+    log:
+      path: stdout
+      media-type: text/plain
+    error-log:
+      path: stderr
+      media-type: text/plain
+
+runners:
+  default:
+    class: SlivkaQueueRunner
+...
