@@ -28,6 +28,7 @@ If you don't have conda installed on your system, follow the miniconda installat
 from [conda user guide](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html).
 Then, run
 ~~~
+conda install anaconda-client -n base
 conda env create mmwarowny/compbio-services
 conda activate compbio-services
 ~~~
