@@ -1,12 +1,12 @@
---- manage.py	2020-04-09 12:41:36.439720484 +0100
-+++ manage.py.updt	2020-04-09 12:42:41.227330348 +0100
+--- manage.py	2020-04-16 17:21:38.866957732 +0100
++++ manage.py.updated	2020-04-16 17:30:24.802942995 +0100
 @@ -3,7 +3,8 @@
  import os
  import sys
  
 -home = os.path.dirname(os.path.abspath(__file__))
 +home = os.path.join('$CONDA_PREFIX', 'var', 'slivka-bio')
-+home = os.path.expandvar(home)
- sys.path.append(home)
- SETTINGS_FILE = 'settings.yml'
++home = os.path.expandvars(home)
  
+ if __name__ == "__main__":
+     home = os.environ.get('SLIVKA_HOME', home)
