@@ -1,9 +1,11 @@
 slivka-bio
 ==========
 
-Slivka-bio is a pre-configured instance of a slivka project using conda targeted for bioinformatics.
-It contains configurations for tools such as Clustal Omega, ClustalW2, Muscle, IUPred, Mafft and more.
-The goal is to provide (almost) ready to use package which bundles bioinformatic software in one tool.
+Slivka-bio is a pre-configured instance of a slivka project using conda
+targeted for bioinformatics. It contains configurations for tools such
+as Clustal Omega, ClustalW2, Muscle, IUPred, Mafft and more.
+The goal is to provide (almost) ready to use package which bundles
+bioinformatic software in one tool.
 The applications currently available include:
 
  - [Clustal Omega](http://www.clustal.org/omega/)
@@ -23,56 +25,60 @@ The applications currently available include:
 Quick Install with Conda
 ========================
 The easiest way to install slivka-bio with all the tools and dependencies
-is by using pre-defined conda environment shipped from our anaconda channel.
+is by using pre-defined conda environment available from our anaconda channel.
 If you don't have conda installed on your system, follow the miniconda installation
 from [conda user guide](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html).
 Then, run
-~~~
+```
 conda install anaconda-client -n base
 conda env create mmwarowny/compbio-services
 conda activate compbio-services
-~~~
-It will automatically create a new environment called *compbio-services*
-and install all dependencies and configurations.
-After that, slivka-bio is ready to use. You may need to tweak some configurations
-though as described in the [configuration](#configuration) section.
+```
+It will automatically fetch the exported environemnt file and re-create this environment
+on your local machine. After activating the new environment *compbio-services*
+slivka-bio will be ready to use.
+Follow to the [configuration](#configuration) section if you need to customise
+settings.
 
 Slivka Installation
 ===================
 
-The recommended way to install slivka and its dependencies is through conda package manager.
-If you don't have conda installed on your system yet, follow the miniconda installation instructions
-from [conda user guide](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html).
-Once the conda installation completes, create a new conda environment that will use python version 3.7 and activate it. Substitute the environment name of your choice for `slivka` if needed.
+The recommended way to install slivka and its dependencies is through
+conda package manager. If you don't have conda installed on your system
+yet, follow the miniconda installation instructions from
+[conda user guide](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html).
+Once the conda installation completes, create a new conda environment
+that will use python version 3.7 and activate it. Substitute the
+environment name of your choice for `slivka` if needed.
 
-~~~sh
+```
 $ conda create -n slivka python=3.7
 $ conda activate slivka
-~~~
+```
 
 Next, you may verify that python commands is pointing to the binary in the new environment.
 The output of `which` command should be the path in the miniconda envs directory as in the following example.
 
-~~~sh
+```
 $ which python
 /home/<username>/miniconda3/envs/slivka/bin/python
-~~~
+```
 
 Next, you need to download and install Slivka python package as well as slivka-bio configuration files from our github repository.
 For the time being, we recommend using the version from the dev branch until the first stable version is released.
 
-~~~sh
+```
 $ git clone --branch dev --single-branch https://github.com/warownia1/Slivka.git
 $ (cd Slivka; python setup.py install)
 $ git clone --branch dev --single-branch https://github.com/warownia1/slivka-bio.git
-~~~
+```
 
 Slivka-bio also comes with some dependencies which are listed in the *environment.yml* file.
 They can be automatically installed using conda.
-~~~
+```
 $ cd slivka-bio
 $ conda env update -f environment.yml
-~~~
+```
 
 ### MongoDB ###
 
@@ -99,7 +105,7 @@ Tools ClustalO, ClustalW, MUSCLE, T-Coffee, MSAProbs, Probcons and MAFFT are ava
 
 You can install each tool running the following commands from the slivka-bio directory (remember to have *slivka* environment activated)
 
-~~~sh
+```
 $ make clustalo
 $ make clustalw
 $ make muscle
@@ -108,29 +114,29 @@ $ make tcoffee
 $ make msaprobs
 $ make probcons
 $ make mafft
-~~~
+```
 
 If you prefer doing it the hard way you can add bioconda and conda-forge channels
 
-~~~sh
+```
 $ conda config --add channels defaults
 $ conda config --add channels bioconda
 $ conda config --add channels conda-forge
-~~~
+```
 
 and then install tools of your choice using
 
-~~~
+```
 $ conda install clustalo clustalw \
     muscle t_coffee msaprobs probcons mafft
-~~~
+```
 
 Java
 ----
 Tools AACon and JRonn are shipped as a compiled Java executables and require Java 1.8 or later to be installed on your system. Most system provide Java Runtime Environment out-of-the-box but if it's not the case you can install it using conda.
-~~~
+```
 $ conda install openjdk
-~~~
+```
 
 Compiling sources
 -----------------
@@ -144,45 +150,48 @@ The tools for building C, C++ and Fortran software are part of the GNU toolchain
 Make sure that `make`, `gcc` and `g++` are available on you system.
 
 On Debian/Ubuntu/Mint they can be installed with
-~~~
+```
 $ apt-get install make gcc g++ gfortran
-~~~
+```
 
 On CentOS/Redhat/Fedora they are available as part of the Development Tools
-~~~
+```
 $ yum group install "Development Tools"
-~~~
+```
 
 For other operating system refer to you package manager repositories.
 The compilers may also be available as conda packages.
 Check out [anaconda cloud](https://anaconda.org/search) for the packages matching your operatig system and CPU architecture.
 
 Once the compiler tools are installed you can build the tools you want to use.
-~~~
+```
 $ make disembl
 $ make globplot
 $ make iupred
-~~~
+```
 
 
 Configuration
 =============
 
 Slivka-bio configuration is organised into multiple files.
-General configuration is located under the repository root directory
-while additional project configurations are in the *conf* directory
+Basic configuration is located in the *settings.yaml* file
+in the repository root directory
+The configurations for each service is located in its respective file
+in services folder.
 If slivka-bio was installed with conda package manager, the configuration
 files are located at ``$CONDA_PREFIX/var/slivka-bio``
 
 General configuration
 ---------------------
-The general configuration is stored in the *settings.yml* file.
-Following parameters may need to be modified to make sure the Slivka server will work properly.
+The basic configuration is stored in the *settings.yaml* file and it defines
+constants and parameters used by all Slivka components.
+Some of the parameter listed below may need to be modified to make sure
+that the Slivka server will work properly.
 It's recommended to leave remaining parameters unchanged.
 
 | parameter | description |
 |:----------|:------------|
-| `BASE_DIR` | Configuration directorly location. Using `.` sets it to the current working directory. It's recommended to set it to the absolute path e.g. `/home/your-username/slvka-bio/` |
 | `ACCEPTED_MEDIA_TYPES` | The list of media types that can be uploaded to the server. This feature is deprecated and will be removed in future versions. |
 | `SECRET_KEY` | A random string of characters used for signing sensitive data and hashes. Change to the random sequence of characters (at least 24 characters long) |
 | `SERVER_HOST` | The address which the server can accept the connections from. Use `127.0.0.1` if you want to restrict access to the local machine only or `0.0.0.0` to make is publicly visible. Restricting access and using reverse proxy is highly recommended for public servers. |
@@ -192,46 +201,76 @@ It's recommended to leave remaining parameters unchanged.
 
 Enabled services
 ----------------
-The list of available services is stored in the *services.yml* file.
-Each section identifies a single service and contains service label, location of service configuration files and the list of classifiers.
-In order to disable one or more services, comment-out the entire section adding `#` character at the beginning of each line.
+For each configuration file in the *services* directory, Slivka will attempt
+to create a new service. The filename must follow the *<name>.service.yaml*
+pattern in order to be recognised.
+In order to disable one or more services, simply remove their configuration
+files from *services* directory or change the filename to one not matching
+the pattern i.e. append *.disabled* to the file extension
 
 Advanced configuration
 ----------------------
-This guide will not cover more advanced service configuration.
-Refer to the [slivka documentation](http://warownia1.github.io/Slivka/getting_started.html#services-configuration) if you need to adjust any of the command line parameters or customise runners.
+This guide will not cover service configuration. Refer to the
+[slivka documentation](http://warownia1.github.io/Slivka/getting_started.html#services-configuration)
+if you need to adjust command line parameters or customise runners.
 
 Launching
 =========
 
-Once you finished the configuration, slivka is  ready to by started.
-The necessary processes are started using *manage.py* python script
-which automates creating environment variables and initialising settings.
-If you had slivka-bio installed as a conda package, you can use `slivka-start`
-command in place of *manage.py* script file. The command line parameters
+Once you finished the configuration step, you can deploy your own slivka server.
+First, navigate to the slivka configuration directory (the one having
+*settings.yaml* in it). Alternatively, you can set *SLIVKA_HOME* environment
+variable poitning to that directory.
+For slivka to operate properly, you need to start its three processes:
+http server which manager incoming connections, scheduler which collects
+and dispatches incoming job requests, local-queue which stacks and runs
+incoming jobs on the local machine.
+
+The three processes are launched using `slivka` command created during
+slivka installation. Alternatively, you can use *manage.py* script
+located in the project directory which automatically sets *SLIVKA_HOME*
+variable when started.
+If you had slivka-bio installed as a conda package, use `slivka-bio`
+command instead.
+All other command line parameters
 remain the same.
 
 ### Server ###
-~~~
-python manage.py server [-t TYPE] [-d -p PID_FILE] [-w WORKERS]
-~~~
-Starts the HTTP server using WSGI application specified by *TYPE*. Allowed values are `devel`, `uwsgi` or `gunicorn`. The specified application must be installed and available in the *PATH*.
-The development server is always available, but it can't serve more than one client at the time therefore it's not recommended for production.
-If you want to make your server publicly accessible, we recommend putting it behind a reverse proxy server. Refer to your wsgi application documentation for more details.
-Providing `-d` flag along with `-p PID_FILE` starts the process in background as a daemon and writes its pid to the file.
-You can also specify the number of worker processes explicitly. Defaults to twice the cpu-count.
+```
+slivka start server [-t TYPE] [-d -p PID_FILE] [-w WORKERS]
+```
+Starts the HTTP server using WSGI application specified by *TYPE*.
+Allowed values are `devel`, `uwsgi` or `gunicorn`. The specified
+application must be installed and available in the *PATH*.
+The development server is always available, but it can't serve more
+than one client at the time therefore it's not recommended for production.
+
+If you want to make your server publicly accessible, we recommend running
+it behind a reverse proxy server. Refer to your wsgi application
+documentation for more details.
+
+Providing `-d` flag along with `-p PID_FILE` starts the process in
+background as a daemon and writes its pid to the file.
+
+You can also specify the number of worker processes explicitly.
+Defaults to twice the cpu-count.
 
 ### Scheduler ###
-~~~
-python manage.py scheduler [-d -p PID_FILE]
-~~~
+```
+slivka start scheduler [-d -p PID_FILE]
+```
 Starts the scheduler that collects and dispatches new jobs and monitors their states.
-Providing `-d` flag starts the scheduler as a daemon and `-p PID_FILE` specifies the pid file location.
+Providing `-d` flag starts the scheduler as a daemon and `-p PID_FILE`
+specifies the pid file location.
 
 ### Local queue ###
-~~~
-python manage.py local-queue [-d -p PID_FILE] [-w WORKERS]
-~~~
-This is a default job runner which spawns new jobs as subprocesses on the local machine.
-If you specify `-d` and `-p PID_FILE` the process will run as a daemon and write its pid to the specified file.
-Additionally, you may specify the number of workers i.e. the number of jobs which can be run simultaneously. Defaults to 2.
+```
+slivka start local-queue [-d -p PID_FILE] [-w WORKERS]
+```
+This is a default job runner which spawns new jobs as subprocesses on
+the local machine. If you specify `-d` and `-p PID_FILE` the process
+will run as a daemon and write its pid to the specified file.
+
+Additionally, you may specify the number of workers i.e. the number
+of jobs which can be run simultaneously. Defaults to 2.
+
