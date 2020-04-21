@@ -10,7 +10,7 @@ source:
 
 build:
   noarch: generic
-  number: 4
+  number: 5
 
 requirements:
   run:
@@ -20,7 +20,7 @@ requirements:
     - slivka=0.6b1
     - probcons=1.12
     - mafft=7.458
-    - t_coffee=11.0.8
+    - t_coffee=13.41.0
     - muscle=3.8.1551
     - clustalw=2.1
     - clustalo=1.2.4
