@@ -9,7 +9,8 @@ source:
   folder: slivka-bio
 
 build:
-  number: 3
+  noarch: generic
+  number: 4
 
 requirements:
   run:
