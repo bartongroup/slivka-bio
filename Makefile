@@ -39,5 +39,7 @@ globplot :
 	conda install -c mmwarowny -c conda-forge globplot
 
 .PHONY : iupred
-iupred :
-	(cd bin/iupred && cc iupred.c -o iupred)
+iupred : bin/iupred/iupred
+bin/iupred/iupred :
+	$(MAKE) -C bin/iupred GPP=$(CC)
+
