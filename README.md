@@ -23,11 +23,9 @@ The applications currently available include:
  - [JPred](https://www.compbio.dundee.ac.uk/jpred/index_up.html)
 
 
-Installation
-============
+Quick Installation with Conda
+=============================
 
-Quick Install with Conda
-------------------------
 The easiest way to install slivka-bio with all the tools and dependencies
 is by using pre-defined conda environment available from our anaconda channel.
 If you don't have conda installed on your system, follow the miniconda
@@ -46,8 +44,13 @@ environment - *compbio-services* slivka-bio will be ready to use.
 Follow to the [configuration](#configuration) section if you need to
 customise settings.
 
-Installing from sources
------------------------
+
+Manual Installation
+===================
+
+Installing slivka
+-----------------
+
 The recommended way to manage slivka installation and dependencies
 is through conda package manager. If you don't have conda installed
 on your system yet, follow the miniconda installation instructions
@@ -77,9 +80,8 @@ git clone --branch dev --single-branch https://github.com/warownia1/slivka-bio.g
 Keep in mind that slivka-bio does not include any bioinformatic tools.
 If you choose this installation route, you need to provide them by yourself.
 
-
-Bioinformatic Tools Installation
-================================
+Installing bioinformatic tools
+------------------------------
 
 If you chose to install slivka-bio using conda then all the tools,
 except IUPred, have beed installed automatically.
@@ -87,8 +89,8 @@ However, if you decided to install them manually, most of the
 bioinformatic tools that slivka uses are available from
 bioconda, our private conda channel or are shipped with slivka-bio.
 
-Bioconda
---------
+### Bioconda ###
+
 Tools: ClustalO, ClustalW, MUSCLE, T-Coffee, MSAProbs, Probcons and
 MAFFT can be installed with conda package manager from bioconda channel.
 
@@ -101,8 +103,8 @@ conda config --add channels bioconda
 conda install clustalo clustalw muscle t_coffee msaprobs probcons mafft
 ```
 
-Private conda channel
----------------------
+### Private conda channel ###
+
 Tools: DisEMBL and GlobPlot as well as a more recent version of
 T-Coffee for macOS and linux are available from the *mmwarowny* channel.
 
@@ -111,8 +113,8 @@ conda config --add channels mmwarowny
 conda install disembl globplot t_coffee
 ```
 
-Java
-----
+### Java ###
+
 Tools AACon and JRonn are shipped as compiled Java executables and
 require Java 1.8 or later to be installed on your system. Most system
 provide Java Runtime Environment out-of-the-box but if it's not the
@@ -122,8 +124,8 @@ case you can install it using conda.
 conda install openjdk
 ```
 
-Building from sources
----------------------
+### Building from sources ###
+
 It is highly recommended to install the bioinformatic tools using
 the package managers.
 However, if you prefer building bioinformtic tools from the sources
@@ -133,7 +135,7 @@ After the compilation, make sure that the binary location is included
 in the PATH variable or set the absolute path to the binary in the
 service configuration file.
 
-### IUPred ###
+#### IUPred ####
 
 Due to the legal limitations, IUPred sources could not be included in
 the slivka-bio package nor can be provided through conda.
@@ -167,6 +169,18 @@ conda install clang_osx-64  # MacOS
 ```
 
 For other operating systems refer to you package manager repositories.
+
+## WSGI server ##
+
+Web Service Gateway Interface is a convention for web servers to
+forward HTTP requests to python application.
+Recommeded middleware supported by Slivka include
+[Gunicorn](https://gunicorn.org/) and
+[uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/).
+You need to install one of those (both available as conda packages)
+to use slivka server.
+If you want to use other software the wsgi application is located in
+the *wsgi.py* module file and is named *application*.
 
 
 Configuration
@@ -226,18 +240,6 @@ is available through conda in *anaconda* channel.
 Once installed, MongoDB process can be started using `mongod` command.
 More information on available command line parameters and configuration
 can be found in the [mongod documentation](https://docs.mongodb.com/manual/reference/program/mongod/).
-
-## WSGI server ##
-
-Web Service Gateway Interface is a convention for web servers to
-forward HTTP requests to python application.
-Recommeded middleware supported by Slivka include
-[Gunicorn](https://gunicorn.org/) and
-[uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/).
-You need to install one of those (both available as conda packages)
-to use slivka server.
-If you want to use other software the wsgi application is located in
-the *wsgi.py* module file and is named *application*.
 
 ## Slivka ##
 
