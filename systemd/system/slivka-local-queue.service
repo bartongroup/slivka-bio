@@ -1,0 +1,16 @@
+[Unit]
+Description=Slivka local job runner queue service
+After=network.target
+Wants=slivka-scheduler.service
+
+[Service]
+ExecStart=/usr/bin/env slivka start local-queue
+Restart=always
+User=slivka
+Group=slivka
+Environment=PATH=/home/slivka/miniconda3/envs/slivka/bin:/bin:/usr/bin:/usr/local/bin:/usr/sbin
+Environment=SLIVKA_HOME=/home/slivka/data
+
+[Install]
+WantedBy=multi-user.target
+
