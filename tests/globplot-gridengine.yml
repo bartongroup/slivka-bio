@@ -1,0 +1,12 @@
+service: globplot
+runner: default
+inputs:
+  input: data/sequences.fa
+outputs:
+  - filename: output.txt
+  - filename: globplot.jvannot
+  - filename: globplot.jvfeat
+  - filename: stdout
+  - filename: stderr
+timeout: 30
+

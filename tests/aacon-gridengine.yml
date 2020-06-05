@@ -1,0 +1,10 @@
+service: aacon
+runner: default
+inputs:
+  input: data/sequences.fa
+outputs:
+  - filename: output.txt
+  - filename: aacon.jvannot
+  - filename: stat.txt
+  - filename: stderr
+timeout: 30

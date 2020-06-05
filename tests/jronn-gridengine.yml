@@ -1,0 +1,11 @@
+service: jronn
+runner: default
+inputs:
+  input: data/sequences.fa
+outputs:
+  - filename: output.txt
+  - filename: jronn.jvannot
+  - filename: stat.log
+  - filename: stderr
+timeout: 30
+

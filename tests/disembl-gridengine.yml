@@ -1,0 +1,11 @@
+service: disembl
+runner: default
+inputs: 
+  input: data/sequences.fa
+outputs:
+  - filename: output.txt
+  - filename: disembl.jvannot
+  - filename: disembl.jvfeat
+  - filename: stdout
+  - filename: stderr
+timeout: 30
