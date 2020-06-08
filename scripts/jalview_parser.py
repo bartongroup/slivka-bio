@@ -40,7 +40,6 @@ def print_feature_row(feature, file=None):
   print(str.join('\t', map(str, filter(is_not_none, feature))), file=file)
 
 
-
 class IUPredReader:
   def __init__(self):
     self.glob_pattern = re.compile(
@@ -141,6 +140,7 @@ class IUPredReader:
           print_feature_row(feature, file=file)
     file.write('ENDGROUP\tIUPredWS\n')
 
+
 class GlobPlotReader:
   def run(self, args):
     result = self.read_file(open(args.input))
@@ -156,10 +156,10 @@ class GlobPlotReader:
     for line in file:
       if line == '\n':
         continue
-      seq = re.match(r'^> ?(\w+)$', line).group(1)
-      doms = re.match(r'^^# GlobDoms\s*((?:\d+-\d+(?:, )?)*)', next(file)).group(1)
+      seq = re.match(r'^>\s?(.*\S)\s*$', line).group(1)
+      doms = re.match(r'^# GlobDoms\s*((?:\d+-\d+(?:, )?)*)', next(file)).group(1)
       doms = [tuple(r.split('-')) for r in doms.split(', ')] if doms else []
-      dis = re.match(r'^^# Disorder\s*((?:\d+-\d+(?:, )?)*)', next(file)).group(1)
+      dis = re.match(r'^# Disorder\s*((?:\d+-\d+(?:, )?)*)', next(file)).group(1)
       dis = [tuple(r.split('-')) for r in dis.split(', ')] if dis else []
       next(file)
       annots = []
@@ -239,7 +239,7 @@ class DisEMBLReader:
       if line == '\n':
         line = file.readline()
         continue
-      seq = re.match(r'^> ?(\w+)$', line).group(1)
+      seq = re.match(r'^>\s?(.*\S)\s*$', line).group(1)
       coils = rem465 = hotloops = ()
       while True:
         line = file.readline()
@@ -317,7 +317,7 @@ class JRonnReader:
     line = file.readline()
     annotations = OrderedDict()
     while line:
-      seq = re.match(r'> ?([\w ]+)$', line).group(1)
+      seq = re.match(r'^>\s?(.*\S)\s*$', line).group(1)
       residues = file.readline().split()
       values = file.readline().split()
       annotations[seq] = values
