@@ -72,9 +72,9 @@ For the time being, we recommend using the version from the dev branch
 until the first stable version is released.
 
 ```sh
-git clone --branch dev --single-branch https://github.com/warownia1/Slivka.git
-(cd Slivka; python setup.py install)
-git clone --branch dev --single-branch https://github.com/warownia1/slivka-bio.git
+git clone --branch dev --single-branch https://github.com/bartongroup/slivka.git
+(cd slivka; python setup.py install)
+git clone --branch dev --single-branch https://github.com/bartongroup/slivka-bio.git
 ```
 
 Keep in mind that slivka-bio does not include any bioinformatic tools.
@@ -224,7 +224,7 @@ extension.
 Advanced configuration
 ----------------------
 This guide will not cover service configuration. Refer to the
-[slivka documentation](http://warownia1.github.io/Slivka/getting_started.html#services-configuration)
+[slivka documentation](http://bartongroup.github.io/slivka/getting_started.html#services-configuration)
 if you need to adjust command line parameters or customise runners.
 
 Launching
