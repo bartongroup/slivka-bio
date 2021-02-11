@@ -65,6 +65,18 @@ command:
     archive:
       path: result.tar.gz
       media-type: application/gzip
+    alignment:
+      path: jp_*.align
+      media-type: application/fasta
+    concise:
+      path: jp_*.concise
+      media-type: text/plain
+    jnet:
+      path: jp_*.jnet
+      media-type: application/x-jnet
+    jalview-annotations:
+      path: jp_*.jalview
+      media-type: application/jalview-annotations
     log:
       path: stdout
       media-type: text/plain
