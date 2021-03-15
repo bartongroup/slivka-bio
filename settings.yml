@@ -13,6 +13,8 @@ ACCEPTED_MEDIA_TYPES:
   - application/fasta
   - application/clustal
   - application/json
+  - application/hmmer
+  - application/stockholm
 
 SECRET_KEY: =change_me=
 

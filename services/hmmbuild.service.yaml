@@ -1,0 +1,397 @@
+---
+label: HMMbuild
+classifiers: []
+
+form:
+  input-alignment:
+    label: Input alignment
+    value:
+      type: file
+      required: yes
+      media-type: application/stockholm
+
+  name:
+    label: Profile name
+    description: Name of the new profile or the name of the alignment
+      if the parameter is not set.
+    value:
+      type: text
+      required: no
+
+  alphabet:
+    label: Sequence alphabet
+    description: Set the sequences alphabet manually, bypassing autodetection.
+    value:
+      type: choice
+      required: no
+      choices:
+        auto: null
+        protein: amino
+        dna: dna
+        rna: rna
+      default: auto
+
+  model-strategy:
+    label: Model construction method
+    description: Choose how the consensus columns are defined.
+      fast - define consensus columns as those with fraction of residues
+      greater or equal to the specified threshold, as opposed to gaps
+      manual - define consensus columns in next profile using reference
+      annotation to the multiple alignment. This allows to define any
+      consensus columns you like. Required reference annotation.
+    value:
+      type: choice
+      required: no
+      choices:
+        fast: fast
+        manual: hand
+      default: fast
+
+  symbol-fraction:
+    label: Residue fraction threshold
+    description: Define the residue fraction threshold necessary to define
+      a consensus columns when using the "fast" method. The symbol fraction
+      in each column is calculated after taking relative sequence weighting
+      into account, and ignoring gap characters corresponding to ends
+      of sequence fragments. Setting this to 0.0 means that every column
+      is considered as consensus; 1.0 means that only columns that include
+      no gaps are considered as consensus.
+    value:
+      type: float
+      required: no
+      min: 0.0
+      max: 1.0
+      default: 0.5
+
+  frag-threshhold:
+    label: Fragment threshold
+    description: The fraction of the alignment length in columns
+      below which the sequence will be considered a fragment.
+      HMMER only counts terminal gaps as deletions if the
+      aligned sequence is known to be full-length, not if it is
+      a fragment. Setting the threshold to 0.0 will define no
+      (nonempty) sequence as a fragment; setting to 1.0 will define
+      all sequences as fragments.
+    value:
+      type: float
+      required: no
+      min: 0.0
+      max: 1.0
+      default: 0.5
+
+  # Options controlling relative weights
+  weights:
+    label: Relative weights
+    description: Ad hoc sequence weighting algorithm used to
+      downweight closely related sequences and upweight distantly
+      related ones. This has the effect of making models less biased
+      by uneven phylogenetic representation.
+    value:
+      type: choice
+      required: no
+      choices:
+        "Heinkoff position-based": pb
+        "Gerstein/Sonnhammer/Chothia": gsc
+        "BLOSUM": blosum
+        "none": none
+      default: Heinkoff position-based
+
+  id-cutoff:
+    label: Identity threshold
+    description: Sets the identity threshold used by single-linkage
+      clustering. Valid only with BLOSUM weighting scheme.
+    value:
+      type: float
+      required: no
+      min: 0.0
+      max: 1.0
+      # default: 0.62  # cannot be used without BLOSUM weights
+
+  # Options controlling effective sequence number
+  enumber-method:
+    label: Effective sequence number method
+    description: The method used to calculate the effective number
+      of sequences in the alignment. The entropy weighting method
+      (default) reduces the effective sequence number to achieve
+      a specific relative entropy per position. The target entropy
+      is controlled by a two-parameter function with relative
+      entropy and sigma parameters. None turns off effective sequence
+      number determination and uses the actual number of sequences.
+    value:
+      type: choice
+      required: no
+      choices:
+        entropy: ent
+        none: none
+  
+  eset:
+    label: Set the effective sequences number
+    description: Explicitly sets the effective number of sequences
+      for all models.
+    value:
+      type: int
+      required: no
+
+  ere:
+    label: Minimum relative entropy target
+    description: Sets the minimum relative entropy/position target.
+      Requires "entropy" method. Default depends on the sequence
+      alphabet; for protein sequences it is 0.59 bits/position;
+      for nucleotide sequences, it is 0.45 bits/position.
+    value:
+      type: float
+      required: no
+
+  esigma:
+    label: Entropy sigma
+    description: Sets the minimum relative entropy contributed
+      by an entire model alignment, over the whole length. This
+      has effect of making short models have higher relative entropy
+      per position then minimum relative entropy parameter would give.
+    value:
+      type: float
+      required: no
+      default: 45.0
+
+  # Options controlling prior strategy in models after first iteration
+  prior-strategy:
+    label: Prior strategy
+    description: Prior method used for converting weighted counts
+      to mean posterior probability parameter estimates in profile
+      construction.
+    value:
+      type: choice
+      required: no
+      choices:
+        "mixture Dirichlet": null
+        "none": none
+        "Laplace +1": laplace
+
+  # Options controlling single sequence scoring
+  single-matrix:
+    label: Force single-sequence method
+    description: Forces the use of a single-sequence method with
+      substitution score matrix.
+      In a single sequence query comes from multiple sequence
+      alignment, the search model is constructed as for multiple sequence
+      alignment.
+    value:
+      type: boolean
+      required: no
+
+  matrix:
+    label: Substitution matrix
+    description: Obtain residue alignment probabilities from the
+      selected substitution matrix. The default is BLOSUM62 for
+      protein sequences and DNA1 for nucleotide sequences.
+    value:
+      type: choice
+      required: no
+      choices:
+        PAM30: PAM30
+        PAM70: PAM70
+        PAM120: PAM120
+        PAM240: PAM240
+        BLOSUM45: BLOSUM45
+        BLOSUM50: BLOSUM50
+        BLOSUM62: BLOSUM62
+        BLOSUM80: BLOSUM80
+        BLOSUM90: BLOSUM90
+        DNA1: DNA1
+
+  popen:
+    label: Gap open probability
+    description: Gap open probability for a single sequence query model.
+    value:
+      type: float
+      min: 0.0
+      max: 0.5
+      max-exclusive: yes
+      default: 0.02
+
+  pextend:
+    label: Gap extend probability
+    description: Gap extend probability for a single sequence query model.
+    value:
+      type: float
+      min: 0
+      max: 1.0
+      max-exclusive: yes
+      default: 0.4
+
+  # Options controlling E-value calibration
+  msv-length:
+    label: Sequences length for MSV
+    description: Sets the sequence length in simulation that estimates
+      the location parameter mu for MSV filter E-values.
+    value:
+      type: int
+      required: no
+      min: 0
+      default: 200
+  
+  msv-number:
+    label: Sequences number for MSV
+    description: Sets the number of sequences in simulation that
+      estimates the location parameter mu for MSV filter E-values.
+    value:
+      type: int
+      required: no
+      min: 0
+      default: 200
+
+  vit-length:
+    label: Sequences length for Viterbi
+    description: Sets the sequence length in simulation that
+      estimates the location parameter mu for Viterbi filter E-values.
+    value:
+      type: int
+      required: no
+      min: 0
+      default: 200
+
+  vit-number:
+    label: Sequences number for Viterbi
+    description: Sets the number of sequences in simulation that
+      estimates the location parameter mu for Viterbi filter E-values.
+    value:
+      type: int
+      required: no
+      min: 0
+      default: 200
+
+  fwd-length:
+    label: Sequences length for Forward
+    description: Sets the sequence length in simulation that
+      estimates the location parameter tau for Forward E-values.
+    value:
+      type: int
+      required: no
+      min: 0
+      default: 100
+
+  fwd-number:
+    label: Sequences number for Forward
+    description: Sets the number of sequences in simulation that
+      estimates the location parameter tau for Forward E-values.
+    value:
+      type: int
+      required: no
+      min: 0
+      default: 200
+
+  fwd-mass-fraction:
+    label: Tail mass fraction
+    description: Sets the tail mass fraction to fil in the simulation
+      that estimates the location parameter tau for Forward E-values.
+    value:
+      type: float
+      required: no
+      default: 0.04
+
+command:
+  baseCommand: hmmbuild
+
+  inputs:
+    name:
+      arg: -n $(value)
+      type: string
+
+    alphabet:
+      arg: --$(value)
+      type: string
+
+    model-strategy:
+      arg:  --$(value)
+      type: string
+    symbol-fraction:
+      arg: --symfrac $(value)
+      type: number
+    frag-threshold:
+      arg: --fragthresh $(value)
+      type: number
+
+    weights:
+      arg: --w$(value)
+      type: string
+    id-cutoff:
+      arg: --wid $(value)
+      type: number
+
+    enumber-method:
+      arg: --e$(value)
+      type: string
+    eset:
+      arg: --eset $(value)
+      type: number
+    ere:
+      arg: --ere $(value)
+      type: number
+    esigma:
+      arg: --esigma $(value)
+      type: number
+
+    prior-strategy:
+      arg: --p$(value)
+      type: string
+
+    single-matrix:
+      arg: --singlemx
+      type: flag
+    matrix:
+      arg: --mx $(value)
+      type: string
+    popen:
+      arg: --popen $(value)
+      type: number
+    pextend:
+      arg: --pextend $(value)
+      type: number
+
+    msv-length:
+      arg: --EmL $(value)
+      type: number
+    msv-number:
+      arg: --EmN $(value)
+      type: number
+    vit-length:
+      arg: --EvL $(value)
+      type: number
+    vit-number:
+      arg: --EvN $(value)
+      type: number
+    fwd-length:
+      arg: --EfL $(value)
+      type: number
+    fwd-number:
+      arg: --EfN $(value)
+      type: number
+    fwd-mass-fraction:
+      arg: --Eft $(value)
+      type: number
+
+    _output:
+      arg: $(value)
+      value: output.hmm
+    input-alignment:
+      arg: $(value)
+      type: file
+
+  env:
+    PATH: ${HOME}/miniconda3/envs/hmmer/bin:${PATH}
+
+  outputs:
+    hmmfile:
+      path: output.hmm
+      media-type: text/plain
+    log:
+      path: stdout
+      media-type: text/plain
+    error-log:
+      path: stderr
+      media-type: text/plain
+
+runners:
+  default:
+    class: SlivkaQueueRunner
+...
