@@ -1,0 +1,387 @@
+---
+label: pHMMER
+classifiers: []
+
+form:
+  input-sequences:
+    label: Input sequences
+    description: Protein sequences used to search the target database
+      of sequences.
+    value:
+      type: file
+      required: yes
+      media-type: application/fasta
+
+  input-database:
+    label: Input database
+    description: Database that will be queried with the sequences from
+      the sequences input file.
+    value:
+      type: file
+      required: yes
+      media-type: application/fasta
+
+  # Options controlling scoring system in first iteration
+  popen:
+    label: Gap open probability
+    description: Gap open probability for a single sequence query model.
+    value:
+      type: float
+      min: 0.0
+      max: 0.5
+      max-exclusive: yes
+      default: 0.02
+
+  pextend:
+    label: Gap extend probability
+    description: Gap extend probability for a single sequence query model.
+    value:
+      type: float
+      min: 0
+      max: 1.0
+      max-exclusive: yes
+      default: 0.4
+
+  matrix:
+    label: Substitution matrix
+    description: Obtain residue alignment probabilities from the
+      selected substitution matrix.
+    value:
+      type: choice
+      choices:
+        PAM30: PAM30
+        PAM70: PAM70
+        PAM120: PAM120
+        PAM240: PAM240
+        BLOSUM45: BLOSUM45
+        BLOSUM50: BLOSUM50
+        BLOSUM62: BLOSUM62
+        BLOSUM80: BLOSUM80
+        BLOSUM90: BLOSUM90
+      default: BLOSUM62
+
+  # Options controlling reporting thresholds
+  rep-E:
+    label: E-value threshold
+    description: Report target sequences with a lower or equal E-value in
+      per-target output. The default of 10 means that, on average, about
+      10 false positives will be reported per query, so you can see the top
+      of the noise.
+    value:
+      type: float
+      required: no
+      min: 0.0
+      min-exclusive: yes
+      default: 10.0
+
+  rep-T:
+    label: Bit score threshold
+    description: Use a bit score threshold for per-sequence output
+      instead of and E-value (E-value threshold will be ignored).
+      Report sequences having greater or equal bit score.
+    value:
+      type: float
+      required: no
+
+  repdom-E:
+    label: Domains E-value threshold
+    description: Report domains with lower of equal E-value
+      in per-domain output, in addition to the top-scoring
+      domain per significant sequence hit.
+    value:
+      type: float
+      required: no
+      min-exclusive: yes
+      default: 10.0
+
+  repdom-T:
+    label: Domains bit score threshold
+    description: Use a bit score threshold for per-domain output instead
+      of an E-value threshold (domains E-value threshold will be
+      ignored). Report domains with a greater or equal bit score
+      in per-domain output, in addition to the top-scoring domain per
+      significant sequence hit.
+    value:
+      type: float
+      required: no
+
+  # Options controlling inclusion threshold
+  inc-E:
+    label: Inclusion E-value threshold
+    description: Include sequences having lower or equal E-value
+      in subsequent iterations or final alignment output.
+    value:
+      type: float
+      required: no
+  
+  inc-T:
+    label: Inclusion bit score threshold
+    description: Use a bit score threshold for per-sequence inclusion
+      instead of an E-value threshold (inclusion E-value threshold
+      will be ignored). Include sequences having greater or equal
+      bit score.
+    value:
+      type: float
+      required: no
+
+  incdom-E:
+    label: Domains inclusion E-value threshold
+    description: Include domains with lower or equal E-value
+      in subsequent iteration or final alignment output, in addition
+      to the top-scoring domain per significant sequence hit.
+    value:
+      type: float
+      required: no
+      default: 0.001
+
+  incdom-T:
+    label: Domains inclusion bit score threshold
+    description: Use a bit score threshold for per-domain inclusion
+      instead of an E-value threshold (Domains inclusion E-value
+      threshold will be ignored). Include domains a greater or equal
+      bit score.
+    value:
+      type: float
+      required: no
+  
+  # Options controlling acceleration heuristics
+  no-heuristic:
+    label: Disable heuristic
+    description: Maximum sensitivity. Turns off all filters,
+      including the bias filter, and run full Forward/Backward
+      postprocessing on every target. This increases sensitivity
+      slightly, at a large cost in speed.
+    value: 
+      type: boolean
+      required: no
+
+  msv-threshold:
+    label: MSV filter threshold
+    description: First filter threshold; sets the P-value threshold
+      for the MSV filter step. The default of 0.02 means that
+      roughly 2% of the highest scoring nonhomologous targets are
+      expected to pass the filter.
+    value:
+      type: float
+      required: no
+      min: 0.0
+      default: 0.02
+
+  vit-threshold:
+    label: Viterbi filter threshold
+    description: Second filter threshold; sets the P-value threshold
+      for the Viterbi filter step.
+    value:
+      type: float
+      required: no
+      min: 0.0
+      default: 0.001
+
+  fwd-threshold:
+    label: Forward filter threshold
+    description: Third filter threshold; set the P-value threshold
+      for the Forward filter step.
+    value:
+      type: float
+      required: no
+      min: 0.0
+      default: 1.0e-5
+
+  no-bias:
+    label: Disable bias filter
+    description: Turns off the bias filter. This increases sensitivity
+      somewhat, but can come at a high cost in speed, especially
+      if the query has biased residue composition (such as
+      repetitive sequence region, or if is a membrane protein
+      with large regions of hydrophobicity). Without the bias filter,
+      too many sequences may pass the filter with biased queries,
+      leading to slower than expected performance as the computationally
+      intensive Forward/Backward algorithms should an abnormally
+      heavy load.
+    value: 
+      type: boolean
+      required: no
+
+  # Options controlling E-value calibration
+  msv-length:
+    label: Sequences length for MSV
+    description: Sets the sequence length in simulation that estimates
+      the location parameter mu for MSV filter E-values.
+    value:
+      type: int
+      required: no
+      min: 0
+      default: 200
+  
+  msv-number:
+    label: Sequences number for MSV
+    description: Sets the number of sequences in simulation that
+      estimates the location parameter mu for MSV filter E-values.
+    value:
+      type: int
+      required: no
+      min: 0
+      default: 200
+
+  vit-length:
+    label: Sequences length for Viterbi
+    description: Sets the sequence length in simulation that
+      estimates the location parameter mu for Viterbi filter E-values.
+    value:
+      type: int
+      required: no
+      min: 0
+      default: 200
+
+  vit-number:
+    label: Sequences number for Viterbi
+    description: Sets the number of sequences in simulation that
+      estimates the location parameter mu for Viterbi filter E-values.
+    value:
+      type: int
+      required: no
+      min: 0
+      default: 200
+
+  fwd-length:
+    label: Sequences length for Forward
+    description: Sets the sequence length in simulation that
+      estimates the location parameter tau for Forward E-values.
+    value:
+      type: int
+      required: no
+      min: 0
+      default: 100
+
+  fwd-number:
+    label: Sequences number for Forward
+    description: Sets the number of sequences in simulation that
+      estimates the location parameter tau for Forward E-values.
+    value:
+      type: int
+      required: no
+      min: 0
+      default: 200
+
+  fwd-mass-fraction:
+    label: Tail mass fraction
+    description: Sets the tail mass fraction to fil in the simulation
+      that estimates the location parameter tau for Forward E-values.
+    value:
+      type: float
+      required: no
+      default: 0.04
+
+command:
+  baseCommand: phmmer
+
+  inputs:
+    _output:
+      arg: -o $(value)
+      value: hmmsearch.out
+    _msa_output:
+      arg: -A $(value)
+      value: msa.output.sto
+
+    popen:
+      arg: --popen $(value)
+      type: number
+    pextend:
+      arg: --pextend $(value)
+      type: number
+    matrix:
+      arg: --mx $(value)
+      type: string
+
+    rep-E:
+      arg: -E $(value)
+      type: number
+    rep-T:
+      arg: -T $(value)
+      type: number
+    repdom-E:
+      arg: --domE $(value)
+      type: number
+    repdom-T:
+      arg: --domT $(value)
+      type: number
+    
+    inc-E:
+      arg: --incE $(value)
+      type: number
+    inc-T:
+      arg: --incT $(value)
+      type: number
+    incdom-E:
+      arg: --incdomE $(value)
+      type: number
+    incdom-T:
+      arg: --incdomT $(value)
+      type: number
+
+    no-heuristics:
+      arg: --max
+      type: flag
+    msv-threshold:
+      arg: --F1 $(value)
+      type: number
+    vit-threshold:
+      arg: --F2 $(value)
+      type: number
+    fwd-threshold:
+      arg: --F3 $(value)
+      type: number
+    no-bias:
+      arg: --nobias
+      type: flag
+
+    msv-length:
+      arg: --EmL $(value)
+      type: number
+    msv-number:
+      arg: --EmN $(value)
+      type: number
+    vit-length:
+      arg: --EvL $(value)
+      type: number
+    vit-number:
+      arg: --EvN $(value)
+      type: number
+    fwd-length:
+      arg: --EfL $(value)
+      type: number
+    fwd-number:
+      arg: --EfN $(value)
+      type: number
+    fwd-mass-fraction:
+      arg: --Eft $(value)
+      type: number
+
+    input-sequences:
+      arg: $(value)
+      type: file
+    input-database:
+      arg: $(value)
+      type: file
+
+  env:
+    PATH: ${HOME}/miniconda3/envs/hmmer/bin:${PATH}
+
+  outputs:
+    output:
+      path: hmmsearch.out
+      media-type: text/plain
+    msa-output:
+      path: msa.output.sto
+      media-type: application/stockholm
+    log:
+      path: stdout
+      media-type: text/plain
+    error-log:
+      path: stderr
+      media-type: text/plain
+
+runners:
+  default:
+    class: SlivkaQueueRunner
+...
