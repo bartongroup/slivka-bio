@@ -90,11 +90,11 @@ form:
       type: choice
       required: no
       choices:
-        "Heinkoff position-based": pb
+        "Henikoff position-based": pb
         "Gerstein/Sonnhammer/Chothia": gsc
         "BLOSUM": blosum
         "none": none
-      default: Heinkoff position-based
+      default: Henikoff position-based
 
   id-cutoff:
     label: Identity threshold
