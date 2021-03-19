@@ -1,0 +1,102 @@
+---
+label: HMMalign
+classifiers: []
+
+form:
+  input-hmm:
+    label: Input profile
+    description: The HMM profile that the sequences will be aligned to.
+      The file should contain only a single profile. If it contains
+      more, only the first profile will be used.
+    value:
+      type: file
+      required: yes
+      media-type: application/hmmer
+
+  input-sequences:
+    label: Input sequences
+    description: The sequences that the multiple sequence alignment will
+      be performed on. The sequences are aligned in unhit local alignment
+      mode. Therefore they should already be known to contain only a single
+      domain (or a fragment of one).
+    value:
+      type: file
+      required: yes
+      media-type: text/plain
+
+  trim:
+    label: Trim residues
+    description: Trim nonhonologous residues (assigned to N and C states
+      in the optimal alignments) from the resulting multiple alignment.
+    value:
+      type: flag
+      required: no
+
+  alphabet:
+    label: Sequence alphabet
+    description: Assert the input sequences alphabet bypassing autodetection.
+    value:
+      type: choice
+      required: no
+      choices:
+        auto: null
+        protein: amino
+        dna: dna
+        rna: rna
+      default: auto
+
+  input-format:
+    label: Input format
+    description: Assert file format for input sequences bypassing autodetection.
+    value:
+      type: choice
+      required: no
+      choices:
+        auto: null
+        FASTA: fasta
+        EMBL: embl
+        GenBank: genbank
+        UniProt: UniProt
+
+command:
+  baseCommand: hmmalign
+
+  inputs:
+    _output:
+      arg: -o $(value)
+      value: alignment.sto
+    trim:
+      arg: --trim
+      type: flag
+    alphabet:
+      arg: --$(value)
+      type: string
+    input-format:
+      arg: --informat $(value)
+      type: string
+    output-format:
+      arg: --outformat $(value)
+      type: string
+      value: stockholm
+    input-hmm:
+      arg: $(value)
+      type: file
+    input-sequences:
+      arg: $(value)
+      type: file
+
+  env:
+    PATH: ${HOME}/miniconda3/envs/hmmer/bin:${PATH}
+
+  outputs:
+    alignment:
+      path: alignment.sto
+      media-type: application/stockholm
+    log:
+      path: stderr
+      media-type: text/plain
+
+runners:
+  default:
+    class: SlivkaQueueRunner
+...
