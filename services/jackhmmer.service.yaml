@@ -1,0 +1,526 @@
+---
+label: jackHMMER
+classifiers: []
+
+form:
+  input-sequences:
+    label: Input sequences
+    description: Search query sequences.
+    value:
+      type: file
+      required: yes
+      media-type: application/fasta
+  
+  input-database:
+    label: Input database
+    description: Target database where sequences are searched for.
+    value:
+      type: file
+      required: yes
+      media-type: application/fasta
+
+  iterations:
+    label: Iterations number
+    description: Maximum number of search iterations.
+    value:
+      type: int
+      required: yes
+      min: 1
+      default: 5
+  
+  # Options controlling scoring system in first iteration
+  popen:
+    label: Gap open probability
+    description: Gap open probability for a single sequence query model.
+    value:
+      type: float
+      min: 0.0
+      max: 0.5
+      max-exclusive: yes
+      default: 0.02
+
+  pextend:
+    label: Gap extend probability
+    description: Gap extend probability for a single sequence query model.
+    value:
+      type: float
+      min: 0
+      max: 1.0
+      max-exclusive: yes
+      default: 0.4
+
+  matrix:
+    label: Substitution matrix
+    description: Obtain residue alignment probabilities from the
+      selected substitution matrix.
+    value:
+      type: choice
+      choices:
+        PAM30: PAM30
+        PAM70: PAM70
+        PAM120: PAM120
+        PAM240: PAM240
+        BLOSUM45: BLOSUM45
+        BLOSUM50: BLOSUM50
+        BLOSUM62: BLOSUM62
+        BLOSUM80: BLOSUM80
+        BLOSUM90: BLOSUM90
+      default: BLOSUM62
+
+  # Options controlling reporting thresholds
+  rep-E:
+    label: E-value threshold
+    description: Report target sequences with a lower or equal E-value in
+      per-target output. The default of 10 means that, on average, about
+      10 false positives will be reported per query, so you can see the top
+      of the noise.
+    value:
+      type: float
+      required: no
+      min: 0.0
+      min-exclusive: yes
+      default: 10.0
+
+  rep-T:
+    label: Bit score threshold
+    description: Use a bit score threshold for per-sequence output
+      instead of and E-value (E-value threshold will be ignored).
+      Report sequences having greater or equal bit score.
+    value:
+      type: float
+      required: no
+
+  repdom-E:
+    label: Domains E-value threshold
+    description: Report domains with lower of equal E-value
+      in per-domain output, in addition to the top-scoring
+      domain per significant sequence hit.
+    value:
+      type: float
+      required: no
+      min-exclusive: yes
+      default: 10.0
+
+  repdom-T:
+    label: Domains bit score threshold
+    description: Use a bit score threshold for per-domain output instead
+      of an E-value threshold (domains E-value threshold will be
+      ignored). Report domains with a greater or equal bit score
+      in per-domain output, in addition to the top-scoring domain per
+      significant sequence hit.
+    value:
+      type: float
+      required: no
+
+  # Options controlling inclusion threshold
+  inc-E:
+    label: Inclusion E-value threshold
+    description: Include sequences having lower or equal E-value
+      in subsequent iterations or final alignment output.
+    value:
+      type: float
+      required: no
+  
+  inc-T:
+    label: Inclusion bit score threshold
+    description: Use a bit score threshold for per-sequence inclusion
+      instead of an E-value threshold (inclusion E-value threshold
+      will be ignored). Include sequences having greater or equal
+      bit score.
+    value:
+      type: float
+      required: no
+
+  incdom-E:
+    label: Domains inclusion E-value threshold
+    description: Include domains with lower or equal E-value
+      in subsequent iteration or final alignment output, in addition
+      to the top-scoring domain per significant sequence hit.
+    value:
+      type: float
+      required: no
+      default: 0.001
+
+  incdom-T:
+    label: Domains inclusion bit score threshold
+    description: Use a bit score threshold for per-domain inclusion
+      instead of an E-value threshold (Domains inclusion E-value
+      threshold will be ignored). Include domains a greater or equal
+      bit score.
+    value:
+      type: float
+      required: no
+
+  # Options controlling acceleration heuristics
+  no-heuristic:
+    label: Disable heuristic
+    description: Maximum sensitivity. Turns off all filters,
+      including the bias filter, and run full Forward/Backward
+      postprocessing on every target. This increases sensitivity
+      slightly, at a large cost in speed.
+    value: 
+      type: boolean
+      required: no
+
+  msv-threshold:
+    label: MSV filter threshold
+    description: First filter threshold; sets the P-value threshold
+      for the MSV filter step. The default of 0.02 means that
+      roughly 2% of the highest scoring nonhomologous targets are
+      expected to pass the filter.
+    value:
+      type: float
+      required: no
+      min: 0.0
+      default: 0.02
+
+  vit-threshold:
+    label: Viterbi filter threshold
+    description: Second filter threshold; sets the P-value threshold
+      for the Viterbi filter step.
+    value:
+      type: float
+      required: no
+      min: 0.0
+      default: 0.001
+
+  fwd-threshold:
+    label: Forward filter threshold
+    description: Third filter threshold; set the P-value threshold
+      for the Forward filter step.
+    value:
+      type: float
+      required: no
+      min: 0.0
+      default: 1.0e-5
+
+  no-bias:
+    label: Disable bias filter
+    description: Turns off the bias filter. This increases sensitivity
+      somewhat, but can come at a high cost in speed, especially
+      if the query has biased residue composition (such as
+      repetitive sequence region, or if is a membrane protein
+      with large regions of hydrophobicity). Without the bias filter,
+      too many sequences may pass the filter with biased queries,
+      leading to slower than expected performance as the computationally
+      intensive Forward/Backward algorithms should an abnormally
+      heavy load.
+    value: 
+      type: boolean
+      required: no
+      
+  # Options controlling profile constructions (later iterations)
+  frag-threshold:
+    label: Fragment threshold
+    description: The fraction of the alignment length in columns
+      below which the sequence will be considered a fragment.
+      HMMER only counts terminal gaps as deletions if the
+      aligned sequence is known to be full-length, not if it is
+      a fragment. Setting the threshold to 0 will define no
+      (nonempty) sequence as a fragment; setting to 1 will define
+      all sequences as fragments.
+    value:
+      type: float
+      required: no
+      min: 0.0
+      max: 1.0
+      default: 0.5
+
+  # Options controlling relative weights
+  weights:
+    label: Relative weights
+    description: Ad hoc sequence weighting algorithm used to
+      downweight closely related sequences and upweight distantly
+      related ones. This has the effect of making models less biased
+      by uneven phylogenetic representation.
+    value:
+      type: choice
+      required: no
+      choices:
+        "Henikoff position-based": pb
+        "Gerstein/Sonnhammer/Chothia": gsc
+        "BLOSUM": blosum
+        "none": none
+      default: Henikoff position-based
+
+  id-cutoff:
+    label: Identity threshold
+    description: Sets the identity threshold used by single-linkage
+      clustering. Valid only with BLOSUM weighting scheme.
+    value:
+      type: float
+      required: no
+      min: 0.0
+      max: 1.0
+      # default: 0.62  # Invalid option if BLOSUM weights are not used
+
+  # Options controlling effective sequence number
+  enumber-method:
+    label: Effective sequence number method
+    description: The method used to calculate the effective number
+      of sequences in the alignment. The entropy weighting method
+      (default) reduces the effective sequence number to achieve
+      a specific relative entropy per position. The target entropy
+      is controlled by a two-parameter function with relative
+      entropy and sigma parameters. None turns off effective sequence
+      number determination and uses the actual number of sequences.
+    value:
+      type: choice
+      required: no
+      choices:
+        entropy: ent
+        none: none
+  
+  eset:
+    label: Set the effective sequences number
+    description: Explicitly sets the effective number of sequences
+      for all models.
+    value:
+      type: int
+      required: no
+
+  ere:
+    label: Minimum relative entropy target
+    description: Sets the minimum relative entropy/position target.
+      Requires "entropy" method. Default depends on the sequence
+      alphabet; for protein sequences it is 0.59 bits/position
+    value:
+      type: float
+      required: no
+
+  esigma:
+    label: Entropy sigma
+    description: Sets the minimum relative entropy contributed
+      by an entire model alignment, over the whole length. This
+      has effect of making short models have higher relative entropy
+      per position then minimum relative entropy parameter would give.
+    value:
+      type: float
+      required: no
+      default: 45.0
+
+  # Options controlling prior strategy in models after first iteration
+  prior-strategy:
+    label: Prior strategy
+    description: Prior method used for converting weighted counts
+      to mean posterior probability parameter estimates in profile
+      construction.
+    value:
+      type: choice
+      required: no
+      choices:
+        "mixture Dirichlet": null
+        "none": none
+        "Laplace +1": laplace
+
+  # Options controlling E-value calibration
+  msv-length:
+    label: Sequences length for MSV
+    description: Sets the sequence length in simulation that estimates
+      the location parameter mu for MSV filter E-values.
+    value:
+      type: int
+      required: no
+      min: 0
+      default: 200
+  
+  msv-number:
+    label: Sequences number for MSV
+    description: Sets the number of sequences in simulation that
+      estimates the location parameter mu for MSV filter E-values.
+    value:
+      type: int
+      required: no
+      min: 0
+      default: 200
+
+  vit-length:
+    label: Sequences length for Viterbi
+    description: Sets the sequence length in simulation that
+      estimates the location parameter mu for Viterbi filter E-values.
+    value:
+      type: int
+      required: no
+      min: 0
+      default: 200
+
+  vit-number:
+    label: Sequences number for Viterbi
+    description: Sets the number of sequences in simulation that
+      estimates the location parameter mu for Viterbi filter E-values.
+    value:
+      type: int
+      required: no
+      min: 0
+      default: 200
+
+  fwd-length:
+    label: Sequences length for Forward
+    description: Sets the sequence length in simulation that
+      estimates the location parameter tau for Forward E-values.
+    value:
+      type: int
+      required: no
+      min: 0
+      default: 100
+
+  fwd-number:
+    label: Sequences number for Forward
+    description: Sets the number of sequences in simulation that
+      estimates the location parameter tau for Forward E-values.
+    value:
+      type: int
+      required: no
+      min: 0
+      default: 200
+
+  fwd-mass-fraction:
+    label: Tail mass fraction
+    description: Sets the tail mass fraction to fil in the simulation
+      that estimates the location parameter tau for Forward E-values.
+    value:
+      type: float
+      required: no
+      default: 0.04
+
+command:
+  baseCommand: jackhmmer
+
+  inputs:
+    iterations:
+      arg: -N $(value)
+      type: number
+
+    _output:
+      arg: -o $(value)
+      value: hmmsearch.out
+    _msa_output:
+      arg: -A $(value)
+      value: msa.output.sto
+
+    popen:
+      arg: --popen $(value)
+      type: number
+    pextend:
+      arg: --pextend $(value)
+      type: number
+    matrix:
+      arg:  --mx $(value)
+      type: number
+
+    rep-E:
+      arg: -E $(value)
+      type: number
+    rep-T:
+      arg: -T $(value)
+      type: number
+    repdom-E:
+      arg: --domE $(value)
+      type: number
+    repdom-T:
+      arg: --domT $(value)
+      type: number
+
+    inc-E:
+      arg: --incE $(value)
+      type: number
+    inc-T:
+      arg: --incT $(value)
+      type: number
+    incdom-E:
+      arg: --incdomE $(value)
+      type: number
+    incdom-T:
+      arg: --incdomT $(value)
+
+    no-heuristics:
+      arg: --max
+      type: flag
+    msv-threshold:
+      arg: --F1 $(value)
+      type: number
+    vit-threshold:
+      arg: --F2 $(value)
+      type: number
+    fwd-threshold:
+      arg: --F3 $(value)
+      type: number
+    no-bias:
+      arg: --nobias
+      type: flag
+
+    frag-threshold:
+      arg: --fragthresh $(value)
+      type: number
+
+    weights:
+      arg: --w$(value)
+    id-cutoff:
+      arg: --wid $(value)
+      type: number
+
+    enumber-method:
+      arg: --e$(value)
+    eset:
+      arg: --eset $(value)
+      type: number
+    ere:
+      arg: --ere $(value)
+      type: number
+    esigma:
+      arg: --esigma $(value)
+      type: number
+
+    prior-strategy:
+      arg: --p$(value)
+
+    msv-length:
+      arg: --EmL $(value)
+      type: number
+    msv-number:
+      arg: --EmN $(value)
+      type: number
+    vit-length:
+      arg: --EvL $(value)
+      type: number
+    vit-number:
+      arg: --EvN $(value)
+      type: number
+    fwd-length:
+      arg: --EfL $(value)
+      type: number
+    fwd-number:
+      arg: --EfN $(value)
+      type: number
+    fwd-mass-fraction:
+      arg: --Eft $(value)
+      type: number
+
+    input-sequences:
+      arg: $(value)
+      type: file
+    input-database:
+      arg: $(value)
+      type: file
+
+  env:
+    PATH: ${HOME}/miniconda3/envs/hmmer/bin:${PATH}
+
+  outputs:
+    search-output:
+      path: hmmsearch.out
+      media-type: text/plain
+    msa-output:
+      path: msa.output.sto
+      media-type: application/stockholm
+    log:
+      path: stdout
+      media-type: text/plain
+    error-log:
+      path: stderr
+      media-type: text/plain
+
+runners:
+  default:
+    class: SlivkaQueueRunner
+...
