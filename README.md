@@ -34,7 +34,7 @@ Then, run
 
 ```sh
 conda install anaconda-client -n base
-conda env create mmwarowny/compbio-services
+conda env create slivka/compbio-services
 conda activate compbio-services
 ```
 
@@ -143,9 +143,9 @@ If you wish to use it, you can download the sources from
 [iupred website](http://iupred.enzim.hu/Downloads.php).
 Then, place them in *bin/iupred* directory and run ``make iupred``.
 
-Compiling IUPred requires C compiler which is a part of the GNU
-toolchain to be installed on your system.
-Make sure that `make` and `gcc` are available on you system.
+Compiling IUPred requires C compiler, which is a part of the GNU
+toolchain, to be installed on your system.
+Make sure that `make` and `gcc` are available on your system.
 
 On Debian/Ubuntu/Mint they can be installed with
 ```sh
@@ -257,7 +257,7 @@ The three processes are launched using `slivka` command created during
 slivka installation. Alternatively, you can use *manage.py* script
 located in the project directory which automatically sets *SLIVKA_HOME*
 variable when started.
-If you had slivka-bio installed as a conda package, use `slivka-bio`
+If you have slivka-bio installed as a conda package, use `slivka-bio`
 command instead. All other command line parameters remain the same.
 
 ### Server ###
