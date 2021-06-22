@@ -1,54 +1,58 @@
 ---
-label: MAFFT
-classifiers:
-  - 'Topic :: Computational biology :: Sequence analysis'
-  - 'Operation :: Analysis :: Sequence analysis :: Sequence alignment :: 
-    Multiple sequence alignment'
+slivka-version: 0.8.0
+name: MAFFT
+description: MAFFT is a multiple sequence alignment program for
+  unix-like operating systems.  It offers a range of multiple 
+  alignment methods, L-INS-i, FFT-NS-2, etc.
+author: Kazutaka Katoh
+version: '7.458'
+license: BSD
 
-form:
+classifiers:
+- 'Topic :: Computational biology :: Sequence analysis'
+- 'Operation :: Analysis :: Sequence analysis :: Sequence alignment ::
+  Multiple sequence alignment'
+
+parameters:
   input:
-    label: Input file
-    value:
-      type: file
-      required: yes
-      media-type: application/fasta
+    name: Input file
+    type: file
+    required: true
+    media-type: application/fasta
 
   6mers:
-    label: Shared 6mers distance calculation
+    name: Shared 6mers distance calculation
     description: "Distance is calculated based on the number of shared 
       6mers. Default: on"
-    value:
-      type: boolean
-      required: no
-      default: true
+    type: boolean
+    required: false
+    default: true
 
   output-order:
-    label: Output sequences order
+    name: Output sequences order
     description: '--inputorder - Output order: same as input. 
       --reorder - Output order: aligned. Default: same as input'
-    value:
-      type: choice
-      required: yes
-      choices:
-        input order: inputorder
-        reorder: reorder
-      default: input order
+    type: choice
+    required: true
+    choices:
+      input order: inputorder
+      reorder: reorder
+    default: input order
 
   sequence-type:
-    label: Sequence type
+    name: Sequence type
     description: 'nucleotide - Assume the sequences are nucleotide. 
       amino acid - Assume the sequences are amino acid.'
-    value:
-      type: choice
-      required: no
-      choices:
-        nucleotide: nuc
-        amino acid: amino
-        auto: auto
-      default: auto
+    type: choice
+    required: false
+    choices:
+      nucleotide: nuc
+      amino acid: amino
+      auto: auto
+    default: auto
 
   pairwise:
-    label: Pairwise alignment computation method
+    name: Pairwise alignment computation method
     description: 'global: All pairwise alignments are computed with 
       the Needleman-Wunsch algorithm. More accurate but slower than 
       --6merpair. Suitable for a set of globally alignable sequences. 
@@ -68,279 +72,253 @@ form:
       Applicable to up to ~200 sequences. A combination with 
       --maxiterate 1000 is recommended (L-INS-i). Default: off (6mer 
       distance is used).'
-    value:
-      type: choice
-      required: no
-      choices:
-        fasta: fasta
-        genaf: genaf
-        local: local
-        global: global
-      default: local
+    type: choice
+    required: false
+    choices:
+      fasta: fasta
+      genaf: genaf
+      local: local
+      global: global
+    default: local
 
   fft-approximation:
-    label: FFT approximation
+    name: FFT approximation
     description: 'Use / Do not use FFT approximation in group-to-group 
       alignment. Default: off'
-    value:
-      type: choice
-      required: no
-      choices:
-        fft: fft
-        no fft: nofft
-      default: no fft
+    type: choice
+    required: false
+    choices:
+      fft: fft
+      no fft: nofft
+    default: no fft
 
   no-score:
-    label: No score
+    name: No score
     description: 'Alignment score is not checked in the iterative 
       refinement stage. Default: off (score is checked)'
-    value:
-      type: boolean
-      required: no
-      default: false
+    type: boolean
+    required: false
+    default: false
 
   part-tree:
-    label: Part tree
-    description: 'parttree - Use a fast tree-building method (PartTree, 
-      Katoh and Toh 2007) with the 6mer distance. dpparttree - the 
-      PartTree algorithm is used with distances based on DP. Slightly 
-      more accurate and slower than parttree. fastaparttree - The 
-      PartTree algorithm is used with distances based on FASTA. Slightly 
-      more accurate and slower than parttree. All methods recommended 
-      for a large number (> ~10,000) of sequences are input.'
-    value:
-      type: choice
-      required: no
-      choices:
-        parttree: parttree
-        dpparttree: dpparttree
-        fastaparttree: fastaparttree
-      default: fastaparttree
+    name: Part tree
+    description: parttree - Use a fast tree-building method (PartTree,
+      Katoh and Toh 2007) with the 6mer distance. dpparttree - the
+      PartTree algorithm is used with distances based on DP. Slightly
+      more accurate and slower than parttree. fastaparttree - The
+      PartTree algorithm is used with distances based on FASTA. Slightly
+      more accurate and slower than parttree. All methods recommended
+      for a large number (> ~10,000) of sequences are input.
+    type: choice
+    required: false
+    choices:
+      parttree: parttree
+      dpparttree: dpparttree
+      fastaparttree: fastaparttree
+    default: fastaparttree
 
   max-iter:
-    label: Max iteration number
-    description: "Number cycles of iterative refinement are performed. 
-      Default: 0"
-    value:
-      type: int
-      required: no
-      min: 0
-      max: 1000
-      default: 0
+    name: Max iteration number
+    description: 'Number cycles of iterative refinement are performed.
+      Default: 0'
+    type: int
+    required: false
+    min: 0
+    max: 1000
+    default: 0
 
   partsize:
-    label: Partsize
-    description: "The number of partitions in the PartTree algorithm. 
-      Default: 50"
-    value:
-      type: int
-      required: no
-      min: 1
-      max: 1000
-      default: 50
+    name: Partsize
+    description: 'The number of partitions in the PartTree algorithm.
+      Default: 50'
+    type: int
+    required: false
+    min: 1
+    max: 1000
+    default: 50
 
   group-size:
-    label: Group size
-    description: 'Do not make alignment larger than number sequences. 
-      Valid only with the --*parttree options. Default: the number of 
+    name: Group size
+    description: 'Do not make alignment larger than number sequences.
+      Valid only with the --*parttree options. Default: the number of
       input sequences'
-    value:
-      type: int
-      required: no
-      min: 0
-      max: 1000
-      default: 20
+    type: int
+    required: false
+    min: 0
+    max: 1000
+    default: 20
 
   retree:
-    label: Guide tree rebuild
-    description: 'Guide tree is built number times in the progressive 
+    name: Guide tree rebuild
+    description: 'Guide tree is built number times in the progressive
       stage. Valid with 6mer distance. Default: 2'
-    value:
-      type: int
-      required: no
-      min: 1
-      max: 100
-      default: 2
+    type: int
+    required: false
+    min: 1
+    max: 100
+    default: 2
 
   gap-open-penalty:
-    label: Gap opening penalty
-    description: 
-      "Gap opening penalty at group-to-group alignment. Default: 1.53"
-    value:
-      type: float
-      required: no
-      min: 0
-      max: 10
-      default: 1.53
+    name: Gap opening penalty
+    description: 'Gap opening penalty at group-to-group alignment. 
+      Default: 1.53'
+    type: float
+    required: false
+    min: 0
+    max: 10
+    default: 1.53
 
   group-gap-ext-penalty:
-    label: Group-to-group gap extension penalty
+    name: Group-to-group gap extension penalty
     description: 'Offset value, which works like gap extension penalty,
       for group-to-group alignment. Deafult: 0.123'
-    value:
-      type: float
-      required: no
-      min: 0
-      max: 10
-      default: 0.123
+    type: float
+    required: false
+    min: 0
+    max: 10
+    default: 0.123
 
   local-gap-open-penalty:
-    label: Gap opening penalty at local pairwise alignment
-    description: 'Gap opening penalty at local pairwise alignment. 
-      Valid when the --localpair or --genafpair option is selected. 
+    name: Gap opening penalty at local pairwise alignment
+    description: 'Gap opening penalty at local pairwise alignment.
+      Valid when the --localpair or --genafpair option is selected.
       Default: -2.00'
-    value:
-      type: float
-      required: no
-      min: -10
-      max: 0
-      default: -2.00
-
+    type: float
+    required: false
+    min: -10
+    max: 0
+    default: -2.0
   matrix:
-    label: Matrix
+    name: Matrix
     description: Substitution matrix to use
-    value:
-      type: choice
-      choices:
-        blosum100: BLOSUM100
-        blosum30: BLOSUM30
-        blosum35: BLOSUM35
-        blosum40: BLOSUM40
-        blosum45: BLOSUM45
-        blosum50: BLOSUM50
-        blosum55: BLOSUM55
-        blosum60: BLOSUM60
-        blosum62: BLOSUM62
-        blosum65: BLOSUM65
-        blosum70: BLOSUM70
-        blosum75: BLOSUM75
-        blosum80: BLOSUM80
-        blosum85: BLOSUM85
-        blosum90: BLOSUM90
-        blosumn: BLOSUMN
-        dayhoff: DAYHOFF
-        gonnet: GONNET
-        identity: IDENTITY
-        match: MATCH
-        pam10: PAM10
-        pam100: PAM100
-        pam110: PAM110
-        pam120: PAM120
-        pam130: PAM130
-        pam140: PAM140
-        pam150: PAM150
-        pam160: PAM160
-        pam170: PAM170
-        pam180: PAM180
-        pam190: PAM190
-        pam20: PAM20
-        pam200: PAM200
-        pam210: PAM210
-        pam220: PAM220
-        pam230: PAM230
-        pam240: PAM240
-        pam250: PAM250
-        pam260: PAM260
-        pam270: PAM270
-        pam280: PAM280
-        pam290: PAM290
-        pam30: PAM30
-        pam300: PAM300
-        pam310: PAM310
-        pam320: PAM320
-        pam330: PAM330
-        pam340: PAM340
-        pam350: PAM350
-        pam360: PAM360
-        pam370: PAM370
-        pam380: PAM380
-        pam390: PAM390
-        pam40: PAM40
-        pam400: PAM400
-        pam410: PAM410
-        pam420: PAM420
-        pam430: PAM430
-        pam440: PAM440
-        pam450: PAM450
-        pam460: PAM460
-        pam470: PAM470
-        pam480: PAM480
-        pam490: PAM490
-        pam50: PAM50
-        pam500: PAM500
-        pam60: PAM60
-        pam70: PAM70
-        pam80: PAM80
-        pam90: PAM90
-      default: blosum62
-
+    type: choice
+    choices:
+      blosum100: BLOSUM100
+      blosum30: BLOSUM30
+      blosum35: BLOSUM35
+      blosum40: BLOSUM40
+      blosum45: BLOSUM45
+      blosum50: BLOSUM50
+      blosum55: BLOSUM55
+      blosum60: BLOSUM60
+      blosum62: BLOSUM62
+      blosum65: BLOSUM65
+      blosum70: BLOSUM70
+      blosum75: BLOSUM75
+      blosum80: BLOSUM80
+      blosum85: BLOSUM85
+      blosum90: BLOSUM90
+      blosumn: BLOSUMN
+      dayhoff: DAYHOFF
+      gonnet: GONNET
+      identity: IDENTITY
+      match: MATCH
+      pam10: PAM10
+      pam100: PAM100
+      pam110: PAM110
+      pam120: PAM120
+      pam130: PAM130
+      pam140: PAM140
+      pam150: PAM150
+      pam160: PAM160
+      pam170: PAM170
+      pam180: PAM180
+      pam190: PAM190
+      pam20: PAM20
+      pam200: PAM200
+      pam210: PAM210
+      pam220: PAM220
+      pam230: PAM230
+      pam240: PAM240
+      pam250: PAM250
+      pam260: PAM260
+      pam270: PAM270
+      pam280: PAM280
+      pam290: PAM290
+      pam30: PAM30
+      pam300: PAM300
+      pam310: PAM310
+      pam320: PAM320
+      pam330: PAM330
+      pam340: PAM340
+      pam350: PAM350
+      pam360: PAM360
+      pam370: PAM370
+      pam380: PAM380
+      pam390: PAM390
+      pam40: PAM40
+      pam400: PAM400
+      pam410: PAM410
+      pam420: PAM420
+      pam430: PAM430
+      pam440: PAM440
+      pam450: PAM450
+      pam460: PAM460
+      pam470: PAM470
+      pam480: PAM480
+      pam490: PAM490
+      pam50: PAM50
+      pam500: PAM500
+      pam60: PAM60
+      pam70: PAM70
+      pam80: PAM80
+      pam90: PAM90
+    default: blosum62
 command:
-  baseCommand:
-    - mafft
-  
-  inputs:
-    _clustalout:
-      arg: --clustalout
-      type: flag
-      value: off
-    _strategy:
-      arg: --auto
-      type: flag
-      value: on
-    6mers:
-      arg: --6merpair
-      type: flag
-    output-order:
-      arg: --$(value)
-    sequence-type:
-      arg: --$(value)
-    pairwise:
-      arg: --$(value)pair
-    fft-approximation:
-      arg: --$(value)
-    no-score:
-      arg: --noscore
-      type: flag
-    part-tree:
-      arg: --$(value)
-    max-iter:
-      arg: --maxiterate $(value)
-      type: number
-    partsize:
-      arg: --partsize $(value)
-      type: number
-    group-size:
-      arg: --groupsize $(value)
-      type: number
-    retree:
-      arg: --retree $(value)
-      type: number
-    gap-open-penalty:
-      arg: --op $(value)
-      type: number
-    group-gap-ext-penalty:
-      arg: --ep $(value)
-      type: number
-    local-gap-open-penalty:
-      arg: --lop $(value)
-      type: number
-    matrix:
-      arg: --aamatrix ${SLIVKA_HOME}/matrices/$(value)
-    input:
-      arg: $(value)  
-  
-  outputs:
-    alignment:
-      path: stdout
-      media-type: application/fasta
-    error-log:
-      path: stderr
-      media-type: text/plain
-  
-  env:
-    FASTA_4_MAFFT: ${HOME}/bin/fasta36
+- mafft
 
-runners:
-  default:
-    class: SlivkaQueueRunner
+args:
+  _clustalout:
+    arg: --clustalout
+  _strategy:
+    arg: --auto
+    default: 'present'
+  6mers:
+    arg: --6merpair
+  output-order:
+    arg: --$(value)
+  sequence-type:
+    arg: --$(value)
+  pairwise:
+    arg: --$(value)pair
+  fft-approximation:
+    arg: --$(value)
+  no-score:
+    arg: --noscore
+  part-tree:
+    arg: --$(value)
+  max-iter:
+    arg: --maxiterate $(value)
+  partsize:
+    arg: --partsize $(value)
+  group-size:
+    arg: --groupsize $(value)
+  retree:
+    arg: --retree $(value)
+  gap-open-penalty:
+    arg: --op $(value)
+  group-gap-ext-penalty:
+    arg: --ep $(value)
+  local-gap-open-penalty:
+    arg: --lop $(value)
+  matrix:
+    arg: --aamatrix ${SLIVKA_HOME}/matrices/$(value)
+  input:
+    arg: $(value)
+
+env:
+  FASTA_4_MAFFT: ${HOME}/bin/fasta36
+
+outputs:
+  alignment:
+    path: stdout
+    media-type: application/fasta
+  error-log:
+    path: stderr
+    media-type: text/plain
+
+execution:
+  runners:
+    default:
+      type: SlivkaQueueRunner
 ...

@@ -1,72 +1,75 @@
 ---
-label: MSAProbs
-classifiers:
-  - 'Topic :: Computational biology :: Sequence analysis'
-  - 'Operation :: Analysis :: Sequence analysis :: Sequence alignment :: 
-    Multiple sequence alignment'
+slivka-version: 0.8.0
+name: MSAProbs
+description: MSAProbs is a well-established state-of-the-art multiple
+  sequence alignment algorithm for protein sequences. The design
+  of MSAProbs is based on a combination of pair hidden Markov models 
+  and partition functions to calculate posterior probabilities.
+author: Jorge González-Domı́nguez, Yongchao Liu, Juan Touriño,
+  Bertil Schmidt
+version: '0.9.7'
+license: GNU GPL ver. 3
 
-form:
+classifiers:
+- 'Topic :: Computational biology :: Sequence analysis'
+- 'Operation :: Analysis :: Sequence analysis :: Sequence alignment ::
+  Multiple sequence alignment'
+
+parameters:
   input:
-    label: Input file
-    value:
-      type: file
-      required: yes
-      media-type: application/fasta
+    name: Input file
+    type: file
+    required: true
+    media-type: application/fasta
 
   consistency:
-    label: Consistency repetitions
+    name: Consistency repetitions
     description: Number of passes of consistency transformation.
-    value:
-      type: int
-      required: no
-      min: 0
-      max: 5
-      default: 2
+    type: int
+    required: false
+    min: 0
+    max: 5
+    default: 2
 
   iterative-refinement:
-    label: Interative refinaement
+    name: Interative refinaement
     description: Number of iterative refinement passes.
-    value:
-      type: int
-      required: no
-      min: 0
-      max: 1000
-      default: 10
+    type: int
+    required: false
+    min: 0
+    max: 1000
+    default: 10
 
 command:
-  baseCommand:
-    - msaprobs
-  
-  inputs:
-    consistency:
-      arg: -c $(value)
-      type: number
-    iterative-refinement:
-      arg: -ir $(value)
-      type: number
-    _out:
-      arg: -o $(value)
-      value: output.fa
-    _verbose:
-      arg: -v
-      type: flag
-      value: on
-    input:
-      arg: $(value)
-      type: file
-  
-  outputs:
-    alignment:
-      path: output.fa
-      media-type: application/fasta
-    log:
-      path: stdout
-      media-type: text/plain
-    error-log:
-      path: stderr
-      media-type: text/plain
+- msaprobs
 
-runners:
-  default:
-    class: SlivkaQueueRunner
+args:
+  consistency:
+    arg: -c $(value)
+  iterative-refinement:
+    arg: -ir $(value)
+  _out:
+    arg: -o $(value)
+    default: output.fa
+  _verbose:
+    arg: -v
+    default: 'present'
+  input:
+    arg: $(value)
+
+outputs:
+  alignment:
+    path: output.fa
+    media-type: application/fasta
+  log:
+    path: stdout
+    media-type: text/plain
+  error-log:
+    path: stderr
+    media-type: text/plain
+
+execution:
+  runners:
+    default:
+      type: SlivkaQueueRunner
 ...

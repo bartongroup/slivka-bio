@@ -1,46 +1,49 @@
 ---
-label: DisEMBL
+slivka-version: 0.8.0
+name: DisEMBL
+author: Rune Linding, Lars Juhl Jensen
+version: '1.4'
+license: GNU GPL ver. 2
+
 classifiers:
-  - 'Topic :: Computational biology :: Sequence analysis'
-  - 'Operation :: Analysis :: Sequence analysis :: Protein sequence analysis'
+- 'Topic :: Computational biology :: Sequence analysis'
+- 'Operation :: Analysis :: Sequence analysis :: Protein sequence analysis'
 
-
-form:
+parameters:
   input:
-    label: Input file
-    value:
-      type: file
-      required: yes
-      media-type: application/fasta
+    name: Input file
+
+    type: file
+    required: true
+    media-type: application/fasta
 
 command:
-  baseCommand:
-    - bash
-    - ${SLIVKA_HOME}/bin/DisEMBL.sh
-  
-  inputs:
-    input:
-      arg: $(value)
-      type: file
-  
-  outputs:
-    raw-output:
-      path: output.txt
-      media-type: text/plain
-    jalview-annotations:
-      path: disembl.jvannot
-      media-type: application/jalview-annotations
-    jalview-features:
-      path: disembl.jvfeat
-      media-type: application/jalview-features
-    log:
-      path: stdout
-      media-type: text/plain
-    error-log:
-      path: stderr
-      media-type: text/plain
+- bash
+- ${SLIVKA_HOME}/bin/DisEMBL.sh
 
-runners:
-  default:
-    class: SlivkaQueueRunner
+args:
+  input:
+    arg: $(value)
+
+outputs:
+  raw-output:
+    path: output.txt
+    media-type: text/plain
+  jalview-annotations:
+    path: disembl.jvannot
+    media-type: application/jalview-annotations
+  jalview-features:
+    path: disembl.jvfeat
+    media-type: application/jalview-features
+  log:
+    path: stdout
+    media-type: text/plain
+  error-log:
+    path: stderr
+    media-type: text/plain
+
+execution:
+  runners:
+    default:
+      type: SlivkaQueueRunner
 ...

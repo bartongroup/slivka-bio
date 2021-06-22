@@ -1,48 +1,67 @@
 ---
-label: Jronn
+slivka-version: 0.8.0
+name: Jronn
+description: 
+  'JRONN is a Java implementation of RONN. JRONN is based on RONN and uses the 
+	same model data, therefore gives the same predictions. Main motivation 
+	behind JRONN development was providing an implementation of RONN more 
+	suitable to use by the automated analysis pipelines and web services.  
+	Original version of RONN is described in Yang,Z.R., Thomson,R., 
+	McMeil,P. and Esnouf,R.M. (2005) RONN: the bio-basis function neural network
+	technique applied to the detection of natively disordered regions in proteins  
+	Bioinformatics 21: 3369-3376
+	See also http://www.strubi.ox.ac.uk/RONN'
+author: Peter Troshin
+version: '3.1b'
+license: Apache 2.0
+
 classifiers:
-  - 'Topic :: Computational biology :: Sequence analysis'
-  - 'Operation :: Analysis :: Sequence analysis :: Protein sequence analysis'
+- 'Topic :: Computational biology :: Sequence analysis'
+- 'Operation :: Analysis :: Sequence analysis :: Protein sequence analysis'
 
-
-form:
+parameters:
   input:
-    label: Input file
-    value:
-      type: file
-      required: yes
-      media-type: application/fasta
+    name: Input file
+    type: file
+    required: true
+    media-type: application/fasta
 
 command:
-  baseCommand:
-    - bash
-    - ${SLIVKA_HOME}/bin/JRonn.sh
-  
-  inputs:
-    input:
-      arg: -i=$(value)
-  
-  arguments:
-    - -o=output.txt
-    - -s=stat.log
-    - -f=H
-    - -n=4
-  
-  outputs:
-    raw-output:
-      path: output.txt
-      media-type: text/plain
-    jalview-annotations:
-      path: jronn.jvannot
-      media-type: application/jalview-annotations
-    log:
-      path: stat.log
-      media-type: text/plain
-    error-log:
-      path: stderr
-      media-type: text/plain
+- bash
+- ${SLIVKA_HOME}/bin/JRonn.sh
 
-runners:
-  default:
-    class: SlivkaQueueRunner
+args:
+  input:
+    arg: -i=$(value)
+  _const0:
+    arg: -o=output.txt
+    default: present
+  _const1:
+    arg: -s=stat.log
+    default: present
+  _const2:
+    arg: -f=H
+    default: present
+  _const3:
+    arg: -n=4
+    default: present
+
+outputs:
+  raw-output:
+    path: output.txt
+    media-type: text/plain
+  jalview-annotations:
+    path: jronn.jvannot
+    media-type: application/jalview-annotations
+  log:
+    path: stat.log
+    media-type: text/plain
+  error-log:
+    path: stderr
+    media-type: text/plain
+
+execution:
+  runners:
+    default:
+      type: SlivkaQueueRunner
 ...

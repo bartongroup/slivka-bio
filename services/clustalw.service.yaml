@@ -1,245 +1,239 @@
-label: ClustalW
-classifiers:
-  - "Topic :: Computational biology :: Sequence analysis"
-  - "Operation :: Analysis :: Sequence analysis :: 
-    Sequence alignment :: Multiple sequence alignment"
+---
+slivka-version: 0.8.0
+name: ClustalW
+description: ClustalW is a general purpose multiple alignment program
+  for DNA or proteins.
+author: Larkin MA, Blackshields G, Brown NP, Chenna R, McGettigan PA, 
+  McWilliam H, Valentin F, Wallace IM, Wilm A, Lopez R, Thompson JD, 
+  Gibson TJ, Higgins DG. 
+version: '2.1'
+license: GNU GPL ver. 3
 
-form:
+classifiers:
+- 'Topic :: Computational biology :: Sequence analysis'
+- 'Operation :: Analysis :: Sequence analysis :: Sequence alignment :: Multiple
+  sequence alignment'
+
+parameters:
   input:
-    label: Input file
-    value:
-      type: file
-      media-type: application/fasta
-      required: yes
+    name: Input file
+    type: file
+    media-type: application/fasta
+    required: true
 
   residue-gaps-off:
-    label: NOPGAP
+    name: NOPGAP
     description: Residue-specific gaps off
-    value:
-      type: boolean
-      default: false
-      required: no
+    type: boolean
+    default: false
+    required: false
 
   weights-off:
-    label: No transition weighting
+    name: No transition weighting
     description: Disable sequence weighting
-    value:
-      type: boolean
-      default: false
-      required: no
+    type: boolean
+    default: false
+    required: false
 
   hydrophillic-gaps-off:
-    label: NOHGAP
+    name: NOHGAP
     description: Hydrophilic gaps off
-    value:
-      type: boolean
-      default: false
-      required: no
+    type: boolean
+    default: false
+    required: false
 
   transition-weighting:
-    label: Transition weighting
+    name: Transition weighting
     description: Type of the sequence (PROTEIN or DNA)
-    value:
-      type: float
-      min: 0.0
-      max: 10.0
-      default: 0.5
+    type: float
+    min: 0.0
+    max: 10.0
+    default: 0.5
 
   type:
-    label: Type
+    name: Type
     description: Type of the sequence (PROTEIN or DNA)
-    value:
-      type: choice
-      choices:
-        protein: PROTEIN
-        dna: DNA
-      default: protein
+    type: choice
+    choices:
+      protein: PROTEIN
+      dna: DNA
+    default: protein
 
   outorder:
-    label: OUTORDER
+    name: OUTORDER
     description: As per INPUT or ALIGNED
-    value:
-      type: choice
-      choices:
-        input: INPUT
-        aligned: ALIGNED
-      default: input
+    type: choice
+    choices:
+      input: INPUT
+      aligned: ALIGNED
+    default: input
 
   matrix:
-    label: MATRIX
+    name: MATRIX
     description: Protein weight matrix
-    value:
-      type: choice
-      choices:
-        blosum100: BLOSUM100
-        blosum30: BLOSUM30
-        blosum35: BLOSUM35
-        blosum40: BLOSUM40
-        blosum45: BLOSUM45
-        blosum50: BLOSUM50
-        blosum55: BLOSUM55
-        blosum60: BLOSUM60
-        blosum62: BLOSUM62
-        blosum65: BLOSUM65
-        blosum70: BLOSUM70
-        blosum75: BLOSUM75
-        blosum80: BLOSUM80
-        blosum85: BLOSUM85
-        blosum90: BLOSUM90
-        blosumn: BLOSUMN
-        dayhoff: DAYHOFF
-        gonnet: GONNET
-        identity: IDENTITY
-        match: MATCH
-        nuc.4.2: NUC.4.2
-        nuc.4.4: NUC.4.4
-        pam10: PAM10
-        pam100: PAM100
-        pam110: PAM110
-        pam120: PAM120
-        pam130: PAM130
-        pam140: PAM140
-        pam150: PAM150
-        pam160: PAM160
-        pam170: PAM170
-        pam180: PAM180
-        pam190: PAM190
-        pam20: PAM20
-        pam200: PAM200
-        pam210: PAM210
-        pam220: PAM220
-        pam230: PAM230
-        pam240: PAM240
-        pam250: PAM250
-        pam260: PAM260
-        pam270: PAM270
-        pam280: PAM280
-        pam290: PAM290
-        pam30: PAM30
-        pam300: PAM300
-        pam310: PAM310
-        pam320: PAM320
-        pam330: PAM330
-        pam340: PAM340
-        pam350: PAM350
-        pam360: PAM360
-        pam370: PAM370
-        pam380: PAM380
-        pam390: PAM390
-        pam40: PAM40
-        pam400: PAM400
-        pam410: PAM410
-        pam420: PAM420
-        pam430: PAM430
-        pam440: PAM440
-        pam450: PAM450
-        pam460: PAM460
-        pam470: PAM470
-        pam480: PAM480
-        pam490: PAM490
-        pam50: PAM50
-        pam500: PAM500
-        pam60: PAM60
-        pam70: PAM70
-        pam80: PAM80
-        pam90: PAM90
-      default: blosum62
+    type: choice
+    choices:
+      blosum100: BLOSUM100
+      blosum30: BLOSUM30
+      blosum35: BLOSUM35
+      blosum40: BLOSUM40
+      blosum45: BLOSUM45
+      blosum50: BLOSUM50
+      blosum55: BLOSUM55
+      blosum60: BLOSUM60
+      blosum62: BLOSUM62
+      blosum65: BLOSUM65
+      blosum70: BLOSUM70
+      blosum75: BLOSUM75
+      blosum80: BLOSUM80
+      blosum85: BLOSUM85
+      blosum90: BLOSUM90
+      blosumn: BLOSUMN
+      dayhoff: DAYHOFF
+      gonnet: GONNET
+      identity: IDENTITY
+      match: MATCH
+      nuc.4.2: NUC.4.2
+      nuc.4.4: NUC.4.4
+      pam10: PAM10
+      pam100: PAM100
+      pam110: PAM110
+      pam120: PAM120
+      pam130: PAM130
+      pam140: PAM140
+      pam150: PAM150
+      pam160: PAM160
+      pam170: PAM170
+      pam180: PAM180
+      pam190: PAM190
+      pam20: PAM20
+      pam200: PAM200
+      pam210: PAM210
+      pam220: PAM220
+      pam230: PAM230
+      pam240: PAM240
+      pam250: PAM250
+      pam260: PAM260
+      pam270: PAM270
+      pam280: PAM280
+      pam290: PAM290
+      pam30: PAM30
+      pam300: PAM300
+      pam310: PAM310
+      pam320: PAM320
+      pam330: PAM330
+      pam340: PAM340
+      pam350: PAM350
+      pam360: PAM360
+      pam370: PAM370
+      pam380: PAM380
+      pam390: PAM390
+      pam40: PAM40
+      pam400: PAM400
+      pam410: PAM410
+      pam420: PAM420
+      pam430: PAM430
+      pam440: PAM440
+      pam450: PAM450
+      pam460: PAM460
+      pam470: PAM470
+      pam480: PAM480
+      pam490: PAM490
+      pam50: PAM50
+      pam500: PAM500
+      pam60: PAM60
+      pam70: PAM70
+      pam80: PAM80
+      pam90: PAM90
+    default: blosum62
 
   gap-open:
-    label: GAPOPEN
+    name: GAPOPEN
     description: Gap opening penalty
-    value:
-      type: float
-      min: 0
-      max: 1000
-      default: 10
+    type: float
+    min: 0
+    max: 1000
+    default: 10
 
   gap-ext:
-    label: GAPEXT
+    name: GAPEXT
     description: Gap extension penalty
-    value:
-      type: float
-      min: 0
-      max: 10
-      default: 0.1
+    type: float
+    min: 0
+    max: 10
+    default: 0.1
 
   end-gaps:
-    label: ENDGAPS
+    name: ENDGAPS
     description: End gap separation pen
-    value:
-      type: float
-      min: 0
-      max: 10
-      default: 0.5
+    type: float
+    min: 0
+    max: 10
+    default: 0.5
 
   gap-dist:
-    label: GAPDIST
+    name: GAPDIST
     description: Gap separation pen. range
-    value:
-      type: int
-      min: 0
-      max: 50
-      default: 1
+    type: int
+    min: 0
+    max: 50
+    default: 1
 
 command:
-  baseCommand:
-    - clustalw2
+- clustalw2
 
-  inputs:
-    input:
-      arg: -INFILE=$(value)
-      type: file
-      symlink: input.txt
-    residue-gaps-off:
-      arg: -NOPGAP
-      type: flag
-    weights-off:
-      arg: -NOWEIGHTS
-      type: flag
-    hydrophillic-gaps-off:
-      arg: -NOHGAP
-      type: flag
-    transition-weighting:
-      arg: -TRANSWEIGHT=$(value)
-      type: number
-    type:
-      arg: -TYPE=$(value)
-    outorder:
-      arg: -OUTORDER=$(value)
-    matrix:
-      arg: -MATRIX=${SLIVKA_HOME}/matrices/$(value)
-    gap-open:
-      arg: -GAPOPEN=$(value)
-      type: number
-    gap-ext:
-      arg: -GAPEXT=$(value)
-      type: number
-    end-gaps:
-      arg: -ENDGAPS=$(value)
-      type: number
-    gap-dist:
-      arg: -GAPDIST=$(value)
-      type: number
+args:
+  input:
+    arg: -INFILE=$(value)
+    symlink: input.txt
+  residue-gaps-off:
+    arg: -NOPGAP
+  weights-off:
+    arg: -NOWEIGHTS
+  hydrophillic-gaps-off:
+    arg: -NOHGAP
+  transition-weighting:
+    arg: -TRANSWEIGHT=$(value)
+  type:
+    arg: -TYPE=$(value)
+  outorder:
+    arg: -OUTORDER=$(value)
+  matrix:
+    arg: -MATRIX=${SLIVKA_HOME}/matrices/$(value)
+  gap-open:
+    arg: -GAPOPEN=$(value)
+  gap-ext:
+    arg: -GAPEXT=$(value)
+  end-gaps:
+    arg: -ENDGAPS=$(value)
+  gap-dist:
+    arg: -GAPDIST=$(value)
+  _const0:
+    arg: -OUTORDER=ALIGNED
+    default: present
+  _const1:
+    arg: -QUIET
+    default: present
+  _const2:
+    arg: -OUTFILE=output.txt
+    default: present
+  _const3:
+    arg: -STATS=stat.log
+    default: present
 
-  arguments:
-    - -OUTORDER=ALIGNED
-    - -QUIET
-    - -OUTFILE=output.txt
-    - -STATS=stat.log
+outputs:
+  alignment:
+    path: output.txt
+    media-type: application/clustal
+  log:
+    path: stat.log
+    media-type: text/plain
+  error-log:
+    path: stderr
+    media-type: text/plain
 
-  outputs:
-    alignment:
-      path: output.txt
-      media-type: application/clustal
-    log:
-      path: stat.log
-      media-type: text/plain
-    error-log:
-      path: stderr
-      media-type: text/plain
-
-runners:
-  default:
-    class: SlivkaQueueRunner
+execution:
+  runners:
+    default:
+      type: SlivkaQueueRunner
 ...
-

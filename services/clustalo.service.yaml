@@ -1,121 +1,127 @@
-label: ClustalO
-classifiers:
-  - "Topic :: Computational biology :: Sequence analysis"
-  - "Operation :: Analysis :: Sequence analysis :: Sequence alignment :: 
-    Multiple sequence alignment"
+---
+slivka-version: 0.8.0
+name: ClustalO
+description: Clustal Omega is the latest addition to the Clustal family.
+  It offers a significant increase in scalability over previous versions,
+  allowing hundreds of thousands of sequences to be aligned in only 
+  a few hours. It will also make use of multiple processors, where present. 
+  In addition, the quality of alignments is superior to previous versions, 
+  as measured by a range of popular benchmarks. 
+author: Fabian Sievers, Andreas Wilm, David Dineen, Johannes Söding,
+  Michael Remmert
+version: '1.2.4'
+license: GNU GPL ver. 2
 
-form:
+classifiers:
+- 'Topic :: Computational biology :: Sequence analysis'
+- 'Operation :: Analysis :: Sequence analysis :: Sequence alignment :: Multiple
+  sequence alignment'
+
+parameters:
   input:
-    label: Input file
-    value:
-      type: file
-      required: yes
-      max-size: 4MB
-      media-type: application/fasta
+    name: Input file
+    type: file
+    required: true
+    max-size: 4MB
+    media-type: application/fasta
 
   dealign:
-    label: Dealign
+    name: Dealign
     description: Dealign input sequences
-    value:
-      type: boolean
-      default: false
-      required: no
+    type: boolean
+    default: false
+    required: false
 
   full-distance:
-    label: Full distance matrix
-    description: "Use full distance matrix for guide-tree calculation
-      (slow; mBed is default)"
-    value:
-      type: boolean
-      default: false
-      required: no
+    name: Full distance matrix
+    description: Use full distance matrix for guide-tree calculation (slow;
+      mBed is default)
+    type: boolean
+    default: false
+    required: false
 
   full-distance-iteration:
-    label: Full distance matrix for each iteration
-    description: "Use full distance matrix for guide-tree calculation 
-      during iteration (mBed is default)"
-    value:
-      type: boolean
-      default: false
-      required: no
+    name: Full distance matrix for each iteration
+    description: Use full distance matrix for guide-tree calculation during
+      iteration (mBed is default)
+    type: boolean
+    default: false
+    required: false
 
   max-hmm-iterations:
-    label: Max Guide tree iterations
+    name: Max Guide tree iterations
     description: Maximum number of HMM iterations
-    value:
-      type: int
-      min: 1
-      max: 100
-      default: 1
+    type: int
+    min: 1
+    max: 100
+    default: 1
 
   iterations:
-    label: Number of iterations (combined)
+    name: Number of iterations (combined)
     description: Number of (combined guide tree/HMM) iterations
-    value:
-      type: int
-      min: 1
-      max: 100
-      default: 1
+    type: int
+    min: 1
+    max: 100
+    default: 1
 
   max-guidetree-iterations:
-    label: Max Guide tree iterations
+    name: Max Guide tree iterations
     description: Maximum guide tree iterations
-    value:
-      type: int
-      min: 1
-      max: 100
-      default: 1
- 
+    type: int
+    min: 1
+    max: 100
+    default: 1
+
 command:
-  baseCommand:
-    - clustalo
+- clustalo
 
-  inputs:
-    input:
-      arg: --infile=$(value)
-      type: file
-      symlink: input.txt
-    dealign:
-      arg: --dealign
-      type: flag
-    full-distance:
-      arg: --full
-      type: flag
-    full-distance-iteration:
-      arg: --full-iter
-      type: flag
-    max-hmm-iterations:
-      arg: --max-hmm-iterations=$(value)
-      type: number
-    iterations:
-      arg: --iter=$(value)
-      type: number
-    max-guidetree-iterations:
-      arg: --max-guidetree-iterations=$(value)
-      type: number
+args:
+  input:
+    arg: --infile=$(value)
+    symlink: input.txt
+  dealign:
+    arg: --dealign
+  full-distance:
+    arg: --full
+  full-distance-iteration:
+    arg: --full-iter
+  max-hmm-iterations:
+    arg: --max-hmm-iterations=$(value)
+  iterations:
+    arg: --iter=$(value)
+  max-guidetree-iterations:
+    arg: --max-guidetree-iterations=$(value)
+  _const0:
+    arg: --outfile=output.txt
+    default: present
+  _const1:
+    arg: --outfmt=clustal
+    default: present
+  _const2:
+    arg: -v
+    default: present
+  _const3:
+    arg: --log=stat.log
+    default: present
+  _const4:
+    arg: --threads=1
+    default: present
+    
+outputs:
+  alignment:
+    path: output.txt
+    media-type: application/clustal
+  tree:
+    path: input.dnd
+  log:
+    path: stat.log
+    media-type: text/plain
+  error-log:
+    path: stderr
+    media-type: text/plain
 
-  arguments:
-    - --outfile=output.txt
-    - --outfmt=clustal
-    - -v
-    - --log=stat.log
-    - --threads=1
-
-  outputs:
-    alignment:
-      path: output.txt
-      media-type: application/clustal
-    tree:
-      path: input.dnd
-    log:
-      path: stat.log
-      media-type: text/plain
-    error-log:
-      path: stderr
-      media-type: text/plain
-
-runners:
-  default:
-    class: SlivkaQueueRunner
+execution:
+  runners:
+    default:
+      type: SlivkaQueueRunner
 ...
-

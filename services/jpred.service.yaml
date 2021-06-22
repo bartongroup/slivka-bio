@@ -1,90 +1,94 @@
 ---
-label: JPred
-classifiers:
-  - 'Topic :: Computational biology :: Structure analysis :: 
-    Protein structure analysis :: Protein secondary structure'
-  - 'Topic :: Computational biology :: Proteins :: Protein structure 
-    analysis :: Protein secondary structure'
-  - 'Operation :: Analysis :: Structure analysis :: Protein structure 
-    analysis :: Protein secondary structure analysis :: Protein 
-    secondary structure prediction'
-  - 'Operation :: Prediction and recognition :: Protein secondary 
-    structure prediction'
-  - 'Operation :: Analysis :: Sequence analysis :: Protein sequence 
-    analysis :: Protein secondary structure prediction'
-  - 'Operation :: Analysis :: Sequence analysis :: Protein sequence 
-    analysis :: Protein feature detection :: Protein secondary structure 
-    prediction'
-  - 'Operation :: Prediction and recognition :: Protein feature detection :: 
-    Protein secondary structure prediction'
+slivka-version: 0.8.0
+name: JPred
+description: JPred is a Protein Secondary Structure Prediction server
+  and has been in operation since approximately 1998. JPred incorporates
+  the Jnet algorithm in order to make more accurate predictions. 
+  In addition to protein secondary structure JPred also makes predictions 
+  on Solvent Accessibility and Coiled-coil regions (Lupas method).
+author: Drozdetskiy A, Cole C, Procter J & Barton GJ.
+version: '4'
 
-form:
+classifiers:
+- 'Topic :: Computational biology :: Structure analysis :: Protein structure
+  analysis :: Protein secondary structure'
+- 'Topic :: Computational biology :: Proteins :: Protein structure analysis
+  :: Protein secondary structure'
+- 'Operation :: Analysis :: Structure analysis :: Protein structure analysis
+  :: Protein secondary structure analysis :: Protein secondary structure
+  prediction'
+- 'Operation :: Prediction and recognition :: Protein secondary structure
+  prediction'
+- 'Operation :: Analysis :: Sequence analysis :: Protein sequence analysis
+  :: Protein secondary structure prediction'
+- 'Operation :: Analysis :: Sequence analysis :: Protein sequence analysis
+  :: Protein feature detection :: Protein secondary structure prediction'
+- 'Operation :: Prediction and recognition :: Protein feature detection
+  :: Protein secondary structure prediction'
+
+parameters:
   input:
-    label: Input file
-    value:
-      type: file
-      required: yes
-      media-type: application/fasta
+    name: Input file
+    type: file
+    required: true
+    media-type: application/fasta
 
   skippdb:
-    label: Skip PDB check
-    value:
-      type: choice
-      choices:
-        "on": "on"
-        "off": "off"
-      default: "on"
+    name: Skip PDB check
+    type: choice
+    choices:
+      'on': 'on'
+      'off': 'off'
+    default: 'on'
 
   format:
-    label: Input data format
-    value:
-      type: choice
-      choices:
-        seq: seq
-        fasta: fasta
-        msf: msf
-        blc: blc
-      default: fasta
+    name: Input data format
+    type: choice
+    choices:
+      seq: seq
+      fasta: fasta
+      msf: msf
+      blc: blc
+    default: fasta
 
 command:
-  baseCommand:
-    - jpred
-  
-  inputs:
-    skippdb:
-      arg: skipPDB=$(value)
-      value: "on"
-    format:
-      arg: format=$(value)
-      value: fasta
-    input:
-      arg: $(value)
-      type: file
-      
-  outputs:
-    archive:
-      path: result.tar.gz
-      media-type: application/gzip
-    alignment:
-      path: jp_*.align
-      media-type: application/fasta
-    concise:
-      path: jp_*.concise
-      media-type: text/plain
-    jnet:
-      path: jp_*.jnet
-      media-type: application/x-jnet
-    jalview-annotations:
-      path: jp_*.jalview
-      media-type: application/jalview-annotations
-    log:
-      path: stdout
-      media-type: text/plain
-    error-log:
-      path: stderr
-      media-type: text/plain
+- jpred
 
-runners:
-  default:
-    class: scripts.runners.JPredRunner
+args:
+  skippdb:
+    arg: skipPDB=$(value)
+    default: 'on'
+  format:
+    arg: format=$(value)
+    default: fasta
+  input:
+    arg: $(value)
+
+outputs:
+  archive:
+    path: result.tar.gz
+    media-type: application/gzip
+  alignment:
+    path: jp_*.align
+    media-type: application/fasta
+  concise:
+    path: jp_*.concise
+    media-type: text/plain
+  jnet:
+    path: jp_*.jnet
+    media-type: application/x-jnet
+  jalview-annotations:
+    path: jp_*.jalview
+    media-type: application/jalview-annotations
+  log:
+    path: stdout
+    media-type: text/plain
+  error-log:
+    path: stderr
+    media-type: text/plain
+
+execution:
+  runners:
+    default:
+      type: scripts.runners.JPredRunner
 ...

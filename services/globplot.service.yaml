@@ -1,47 +1,49 @@
 ---
-label: GlobPlot
+slivka-version: 0.8.0
+name: GlobPlot
+author: Rune Linding
+version: '2.3'
+license: Academic Free License version 1.2
+
 classifiers:
-  - 'Topic :: Computational biology :: Sequence analysis'
-  - 'Operation :: Analysis :: Sequence analysis :: Protein sequence analysis'
+- 'Topic :: Computational biology :: Sequence analysis'
+- 'Operation :: Analysis :: Sequence analysis :: Protein sequence analysis'
 
-
-form:
+parameters:
   input:
-    label: Input file
-    value:
-      type: file
-      required: yes
-      media-type: application/fasta
+    name: Input file
+    type: file
+    required: true
+    media-type: application/fasta
 
 command:
-  baseCommand:
-    - bash
-    - ${SLIVKA_HOME}/bin/GlobPlot.sh
-  
-  inputs:
-    input:
-      arg: $(value)
-      type: file
-      symlink: input.fasta
-  
-  outputs:
-    raw-output:
-      path: output.txt
-      media-type: text/plain
-    jalview-annotations:
-      path: globplot.jvannot
-      media-type: application/jalview-annotations
-    jalview-features:
-      path: globplot.jvfeat
-      media-type: application/jalview-features
-    log:
-      path: stdout
-      media-type: text/plain
-    error-log:
-      path: stderr
-      media-type: text/plain
+- bash
+- ${SLIVKA_HOME}/bin/GlobPlot.sh
 
-runners:
-  default:
-    class: SlivkaQueueRunner
+args:
+  input:
+    arg: $(value)
+    symlink: input.fasta
+
+outputs:
+  raw-output:
+    path: output.txt
+    media-type: text/plain
+  jalview-annotations:
+    path: globplot.jvannot
+    media-type: application/jalview-annotations
+  jalview-features:
+    path: globplot.jvfeat
+    media-type: application/jalview-features
+  log:
+    path: stdout
+    media-type: text/plain
+  error-log:
+    path: stderr
+    media-type: text/plain
+
+execution:
+  runners:
+    default:
+      type: SlivkaQueueRunner
 ...
