@@ -22,7 +22,7 @@ parameters:
     name: Input file
     type: file
     required: true
-    max-size: 4MB
+#    max-size: 4MB
     media-type: application/fasta
 
   dealign:
