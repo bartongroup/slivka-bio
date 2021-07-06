@@ -38,7 +38,7 @@ parameters:
     description: The method of the calculation to use
     type: choice[]
     required: false
-    default: shenkin
+    default: [shenkin]
     choices:
       kabat: KABAT
       jores: JORES
