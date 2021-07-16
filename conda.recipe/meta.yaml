@@ -1,6 +1,6 @@
 package:
   name: slivka-bio
-  version: 1.1
+  version: 0.8.0b0
 
 source:
   git_url: ../
@@ -10,14 +10,14 @@ source:
 
 build:
   noarch: generic
-  number: 5
+  number: 0
 
 requirements:
   run:
-    - python=3.7
+    - python>=3.7
     - biopython>=1.7
     - gunicorn>=19.9
-    - slivka=0.6b1
+    - slivka>=0.8b13
     - probcons=1.12
     - mafft=7.458
     - t_coffee=13.41.0
@@ -27,5 +27,5 @@ requirements:
     - msaprobs=0.9.7
     - disembl=1.4
     - globplot=2.3
-    - requests=2.23.0
+    - requests>=2.23.0
 
