@@ -43,13 +43,10 @@ def print_feature_row(feature, file=None):
 class IUPredReader:
   def __init__(self):
     self.glob_pattern = re.compile(
-      r'# ([\w ]+)\n'
+      r'# ([^\n]+)\n'
       r'Number of globular domains:\s*\d+\s*\n'
       r'((?:\s+globular domain\s+(\d)\.\s+(\d+) - (\d+)\s*\n)+)'
       r'> ?\1+\n[A-Za-z \n]+'
-    )
-    self.annot_pattern = re.compile(
-      r'# ([\w ]+)\n((?: *\d+ [A-Za-z] +\d+\.\d+\n)+)'
     )
 
   def run(self, args):
@@ -64,13 +61,12 @@ class IUPredReader:
         self.print_features_file(glob, fp)
 
   def read_annotations(self, file):
-    text = file.read()
     annotations = OrderedDict()
-    for match in self.annot_pattern.finditer(text):
-      sequence = match.group(1)
-      annotations[sequence] = re.findall(
-        r'^ *\d+ [A-Za-z] +(\d+\.\d+)$', match.group(2), re.MULTILINE
-      )
+    for line in file:
+      if line.startswith('#'):
+        annotations[line[1:].strip()] = annot = []
+      else:
+        annot.append(line.split()[2])
     return annotations
 
   def read_domains(self, file):
