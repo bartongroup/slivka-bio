@@ -3,7 +3,7 @@ import re
 import requests
 import tarfile
 
-from slivka.scheduler import Runner
+from slivka.scheduler.runners import Runner, Job
 from slivka.utils import JobStatus
 
 
@@ -12,7 +12,8 @@ class JPredRunner(Runner):
     _host = "http://www.compbio.dundee.ac.uk/jpred4/cgi-bin/rest"
     FAILED_ID = 'jp_fail'
 
-    def submit(self, cmd, cwd):
+    def submit(self, command):
+        cmd, cwd = command
         with open(cmd[-1]) as fp:
             seq = fp.read()
         content = str.join("£€£€", [*cmd[1:-1], seq])
@@ -27,12 +28,13 @@ class JPredRunner(Runner):
             fp.write(response.content)
         try:
             job_id = re.search(r'jp_.*$', result_url).group()
-            return job_id
         except AttributeError:
-            return self.FAILED_ID
+            job_id = self.FAILED_ID
+        return Job(job_id, cwd)
 
     @classmethod
-    def check_status(cls, job_id, cwd) -> JobStatus:
+    def check_status(cls, job) -> JobStatus:
+        job_id, cwd = job
         if job_id == cls.FAILED_ID:
             return JobStatus.FAILED
         tarball = os.path.join(cwd, 'result.tar.gz')
