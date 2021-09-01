@@ -1,0 +1,202 @@
+slivka-version: "0.8"
+name: RNAalifold
+description: Calculate secondary structures for a set of aligned RNAs.
+author: Ivo L Hofacker, Stephan Bernhart, Ronny Lorenz
+version: "2.4.18"
+classifiers:
+- Topic::Computational biology::Sequence analysis
+- Topic::Computational biology::Nucleic acids::Nucleic acid structure analysis
+- Topic::Computational biology::Structure analysis::Nucleic acid structure analysis
+- Operation::Analysis::Sequence analysis::Nucleic acid sequence analysis
+- Operation::Analysis::Sequence analysis::Nucleic acid sequence analysis::Nucleic acid feature detection::RNA secondary structure prediction
+- Operation::Analysis::Structure analysis::Nucleic acid structure analysis::RNA secondary structure analysis::RNA secondary structure prediction
+- Operation::Analysis::Structure analysis::Nucleic acid structure analysis::Nucleic acid structure prediction::RNA secondary structure prediction
+- Operation::Prediction and recognition::Nucleic acid feature detection::RNA secondary structure prediction
+- Operation::Prediction and recognition::Nucleic acid structure prediction::RNA secondary structure prediction
+- Format::Textual format::FASTA-like (text)::FASTA-aln
+- Format::Textual format::ClustalW format
+- Data::Sequence::Nucleic acid sequence::RNA sequence
+- Data::Alignment::Sequence alignment::Nucleic acid sequence alignment
+- Data::Alignment::Sequence alignment::RNA sequence alignment
+
+command: ${SLIVKA_HOME}/bin/RNAalifold.sh
+
+args:
+  endgaps:
+    arg: --endgaps
+  mis:
+    arg: --mis
+  partfunc:
+    arg: --partfunc
+  circular:
+    arg: --circ
+  g-quad:
+    arg: --gquad
+  d2:
+    arg: -d2
+  no-lp:
+    arg: --noLP
+  no-gu:
+    arg: --noGU
+  no-closing-gu:
+    arg: --noClosingGU
+  old:
+    arg: --old
+  ribosum-scoring:
+    arg: --ribosum_scoring
+  mea:
+    arg: --MEA
+  pfscale:
+    arg: --pfScale=$(value)
+  bppm-threshold:
+    arg: --bppmThreshold=$(value)
+  temperature:
+    arg: --temp=$(value)
+  cfactor:
+    arg: --cfactor=$(value)
+  nfactor:
+    arg: --nfactor=$(value)
+  infile:
+    arg: $(value)
+
+parameters:
+  endgaps:
+    name: Endgaps
+    description: Score pairs with endgaps same as gap−gap pairs.
+    type: flag
+    required: false
+  mis:
+    name: Most Informative Sequence
+    description: Output set of nucleotides with frequency > average
+    type: flag
+    required: false
+  partfunc:
+    name: Partition Function
+    description: Calculate the partition function and base pairing
+      probability matrix in addition to the mfe structure.
+    type: flag
+    required: false
+  circular:
+    name: Circular
+    description: Assume a circular (instead of linear) RNA molecule.
+    type: flag
+    required: false
+  g-quad:
+    name: G−Quadruplex
+    description: Incorporate G−Quadruplex formation into the structure
+      prediction algorithm.
+    type: flag
+    required: false
+  d2:
+    name: Dangling Energies
+    description: Add dangling energies for the bases adjacent to
+      a helix on both sides.
+    type: flag
+    required: false
+  no-lp:
+    name: No Lonely Pairs
+    description: Produce structures without lonely pairs (helices of length 1).
+    type: flag
+    required: false
+  no-gu:
+    name: No GU Pairs
+    description: Do not allow GU pairs.
+    type: flag
+    required: false
+  no-closing-gu:
+    name: No Closing GU
+    description: Do not allow GU pairs at the end of helices.
+    type: flag
+    required: false
+  old:
+    name: Old Energy
+    description: Use old energy evaluation, treating gaps as characters.
+    type: flag
+    required: false
+  ribosum-scoring:
+    name: Ribosum Scoring
+    description: Use ribosum scoring matrix.
+    type: flag
+    required: false
+  mea:
+    name: MEA Structure
+    description: Calculate a maximum expected accuracy structure.
+    type: flag
+    required: false
+  pfscale:
+    name: Scaling Factor
+    description: In the calculation of the pf use scale*mfe as an 
+      estimate for the ensemble free energy (used to avoid overflows).
+    type: float
+    required: false
+    min: 0.0
+    max: 10.0
+    default: 1.07
+  bppm-threshold:
+    name: BPPM Threshold
+    description: Threshold for base pair probabilities.
+    type: float
+    required: false
+    min: 1.0e-8
+    max: 1.0
+    default: 1.0e-6
+  temperature:
+    name: Temperature
+    description: Rescale energy parameters to a temperature in C.
+    type: float
+    required: false
+    min: 0.0
+    max: 100.0
+    default: 37.0
+  cfactor:
+    name: Covariance Weight
+    description: Weight of the covariance term in the energy function.
+    type: float
+    required: false
+    min: 0.0
+    max: 100.0
+    default: 1.0
+  nfactor:
+    name: Non−compatible Penalty Weight
+    description: Penalty for non−compatible sequences in the
+      covariance term of the energy function.
+    type: float
+    required: false
+    min: 0.0
+    max: 100.0
+    default: 1.0
+  infile:
+    name: Input Sequences
+    description: Input file containing aligned RNA sequences.
+    type: file
+    required: true
+    media-type: application/fasta
+    # media-type-parameters:
+    #   type: nucleotide
+    #   subtype: RNA
+    #   aligned: true
+
+outputs:
+  log:  
+    path: stderr
+    media-type: text/plain
+  output:
+    path: stdout
+    media-type: text/plain
+  likely-pairs:
+    path: alifold.out
+    media-type: text/plain
+  secondary-structure-plot:
+    path: alirna.ps
+    media-type: application/postscript
+  pairing-matrix-plot:
+    path: alidot.ps
+    media-type: application/postscript
+  jalview-annotations:
+    path: rnaalifold.jvannot
+    media-type: application/jalview-annotations
+
+execution:
+  runners:
+    default:
+      type: SlivkaQueueRunner
