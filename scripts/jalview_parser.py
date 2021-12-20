@@ -250,7 +250,7 @@ class DisEMBLReader:
       line = file.readline()
       annots = []
       while line:
-        if not re.match(r'^[A-Za-z](?:\t\d+\.\d+){3}$', line): break
+        if not re.match(r'^[A-Za-z\-](?:\t\d+\.\d+){3}$', line): break
         residue, v_coil, v_rem465, v_hotloop = line.split()
         annots.append(v_rem465)
         line = file.readline()
