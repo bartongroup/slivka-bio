@@ -1,5 +1,5 @@
 ---
-slivka-version: 0.8.0
+slivka-version: 0.8.1
 name: TCoffee
 description: T-Coffee (Tree-based Consistency Objective Function for 
   Alignment Evaluation) is a multiple sequence alignment software 
@@ -325,4 +325,9 @@ execution:
   runners:
     default:
       type: SlivkaQueueRunner
+
+tests:
+  - parameters:
+      input: ${SLIVKA_HOME}/testdata/msa.fa
+    timeout: 5
 ...

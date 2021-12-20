@@ -1,5 +1,5 @@
 ---
-slivka-version: 0.8.0
+slivka-version: 0.8.1
 name: JPred
 description: JPred is a Protein Secondary Structure Prediction server
   and has been in operation since approximately 1998. JPred incorporates
@@ -91,4 +91,9 @@ execution:
   runners:
     default:
       type: scripts.runners.JPredRunner
+
+tests:
+  - parameters:
+      input: ${SLIVKA_HOME}/testdata/msa.fa
+    timeout: 20
 ...

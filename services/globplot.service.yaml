@@ -1,5 +1,5 @@
 ---
-slivka-version: 0.8.0
+slivka-version: 0.8.1
 name: GlobPlot
 author: Rune Linding
 version: '2.3'
@@ -46,4 +46,9 @@ execution:
   runners:
     default:
       type: SlivkaQueueRunner
+
+tests:
+  - parameters:
+      input: ${SLIVKA_HOME}/testdata/msa.fa
+    timeout: 5
 ...

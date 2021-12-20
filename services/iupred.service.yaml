@@ -1,5 +1,5 @@
 ---
-slivka-version: 0.8.0
+slivka-version: 0.8.1
 name: IUPred
 description: Prediction of Intrinsically Unstructured Proteins
 author: Zsuzsanna Dosztányi, Veronika Csizmók, Péter Tompa and István Simon
@@ -67,4 +67,9 @@ execution:
   runners:
     default:
       type: SlivkaQueueRunner
+
+tests:
+  - parameters:
+      input: ${SLIVKA_HOME}/testdata/msa.fa
+    timeout: 5
 ...

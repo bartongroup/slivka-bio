@@ -1,5 +1,5 @@
 ---
-slivka-version: 0.8.0
+slivka-version: 0.8.1
 name: MSAProbs
 description: MSAProbs is a well-established state-of-the-art multiple
   sequence alignment algorithm for protein sequences. The design
@@ -72,4 +72,9 @@ execution:
   runners:
     default:
       type: SlivkaQueueRunner
+
+tests:
+  - parameters:
+      input: ${SLIVKA_HOME}/testdata/msa.fa
+    timeout: 5
 ...
