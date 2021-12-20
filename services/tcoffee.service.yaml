@@ -328,6 +328,6 @@ execution:
 
 tests:
   - parameters:
-      input: ${SLIVKA_HOME}/testdata/msa.fa
+      sequence: ${SLIVKA_HOME}/testdata/msa.fa
     timeout: 5
 ...
