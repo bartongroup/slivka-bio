@@ -265,7 +265,7 @@ parameters:
       pam90: PAM90
     default: blosum62
 command:
-- mafft
+- $SLIVKA_HOME/bin/mafft
 
 args:
   _clustalout:

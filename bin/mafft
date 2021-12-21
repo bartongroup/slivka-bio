@@ -1,0 +1,3 @@
+#!/bin/bash
+mafft $@ 2> >(cat >&2)
+
