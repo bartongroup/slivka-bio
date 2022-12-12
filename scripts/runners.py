@@ -51,5 +51,18 @@ class JPredRunner(Runner):
             for chunk in arch_response.iter_content(chunk_size=4096):
                 fp.write(chunk)
         with tarfile.open(tarball) as archive:
-            archive.extractall(cwd)
+            try:
+                safe_tar_extractall(archive, cwd)
+            except Exception:
+                return JobStatus.ERROR
         return JobStatus.COMPLETED
+
+
+def safe_tar_extractall(tar: tarfile.TarFile, path='.'):
+    abs_directory = os.path.abspath(path)
+    for member in tar.getmembers():
+        abs_target = os.path.abspath(os.path.join(path, member.name))
+        prefix = os.path.commonprefix([abs_directory, abs_target])
+        if prefix != abs_directory:
+            raise Exception("Attempted path traversal in tar file")
+    tar.extractall(path)
