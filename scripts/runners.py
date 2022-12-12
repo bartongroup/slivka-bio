@@ -52,7 +52,18 @@ class JPredRunner(BaseCommandRunner):
             for chunk in arch_response.iter_content(chunk_size=4096):
                 fp.write(chunk)
         with tarfile.open(tarball) as archive:
+            def is_within_directory(directory, target):
+                abs_directory = os.path.abspath(directory)
+                abs_target = os.path.abspath(target)
+                prefix = os.path.commonprefix([abs_directory, abs_target])
+                return prefix == abs_directory
+
+            for member in archive.getmembers():
+                member_path = os.path.join(cwd, member.name)
+                if not is_within_directory(cwd, member_path):
+                    return JobStatus.ERROR
             archive.extractall(cwd)
+
         return JobStatus.COMPLETED
 
     def status(self, jobs: List[Job]) -> List[JobStatus]:
