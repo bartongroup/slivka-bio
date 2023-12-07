@@ -1,4 +1,4 @@
-slivka-version: "0.8"
+slivka-version: 0.8.3
 name: RNAalifold
 description: Calculate secondary structures for a set of aligned RNAs.
 author: Ivo L Hofacker, Stephan Bernhart, Ronny Lorenz
@@ -200,3 +200,10 @@ execution:
   runners:
     default:
       type: SlivkaQueueRunner
+
+tests:
+- applicable-runners: ["default"]
+  parameters:
+    input: ${SLIVKA_HOME}/testdata/rna_sequence.clustal
+  timeout: 5
+...

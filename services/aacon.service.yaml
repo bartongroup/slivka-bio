@@ -1,5 +1,5 @@
 ---
-slivka-version: 0.8.0
+slivka-version: 0.8.3
 name: AACon
 description: AACon is a set of tools implementing 17 different conservation
   scores reviewed by Valdar as well as the more complex SMERFS algorithm
@@ -139,4 +139,10 @@ execution:
   runners:
     default:
       type: SlivkaQueueRunner
+
+tests:
+- applicable-runners: ["default"]
+  parameters:
+    input: ${SLIVKA_HOME}/testdata/uniref50.fa
+  timeout: 5
 ...

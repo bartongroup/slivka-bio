@@ -1,5 +1,5 @@
 ---
-slivka-version: 0.8.0
+slivka-version: 0.8.3
 name: ClustalO
 description: Clustal Omega is the latest addition to the Clustal family.
   It offers a significant increase in scalability over previous versions,
@@ -124,4 +124,10 @@ execution:
   runners:
     default:
       type: SlivkaQueueRunner
+
+tests:
+- applicable-runners: ["default"]
+  parameters:
+    input: ${SLIVKA_HOME}/testdata/uniref50.fa
+  timeout: 5
 ...
