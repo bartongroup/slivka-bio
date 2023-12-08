@@ -204,6 +204,6 @@ execution:
 tests:
 - applicable-runners: ["default"]
   parameters:
-    input: ${SLIVKA_HOME}/testdata/rna_sequence.clustal
+    infile: ${SLIVKA_HOME}/testdata/rna_sequence.clustal
   timeout: 5
 ...
