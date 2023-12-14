@@ -1,5 +1,5 @@
 ---
-version: "0.3"
+version: "0.8"
 
 directory.uploads: ./media/uploads
 directory.jobs: ./media/jobs
