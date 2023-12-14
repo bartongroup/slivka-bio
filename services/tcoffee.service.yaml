@@ -6,7 +6,7 @@ description: T-Coffee (Tree-based Consistency Objective Function for
   using a progressive approach. It generates a library of pairwise 
   alignments to guide the multiple sequence alignment.
 author: Cedric Notredame
-version: '13.41.0.28bdc39'
+version: '13.41.0'
 license: GNU GPL
 
 classifiers:

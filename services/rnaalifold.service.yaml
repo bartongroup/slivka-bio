@@ -2,7 +2,7 @@ slivka-version: 0.8.3
 name: RNAalifold
 description: Calculate secondary structures for a set of aligned RNAs.
 author: Ivo L Hofacker, Stephan Bernhart, Ronny Lorenz
-version: "2.4.18"
+version: "2.6.4"
 classifiers:
 - Topic::Computational biology::Sequence analysis
 - Topic::Computational biology::Nucleic acids::Nucleic acid structure analysis
