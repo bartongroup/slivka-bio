@@ -26,23 +26,22 @@ The applications currently available include:
 Quick Installation with Conda
 =============================
 
-The easiest way to install slivka-bio with all the tools and dependencies
-is by using pre-defined conda environment available from our anaconda channel.
+The easiest way to install slivka-bio with most of the tools and dependencies
+is by using a slivka-bio package available from our anaconda channel.
 If you don't have conda installed on your system, follow the miniconda
 installation from [conda user guide](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html).
 Then, run
 
 ```sh
-conda install anaconda-client -n base
-conda env create slivka/compbio-services
-conda activate compbio-services
+conda create -n '<your-env-name>'
+conda activate '<your-env-name>'
+conda install -c slivka -c mmwarowny -c bioconda slivka-bio
 ```
 
-It will automatically fetch the exported environemnt file and re-create
-the environment on your local machine. After activating the new
-environment - *compbio-services* slivka-bio will be ready to use.
+It will automatically install slivka-bio and bioinformatic tools
+in the chosen environment.
 Follow to the [configuration](#configuration) section if you need to
-customise settings.
+customise some of the settings.
 
 
 Manual Installation
@@ -56,11 +55,11 @@ is through conda package manager. If you don't have conda installed
 on your system yet, follow the miniconda installation instructions
 from [conda user guide](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html).
 Once the conda installation completes, create a new conda environment
-with python version 3.7 and activate it. Substitute the environment
+with python version 3.10 and activate it. Substitute the environment
 name of your choice for `slivka` if needed.
 
 ```sh
-conda create -n slivka python=3.7
+conda create -n slivka python=3.10
 conda activate slivka
 ```
 
@@ -83,16 +82,17 @@ If you choose this installation route, you need to provide them by yourself.
 Installing bioinformatic tools
 ------------------------------
 
-If you chose to install slivka-bio using conda then all the tools,
-except IUPred, have beed installed automatically.
-However, if you decided to install them manually, most of the
-bioinformatic tools that slivka uses are available from
-bioconda, our private conda channel or are shipped with slivka-bio.
+If you choose to install slivka-bio using conda then all the tools,
+except IUPred, are automatically installed by conda.
+However, if you decide to install or update them manually, most them
+are available from bioconda, my private conda channel - *mmwarowny*,
+or are shipped with slivka-bio.
 
 ### Bioconda ###
 
-Tools: ClustalO, ClustalW, MUSCLE, T-Coffee, MSAProbs, Probcons and
-MAFFT can be installed with conda package manager from bioconda channel.
+Tools: ClustalO, ClustalW, MUSCLE, T-Coffee, MSAProbs, Probcons,
+MAFFT and RNAalifold can be installed with conda package manager
+from the bioconda channel.
 
 You can install each tool running the following commands
 (remember to activate the conda environment first)
@@ -128,8 +128,8 @@ conda install openjdk
 
 It is highly recommended to install the bioinformatic tools using
 the package managers.
-However, if you prefer building bioinformtic tools from the sources
-and have a full controll over the installation process you are free
+However, if you prefer building bioinformatic tools from the sources
+and have a full control over the installation process you are free
 to do so.
 After the compilation, make sure that the binary location is included
 in the PATH variable or set the absolute path to the binary in the
@@ -194,38 +194,8 @@ in the *services* folder.
 If slivka-bio was installed with conda package manager, the configuration
 files are located at ``$CONDA_PREFIX/var/slivka-bio``
 
-General configuration
----------------------
-The basic configuration is stored in the *settings.yaml* file and it defines
-constants and parameters used by all Slivka components.
-Some of the parameter listed below may need to be modified to make sure
-that the Slivka server will work properly.
-It's recommended to leave remaining parameters unchanged.
-
-| parameter | description |
-|:----------|:------------|
-| `ACCEPTED_MEDIA_TYPES` | The list of media types that can be uploaded to the server. This feature is deprecated and will be removed in future versions. |
-| `SECRET_KEY` | A random string of characters used for signing sensitive data and hashes. Change to the random sequence of characters (at least 24 characters long) |
-| `SERVER_HOST` | The address which the server can accept the connections from. Use `127.0.0.1` if you want to restrict access to the local machine only or `0.0.0.0` to make is publicly visible. Restricting access and using reverse proxy is highly recommended for public servers. |
-| `SERVER_PORT` | The port number which the server will be listening on for incoming connections. Make sure you have permission to listen on the port specified. |
-| `SLIVKA_QUEUE_ADDR` | The address which the local queue will use to communicate with the scheduler. Can be either *tcp* or *unix* socket e.g. `tcp://127.0.0.1:4444` or `unix:///tmp/slivka.sock`. This settings only applies if you use local slivka queueing system. |
-| `MONGODB` | The address used to connect to the MontoDB following [MonogDB URI format](https://docs.mongodb.com/manual/reference/connection-string) Default is `mongodb://127.0.0.1:27017/slivka` |
-
-Enabled services
-----------------
-For each configuration file in the *services* directory named
-*<name>.service.yaml*, where *<name>* should be substituted for the
-service name, Slivka will attempt to instantiate a new service.
-In order to disable one or more services, simply remove their
-configuration files from *services* directory or change the filename
-to one not matching the pattern i.e. append *.disabled* to the file
-extension.
-
-Advanced configuration
-----------------------
-This guide will not cover service configuration. Refer to the
-[slivka documentation](http://bartongroup.github.io/slivka/getting_started.html#services-configuration)
-if you need to adjust command line parameters or customise runners.
+For in depth service configuration instructions refer to the
+[slivka documentation](http://bartongroup.github.io/slivka/).
 
 Launching
 =========
@@ -247,7 +217,7 @@ Once you finished the configuration step, you can deploy your own
 slivka server.
 First, navigate to the slivka configuration directory (the one having
 *settings.yaml* in it). Alternatively, you can set *SLIVKA_HOME*
-environment variable poitning to that directory.
+environment variable pointing to that directory.
 For slivka to operate properly, you need to start its three processes:
 http server which manager incoming connections, scheduler which collects
 and dispatches incoming job requests, local-queue which stacks and runs
