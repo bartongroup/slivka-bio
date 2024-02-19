@@ -19,7 +19,9 @@ classifiers:
 - Data::Alignment::Sequence alignment::Nucleic acid sequence alignment
 - Data::Alignment::Sequence alignment::RNA sequence alignment
 
-command: ${SLIVKA_HOME}/bin/RNAalifold.sh
+command:
+- bash
+- ${SLIVKA_HOME}/bin/RNAalifold.sh
 
 args:
   endgaps:
