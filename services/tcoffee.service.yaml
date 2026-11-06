@@ -39,7 +39,8 @@ parameters:
     required: false
     choices:
       quickaln: quickaln
-    default: quickaln
+      none: 
+    default: none
 
   distance-matrix-mode:
     name: Distance matrix computation method
